@@ -84,16 +84,14 @@ def get_random_post():
 
         j = random.randint(0, len(thread['posts'])-1)
 
-        postinfo = str(thread['posts'][j])
+        postinfo = json.dumps(thread['posts'][j])
 
-
-        if postinfo.find('com') != -1 and postinfo.find('sticky') == -1:
+        if 'com' in postinfo and 'sticky' not in postinfo:
             content = thread['posts'][j]['com']
             text = (formatText(content))
 
             if len(text) > 1:
-                final = str(text)
-                final = unicode(final)
+                final = text.encode('utf-8')
                 return final
             else:
                 get_random_post()
