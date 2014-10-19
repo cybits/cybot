@@ -1,6 +1,6 @@
 # Import some necessary libraries.
 import socket
-import commands.py
+import commands
 import string
 
 # Some basic variables used to configure the bot        

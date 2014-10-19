@@ -1,6 +1,6 @@
-import irc.py
+import irc
 import os
-import fourchan_json.py
+import fourchan_json
 import random
 
 def get_random_line(file_name):
