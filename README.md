@@ -11,5 +11,5 @@ __Features include:__
 * fresh, new talent in the bot world
 
 For extensive help, all you have to do is type
-'.cybhelp'
+`.cybhelp`
 in the channel!
