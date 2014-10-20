@@ -9,3 +9,7 @@ __Features include:__
 * the subject of much debate and controversy
 * runs on any hardware that runs python 2.7
 * fresh, new talent in the bot world
+
+For extensive help, all you have to do is type
+'.cybhelp'
+in the channel!
