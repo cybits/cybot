@@ -1,16 +1,16 @@
 # Import some necessary libraries.
 import socket
-import commands
 import string
+import commands
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
 channel = "#omgatestchannel"  # Channel
-botnick = "cybits1"  # Your bots nick
+botnick = "cybits1"  # bot's nick
 
 
 def ping():  # This is our first function! It will respond to server Pings.
-    ircsock.send("PONG :pingis\n")
+    ircsock.send("PONG :ping\n")
 
 
 def sendmsg(chan, msg):  # This is the send message function, it simply sends messages to the channel.
@@ -19,7 +19,6 @@ def sendmsg(chan, msg):  # This is the send message function, it simply sends me
 
 def joinchan(chan):  # This function is used to join channels.
     ircsock.send("JOIN "+chan + "\n")
-
 
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -40,44 +39,53 @@ while 1:
     #     continue
 
     if " :.lit" in ircmsg and channel in ircmsg:  # If we can find ".lit" it will call the function sentence()
-        commands.sentence()
+        ircsock.send("PRIVMSG " + channel + " :" + commands.sentence() + "\n")
         continue
 
     if " :.feel" in ircmsg and channel in ircmsg:  # If we can find ".feel" it will call the function feel()
-        commands.feel()
+        ircsock.send("PRIVMSG " + channel + " :" + commands.feel() + "\n")
         continue
 
     if " :.interject" in ircmsg and channel in ircmsg:  # If we can find ".interject" it will call the function
                                                         # interjection()
-        commands.interjection()
+        ircsock.send("PRIVMSG " + channel + " :" + commands.interjection() + "\n")
         continue
 
-    lircmsg = string.lower(ircmsg)
-    if "linux" in ircmsg and "gnu" not in ircmsg and "linuz" not in ircmsg \
-            and "kernel" not in ircmsg and channel in ircmsg:  # mods are asleep, post interjects
-        commands.autointerject(ircmsg.split(":")[1].split('!')[0])
-        continue
+    # lircmsg = string.lower(ircmsg)
+    # if "linux" in ircmsg and "gnu" not in ircmsg and "linuz" not in ircmsg and "source" not in ircmsg \
+    #         and "kernel" not in ircmsg and channel in ircmsg:  # mods are asleep, post interjects
+    #     user = ircmsg.split(":")[1].split('!')[0]
+    #     msg, msg1, msg2, msg3, msg4 = commands.autointerject(user)
+    #     print msg, msg1, msg2, msg3, msg4
+    #     ircsock.send("PRIVMSG " + channel + " :" + msg)
+    #     ircsock.send("PRIVMSG " + user + " :" + msg1)
+    #     ircsock.send("PRIVMSG " + user + " :" + msg2)
+    #     ircsock.send("PRIVMSG " + user + " :" + msg3)
+    #     ircsock.send("PRIVMSG " + user + " :" + msg4)
+    #
+    #     continue
 
     if " :.implying" in ircmsg and channel in ircmsg:  # If we can find ".implying" it will call the function implying()
-        commands.implying()
+        ircsock.send("PRIVMSG " + channel + " :" + commands.implying() + "\n")
         continue
 
     if " :.memearrows" in ircmsg and channel in ircmsg:  # If we can find ".memearrows" it will call the function
                                                          # memearrows()
-        commands.memearrows()
+        ircsock.send("PRIVMSG " + channel + " :" + commands.memearrows() + "\n")
         continue
 
-    if " :.shitpost" in ircmsg and channel in ircmsg:  # If we can find ".interject" it will call the function
-                                                       # interjection()
-        commands.shitpost()
+    if " :.shitpost" in ircmsg and channel in ircmsg:  # If we can find ".shitpost" it will call the function
+        ircsock.send("PRIVMSG " + channel + " :" + commands.shitpost() + "\n")  # shitpost()
         continue
 
     if " :.int" in ircmsg and channel in ircmsg:  # If we can find ".int" it will call the function intensifies()
-        commands.intensifies(ircmsg.split(":")[2].split('!')[0])
+        ircsock.send("PRIVMSG " + channel + " :" + commands.intensifies(ircmsg.split(":")[2].split('!')[0]) + "\n")
         continue
 
     if " :.cybhelp" in ircmsg and channel in ircmsg:  # If we can find ".cybhelp" it will call the function help()
-        commands.halp(ircmsg.split(":")[1].split('!')[0])
+        user = ircmsg.split(":")[1].split('!')[0]
+        ircsock.send("PRIVMSG " + channel + " :" + commands.halp(user) + "\n")
+        ircsock.send("PRIVMSG " + user + " :ur a faget\n")
         continue
 
     if "PING :" in ircmsg:  # respond to pings
