@@ -50,6 +50,10 @@ def interjection():  # I'd just like to interject for a moment
               "GNU plus Linux. pastebin.com/2YxSM4St\n")
     return string
 
+def git():
+    string = ("https://github.com/lovelaced/cybot What are we going to do on the repo? waaaah fork =3\n")
+    return string
+
 def memearrows():  # >implying you can triforce
     string = ("Meme arrows are often used to preface implications or feels. See "
               "also: implying, feel.\n")
