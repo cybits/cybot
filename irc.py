@@ -5,8 +5,8 @@ import commands
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
-channel = "#omgatestchannel"  # Channel
-botnick = "cybits1"  # bot's nick
+channel = "#/g/punk"  # Channel
+botnick = "cybits"  # bot's nick
 
 
 def ping():  # This is our first function! It will respond to server Pings.
@@ -88,7 +88,7 @@ while 1:
         ircsock.send("PRIVMSG " + user + " :ur a faget\n")
         continue
     if " :.git" in ircmsg and channel in ircmsg: 
-        ircsock.send("PRIVMSG " + Channel + " :" + commands.git() + "\n")
+        ircsock.send("PRIVMSG " + channel + " :" + commands.git() + "\n")
         continue
 
     if "PING :" in ircmsg:  # respond to pings

@@ -111,15 +111,3 @@ def implying():  # >implying this needs a comment
 
 def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
     return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
-
-
-def coolt():
-    spaces1 = random.randint(1,5)
-    spaces2 = random.randint(1,3)
-    string1 = (" "*spaces1 + ("▲").encode('utf-8'))
-    string2 = (" "*spaces2 + ("▲ ▲").encode('utf-8'))
-    print string1, string2
-
-
-
-coolt()
