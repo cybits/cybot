@@ -5,8 +5,8 @@ import commands
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
-channel = "#/g/punk"  # Channel
-botnick = "cybits"  # bot's nick
+channel = "#omgatestchannel"  # Channel
+botnick = "cybits1"  # bot's nick
 
 
 def ping():  # This is our first function! It will respond to server Pings.
@@ -55,7 +55,7 @@ while 1:
     # if "linux" in ircmsg and "gnu" not in ircmsg and "linuz" not in ircmsg and "source" not in ircmsg \
     #         and "kernel" not in ircmsg and channel in ircmsg:  # mods are asleep, post interjects
     #     user = ircmsg.split(":")[1].split('!')[0]
-    #     msg, msg1, msg2, msg3, msg4 = commands.autointerject(user)
+    #     msg, msg1, msg2, msg3, msg4 = commands.autointerject()
     #     print msg, msg1, msg2, msg3, msg4
     #     ircsock.send("PRIVMSG " + channel + " :" + msg)
     #     ircsock.send("PRIVMSG " + user + " :" + msg1)
@@ -78,16 +78,21 @@ while 1:
         ircsock.send("PRIVMSG " + channel + " :" + commands.shitpost() + "\n")  # shitpost()
         continue
 
+    if " :.SHITPOST" in ircmsg and channel in ircmsg:  # If we can find ".shitpost" it will call the function
+        ircsock.send("PRIVMSG " + channel + " :" + string.upper(commands.shitpost()) + "\n")  # shitpost()
+        continue
+
     if " :.int" in ircmsg and channel in ircmsg:  # If we can find ".int" it will call the function intensifies()
         ircsock.send("PRIVMSG " + channel + " :" + commands.intensifies(ircmsg.split(":")[2].split('!')[0]) + "\n")
         continue
 
     if " :.cybhelp" in ircmsg and channel in ircmsg:  # If we can find ".cybhelp" it will call the function help()
         user = ircmsg.split(":")[1].split('!')[0]
-        ircsock.send("PRIVMSG " + channel + " :" + commands.halp(user) + "\n")
-        ircsock.send("PRIVMSG " + user + " :ur a faget\n")
+        array = commands.halp(user)
+        ircsock.send("PRIVMSG " + channel + " :" + array[0] + "\n")
+        ircsock.send("PRIVMSG " + user + " :" + array[1] + "\n")
         continue
-    if " :.git" in ircmsg and channel in ircmsg: 
+    if " :.git" in ircmsg and channel in ircmsg:
         ircsock.send("PRIVMSG " + channel + " :" + commands.git() + "\n")
         continue
 

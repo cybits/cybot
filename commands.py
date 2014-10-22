@@ -3,6 +3,7 @@ import os
 import fourchan_json
 import random
 
+
 def get_random_line(file_name):
     total_bytes = os.stat(file_name).st_size
     random_point = random.randint(0, total_bytes)
@@ -33,31 +34,37 @@ def get_random_line(file_name):
     s.replace("- ", " ")
     return s
 
+
 def shitpost():  # almost entirely automated shitposting
     post = "None"
     while post == "None":
         post = str(fourchan_json.get_random_post())
     return post
 
+
 def halp(user):
     string = user + ", sending you a private message of my commands.\n"
-    return string
+    string1 = "ur a faget"
+    return string, string1
 
 
 def interjection():  # I'd just like to interject for a moment
-    string = ("I'd just like to interject for moment. What you're referring to as"
+    string = ("I'd just like to interject for moment. What you're referring to as "
               "Linux, is in fact, GNU/Linux, or as I've recently taken to calling it,"
               "GNU plus Linux. pastebin.com/2YxSM4St\n")
     return string
 
+
 def git():
-    string = ("https://github.com/lovelaced/cybot What are we going to do on the repo? waaaah fork =3\n")
+    string = "https://github.com/lovelaced/cybot What are we going to do on the repo? waaaah fork =3\n"
     return string
+
 
 def memearrows():  # >implying you can triforce
     string = ("Meme arrows are often used to preface implications or feels. See "
               "also: implying, feel.\n")
     return string
+
 
 def intensifies(args):  # [python intensifies]
     if len(args.split(".int ")) > 1:
@@ -72,15 +79,17 @@ def hello(user):  # This function responds to a user that inputs "Hello cybits"
     string = ("are you even cyb, " + user + "?\n")
     return string
 
+
 def feel():  # >tfw
     string = ('"tfw no gf" is an abbreviated expression for "that feeling [I get] '
               'when [I have] no girlfriend" often used in online discussions and '
               'comments.\n')
     return string
 
-def autointerject(user):  # making sure users don't forget the GNU
+
+def autointerject():  # making sure users don't forget the GNU
     string = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
-                 "GNU/Linux - further messages sent privately.\n")
+              "GNU/Linux - further messages sent privately.\n")
 
     string1 = ("I'd just like to interject for moment. What you're referring to as Linux, is "
                "in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux "
@@ -103,6 +112,7 @@ def autointerject(user):  # making sure users don't forget the GNU
 
     return string, string1, string2, string3, string4
 
+
 def implying():  # >implying this needs a comment
     return ('>implying is used in a mocking manner to challenge an "implication" '
             'that has been made, or sometimes it can be simply used as a joke in '
@@ -110,4 +120,4 @@ def implying():  # >implying this needs a comment
 
 
 def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
-    return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
+    return get_random_line(random.choice(os.listdir("/home/pi/PycharmProjects/cybot/texts/"))) + "\n"

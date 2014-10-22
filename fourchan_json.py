@@ -4,19 +4,24 @@ import random
 import sys
 from HTMLParser import HTMLParser
 
+
 class MLStripper(HTMLParser):
         def __init__(self):
-                self.reset();
+                self.reset()
                 self.fed = []
+
         def handle_data(self, d):
                 self.fed.append(d)
+
         def get_data(self):
                 return ''.join(self.fed)
+
 
 def strip_tags(html):
         s = MLStripper()
         s.feed(html)
-        return s.get_data();
+        return s.get_data()
+
 
 # class tcol:
 #         HEADER = '\033[95m'
@@ -26,15 +31,18 @@ def strip_tags(html):
 #         FAIL = '\033[91m'
 #         ENDC = '\033[0m'
 
-def formatText(text):
-        text = text.replace("<br>", " ");
-        text = text.replace("&gt;", ">");
+
+def formattext(text):
+        text = text.replace("<br>", " ")
+        text = text.replace("&gt;", ">")
         text = text.replace("&#039;", "'")
         text = strip_tags(text)
         return text
 
+
 def write(text):
         sys.stdout.write(text)
+
 
 def is_number(s):
     try:
@@ -42,6 +50,7 @@ def is_number(s):
         return True
     except ValueError:
         return False
+
 
 def get_boards_json():
     response = urllib.urlopen("http://a.4cdn.org/boards.json")
@@ -56,8 +65,9 @@ def get_thread_json(board, threadno):
     return json.loads((urllib.urlopen("http://a.4cdn.org/" + board + "/thread/" + str(threadno) + ".json")).read())
 
 
-def get_OP_no(pagedata, threadindex):
+def get_op_no(pagedata, threadindex):
     return pagedata['threads'][threadindex]['posts'][0]['no']
+
 
 def get_random_post():
 
@@ -79,7 +89,7 @@ def get_random_post():
 
         i = random.randint(0, numthreads-1)
 
-        threadno = get_OP_no(pagedata, i)
+        threadno = get_op_no(pagedata, i)
         thread = get_thread_json(board, threadno)
 
         j = random.randint(0, len(thread['posts'])-1)
@@ -88,16 +98,16 @@ def get_random_post():
 
         if 'com' in postinfo and 'sticky' not in postinfo:
             content = thread['posts'][j]['com']
-            text = (formatText(content))
+            text = (formattext(content))
 
-            if len(text) > 1:
+            if len(text) > 1 and not text[2:].isdigit():
                 final = text.encode('utf-8')
                 return final
             else:
                 get_random_post()
 
         elif iterations == 10:
-            return ("No shitpost found.")
+            return "No shitpost found."
 
         else:
             get_random_post()
