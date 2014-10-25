@@ -13,19 +13,19 @@ def ping():  # This is our first function! It will respond to server Pings.
     ircsock.send("PONG :ping\n")
 
 
-def sendmsg(chan, msg):  # This is the send message function, it simply sends messages to the channel.
-    ircsock.send("PRIVMSG "+chan + " :"+msg+"\n")
+def sendmsg(recipient, msg):  # This is the send message function, it simply sends messages to the channel.
+    ircsock.send("PRIVMSG " + recipient + " :" + msg + "\n")
 
 
 def joinchan(chan):  # This function is used to join channels.
-    ircsock.send("JOIN "+chan + "\n")
+    ircsock.send("JOIN " + chan + "\n")
+
 
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667))  # connect to the server using the port 6667
-ircsock.send("USER "+botnick + " " + botnick+" " + botnick + " :some stuff\n")  # user authentication
-ircsock.send("NICK "+botnick + "\n")  # here we actually assign the nick to the bot
-
+ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :some stuff\n")  # user authentication
+ircsock.send("NICK " + botnick + "\n")  # here we actually assign the nick to the bot
 joinchan(channel)  # Join the channel using the functions we previously defined
 
 while 1:
@@ -39,16 +39,18 @@ while 1:
     #     continue
 
     if " :.lit" in ircmsg and channel in ircmsg:  # If we can find ".lit" it will call the function sentence()
-        ircsock.send("PRIVMSG " + channel + " :" + commands.sentence() + "\n")
+        sendmsg(channel, commands.sentence())
         continue
 
     if " :.feel" in ircmsg and channel in ircmsg:  # If we can find ".feel" it will call the function feel()
-        ircsock.send("PRIVMSG " + channel + " :" + commands.feel() + "\n")
+        array = commands.feel()
+        sendmsg(channel, array[0])
+        user = ircmsg.split(":")[1].split('!')[0]
+        sendmsg(user, array[1])
         continue
 
     if " :.interject" in ircmsg and channel in ircmsg:  # If we can find ".interject" it will call the function
-                                                        # interjection()
-        ircsock.send("PRIVMSG " + channel + " :" + commands.interjection() + "\n")
+        sendmsg(channel, commands.interjection())       # interjection()
         continue
 
     # lircmsg = string.lower(ircmsg)
@@ -56,44 +58,41 @@ while 1:
     #         and "kernel" not in ircmsg and channel in ircmsg:  # mods are asleep, post interjects
     #     user = ircmsg.split(":")[1].split('!')[0]
     #     msg, msg1, msg2, msg3, msg4 = commands.autointerject()
-    #     print msg, msg1, msg2, msg3, msg4
-    #     ircsock.send("PRIVMSG " + channel + " :" + msg)
-    #     ircsock.send("PRIVMSG " + user + " :" + msg1)
-    #     ircsock.send("PRIVMSG " + user + " :" + msg2)
-    #     ircsock.send("PRIVMSG " + user + " :" + msg3)
-    #     ircsock.send("PRIVMSG " + user + " :" + msg4)
-    #
+    #     sendmsg(channel, msg)
+    #     sendmsg(user, msg1)
+    #     sendmsg(user, msg2)
+    #     sendmsg(user, msg3)
+    #     sendmsg(user, msg4)
     #     continue
 
     if " :.implying" in ircmsg and channel in ircmsg:  # If we can find ".implying" it will call the function implying()
-        ircsock.send("PRIVMSG " + channel + " :" + commands.implying() + "\n")
+        sendmsg(channel, commands.implying())
         continue
 
     if " :.memearrows" in ircmsg and channel in ircmsg:  # If we can find ".memearrows" it will call the function
-                                                         # memearrows()
-        ircsock.send("PRIVMSG " + channel + " :" + commands.memearrows() + "\n")
+        sendmsg(channel, commands.memearrows())          # memearrows()
         continue
 
     if " :.shitpost" in ircmsg and channel in ircmsg:  # If we can find ".shitpost" it will call the function
-        ircsock.send("PRIVMSG " + channel + " :" + commands.shitpost() + "\n")  # shitpost()
+        sendmsg(channel, commands.shitpost())          # shitpost()
         continue
 
-    if " :.SHITPOST" in ircmsg and channel in ircmsg:  # If we can find ".shitpost" it will call the function
-        ircsock.send("PRIVMSG " + channel + " :" + string.upper(commands.shitpost()) + "\n")  # shitpost()
+    if " :.SHITPOST" in ircmsg and channel in ircmsg:        # If we can find ".SHITPOST" it will call the function
+        sendmsg(channel, string.upper(commands.shitpost()))  # shitpost(), but in caps
         continue
 
     if " :.int" in ircmsg and channel in ircmsg:  # If we can find ".int" it will call the function intensifies()
-        ircsock.send("PRIVMSG " + channel + " :" + commands.intensifies(ircmsg.split(":")[2].split('!')[0]) + "\n")
+        sendmsg(channel, commands.intensifies(ircmsg.split(":")[2].split('!')[0]))
         continue
 
     if " :.cybhelp" in ircmsg and channel in ircmsg:  # If we can find ".cybhelp" it will call the function help()
         user = ircmsg.split(":")[1].split('!')[0]
         array = commands.halp(user)
-        ircsock.send("PRIVMSG " + channel + " :" + array[0] + "\n")
-        ircsock.send("PRIVMSG " + user + " :" + array[1] + "\n")
+        sendmsg(channel, array[0])
+        sendmsg(user, array[1])
         continue
     if " :.git" in ircmsg and channel in ircmsg:
-        ircsock.send("PRIVMSG " + channel + " :" + commands.git() + "\n")
+        sendmsg(channel, commands.git())
         continue
 
     if "PING :" in ircmsg:  # respond to pings
