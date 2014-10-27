@@ -11,9 +11,9 @@ __Features include:__
 * fresh, new talent in the bot world
 
 __Reviews:__
-  *Futanarcharist* __│__ best bot evar
-  *Leper* __│__ p. good, 8/10, would fork again
-  *b0tn3t* __│__ ok bub
+ * *Futanarcharist* __│__ best bot evar
+ * *Leper* __│__ p. good, 8/10, would fork again
+ * *b0tn3t* __│__ ok bub
 
 
 For extensive help, all you have to do is type `.cybhelp` in the channel!
