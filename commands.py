@@ -112,29 +112,29 @@ def feel():  # >tfw
 
 
 def autointerject():  # making sure users don't forget the GNU
-    str = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
-              "GNU/Linux - further messages sent privately.\n")
+    str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
+            "GNU/Linux - further messages sent privately.\n")
 
-    str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is "
-               "in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux "
-               "is not an operating system unto itself, but rather another free component of a fully"
-               " functioning GNU system made useful by the GNU corelibs, shell utilities and vital "
-               "system components comprising a full OS as defined by POSIX.\n")
-    str2 = ("Many computer users run a modified version of the GNU system every day, "
-               "without realizing it. Through a peculiar turn of events, the version of GNU "
-               "which is widely used today is often called Linux, and many of its users are not"
-               " aware that it is basically the GNU system, developed by the GNU Project.\n")
-    str3 = ("There really is a Linux, and these people are using it, but it is just a "
-               "part of the system they use. Linux is the kernel: the program in the system "
-               "that allocates the machine's resources to the other programs that you run. "
-               "The kernel is an essential part of an operating system, but useless by "
-               "itself; it can only function in the context of a complete operating "
-               "system.\n")
-    str4 = ("Linux is normally used in combination with the GNU operating system: the "
-               "whole system is basically GNU with Linux added, or GNU/Linux. All the "
-               "so-called Linux distributions are really distributions of GNU/Linux!\n")
+    str2 = ("I'd just like to interject for moment. What you're referring to as Linux, is "
+            "in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux "
+            "is not an operating system unto itself, but rather another free component of a fully"
+            " functioning GNU system made useful by the GNU corelibs, shell utilities and vital "
+            "system components comprising a full OS as defined by POSIX.\n"
+            "Many computer users run a modified version of the GNU system every day, "
+            "without realizing it. Through a peculiar turn of events, the version of GNU "
+            "which is widely used today is often called Linux, and many of its users are not"
+            " aware that it is basically the GNU system, developed by the GNU Project.\n"
+            "There really is a Linux, and these people are using it, but it is just a "
+            "part of the system they use. Linux is the kernel: the program in the system "
+            "that allocates the machine's resources to the other programs that you run. "
+            "The kernel is an essential part of an operating system, but useless by "
+            "itself; it can only function in the context of a complete operating "
+            "system.\n"
+            "Linux is normally used in combination with the GNU operating system: the "
+            "whole system is basically GNU with Linux added, or GNU/Linux. All the "
+            "so-called Linux distributions are really distributions of GNU/Linux!\n")
 
-    return str, str1, str2, str3, str4
+    return str1, str2
 
 
 def implying():  # >implying this needs a comment
@@ -149,4 +149,6 @@ def sentence():  # This function grabs a random sentence from a txt file and pos
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
+    for lines in range(0, len(strarray)):
+        print strarray[lines]
     return strarray

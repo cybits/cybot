@@ -2,6 +2,7 @@
 import socket
 import string
 import commands
+import time
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
@@ -19,7 +20,6 @@ def sendmsg(recipient, msg):  # This is the send message function, it simply sen
 
 def joinchan(chan):  # This function is used to join channels.
     ircsock.send("JOIN " + chan + "\n")
-
 
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -44,9 +44,12 @@ while 1:
 
     if " :.feel" in ircmsg and channel in ircmsg:  # If we can find ".feel" it will call the function feel()
         array = commands.feel()
-        sendmsg(channel, array[0])
         user = ircmsg.split(":")[1].split('!')[0]
-        sendmsg(user, array[1])
+        feelguy = commands.breaklines(array[1])
+        sendmsg(channel, array[0])
+        for lines in range(0, len(feelguy)):
+            sendmsg(user, feelguy[lines])
+            time.sleep(1)
         continue
 
     if " :.interject" in ircmsg and channel in ircmsg:  # If we can find ".interject" it will call the function
@@ -57,12 +60,13 @@ while 1:
     # if "linux" in ircmsg and "gnu" not in ircmsg and "linuz" not in ircmsg and "source" not in ircmsg \
     #         and "kernel" not in ircmsg and channel in ircmsg:  # mods are asleep, post interjects
     #     user = ircmsg.split(":")[1].split('!')[0]
-    #     msg, msg1, msg2, msg3, msg4 = commands.autointerject()
+    #     msg, msg1 = commands.autointerject()
+    #     interjection = commands.breaklines(msg1)
     #     sendmsg(channel, msg)
-    #     sendmsg(user, msg1)
-    #     sendmsg(user, msg2)
-    #     sendmsg(user, msg3)
-    #     sendmsg(user, msg4)
+
+    #for lines in range(0, len(interjection)):
+    #     sendmsg(user, interjection[lines])
+    #
     #     continue
 
     if " :.implying" in ircmsg and channel in ircmsg:  # If we can find ".implying" it will call the function implying()
