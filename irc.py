@@ -89,6 +89,10 @@ while 1:
         sendmsg(channel, commands.intensifies(ircmsg.split(":")[2].split('!')[0]))
         continue
 
+    if " :.INT" in ircmsg and channel in ircmsg:
+        sendmsg(channel, string.upper(commands.intensifies(ircmsg.split(":")[2].split('!')[0])))
+        continue
+
     if " :.cybhelp" in ircmsg and channel in ircmsg:  # If we can find ".cybhelp" it will call the function help()
         user = ircmsg.split(":")[1].split('!')[0]
         array = commands.halp(user)
