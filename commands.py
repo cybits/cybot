@@ -36,9 +36,7 @@ def get_random_line(file_name):
 
 
 def shitpost():  # almost entirely automated shitposting
-    post = "None"
-    while post == "None":
-        post = str(fourchan_json.get_random_post())
+    post = fourchan_json.get_random_post()
     return post
 
 

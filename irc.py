@@ -21,6 +21,12 @@ def sendmsg(recipient, msg):  # This is the send message function, it simply sen
 def joinchan(chan):  # This function is used to join channels.
     ircsock.send("JOIN " + chan + "\n")
 
+def getuser(ircmsg):
+    return ircmsg.split(":")[1].split('!')[0]
+
+def getargs(ircmsg):
+    return ircmsg.split(":")[2].split('!')[0]
+
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667))  # connect to the server using the port 6667
@@ -30,7 +36,6 @@ joinchan(channel)  # Join the channel using the functions we previously defined
 
 while 1:
     ircmsg = ircsock.recv(1024)  # receive data from the server
-  # ircmsg = ircmsg.strip('\n\r')  # removing any unnecessary linebreaks.
     print(ircmsg)  # Here we print what's coming from the server
 
     # if ircmsg.find(botnick) in ircmsg and "PRIVMSG ") in ircmsg and "rizon") == -1:
@@ -86,19 +91,19 @@ while 1:
         continue
 
     if " :.int" in ircmsg and channel in ircmsg:  # If we can find ".int" it will call the function intensifies()
-        sendmsg(channel, commands.intensifies(ircmsg.split(":")[2].split('!')[0]))
+        sendmsg(channel, commands.intensifies(getargs(ircmsg)))
         continue
 
     if " :.INT" in ircmsg and channel in ircmsg:
-        sendmsg(channel, string.upper(commands.intensifies(ircmsg.split(":")[2].split('!')[0])))
+        sendmsg(channel, string.upper(commands.intensifies(getargs(ircmsg))))
         continue
 
     if " :.cybhelp" in ircmsg and channel in ircmsg:  # If we can find ".cybhelp" it will call the function help()
-        user = ircmsg.split(":")[1].split('!')[0]
         array = commands.halp(user)
         sendmsg(channel, array[0])
-        sendmsg(user, array[1])
+        sendmsg(getuser(ircmsg), array[1])
         continue
+
     if " :.git" in ircmsg and channel in ircmsg:
         sendmsg(channel, commands.git())
         continue

@@ -96,20 +96,21 @@ def get_random_post():
 
         postinfo = json.dumps(thread['posts'][j])
 
-        if 'com' in postinfo and 'sticky' not in postinfo:
-            content = thread['posts'][j]['com']
-            text = (formattext(content))
+        try:
+            if 'com' in postinfo and 'sticky' not in postinfo:
+                content = thread['posts'][j]['com']
+                text = (formattext(content))
 
-            if len(text) > 1 and not text[2:].isdigit():
-                final = text.encode('utf-8')
-                return final
+                if len(text) > 1 and not text[2:].isdigit():
+                    final = text.encode('utf-8')
+                    return final
+                else:
+                    get_random_post()
+
+            elif iterations == 10:
+                return "No shitpost found."
+
             else:
                 get_random_post()
-
-        elif iterations == 10:
-            return "No shitpost found."
-
-        else:
-            get_random_post()
-
-get_random_post()
+        except:
+            return "Fuck Unicode"
