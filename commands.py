@@ -65,9 +65,10 @@ def memearrows():  # >implying you can triforce
 
 
 def intensifies(args):  # [python intensifies]
-    if len(args.split(".int ")) > 1:
-        args = args.split(".int ")[1].strip('\r\n')
-        return "[" + args + " intensifies]\n"
+    if len(args.split(" ")) > 1:
+        args = args.split(" ")[1:]
+        print args
+        return "[" + " ".join(args) + " intensifies]\n"
     else:
         return "[no argument intensifies]\n"
 

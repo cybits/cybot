@@ -10,6 +10,20 @@ channel = "#omgatestchannel"  # Channel
 botnick = "cybits1"  # bot's nick
 
 
+class tcol:
+        NORMAL = u"\u000f"
+        BOLD = u"\u0002"
+        UNDERLINE = u"\u001f"
+        REVERSE = u"\u0016"
+        WHITE = u"\u00030"
+        BLACK = u"\u00031"
+        DARK_BLUE = u"\u00032"
+        DARK_GREEN = u"\u00033"
+        RED = u"\u00034"
+        BROWN = u"\u00035"
+        GREEN = u"\u00039"
+
+
 def ping():  # This is our first function! It will respond to server Pings.
     ircsock.send("PONG :ping\n")
 
@@ -75,7 +89,7 @@ while 1:
     #     continue
 
     if " :.implying" in ircmsg and channel in ircmsg:  # If we can find ".implying" it will call the function implying()
-        sendmsg(channel, commands.implying())
+        sendmsg(channel, tcol.DARK_GREEN + unicode(commands.implying()))
         continue
 
     if " :.memearrows" in ircmsg and channel in ircmsg:  # If we can find ".memearrows" it will call the function
@@ -83,7 +97,22 @@ while 1:
         continue
 
     if " :.shitpost" in ircmsg and channel in ircmsg:  # If we can find ".shitpost" it will call the function
-        sendmsg(channel, commands.shitpost())          # shitpost()
+
+        # greentext handling
+        shitpostinit = commands.shitpost()
+        shitpost = shitpostinit
+        i = 0
+        print len(shitpostinit)
+        while i < len(shitpostinit):
+            if shitpostinit[i] == ">":
+                if i is not 0:
+                    prev = shitpost[:i-1] + tcol.DARK_GREEN + u" "
+                    shitpost = prev + shitpostinit[i:]
+                else:
+                    shitpost = tcol.DARK_GREEN + shitpostinit
+            i+=1
+
+        sendmsg(channel, shitpost)          # shitpost()
         continue
 
     if " :.SHITPOST" in ircmsg and channel in ircmsg:        # If we can find ".SHITPOST" it will call the function
@@ -106,6 +135,10 @@ while 1:
 
     if " :.git" in ircmsg and channel in ircmsg:
         sendmsg(channel, commands.git())
+        continue
+
+    if " :.colors" in ircmsg:  # test colors
+        sendmsg(channel, tcol.DARK_GREEN + unicode(commands. shitpost()))
         continue
 
     if "PING :" in ircmsg:  # respond to pings

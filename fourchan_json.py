@@ -23,17 +23,8 @@ def strip_tags(html):
         return s.get_data()
 
 
-# class tcol:
-#         HEADER = '\033[95m'
-#         OKBLUE = '\033[94m'
-#         OKGREEN = '\033[92m'
-#         WARNING = '\033[93m'
-#         FAIL = '\033[91m'
-#         ENDC = '\033[0m'
-
-
 def formattext(text):
-        text = text.replace("<br>", " ")
+        text = text.replace("<br>", u"\u000f ")
         text = text.replace("&gt;", ">")
         text = text.replace("&#039;", "'")
         text = strip_tags(text)
