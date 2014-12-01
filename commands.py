@@ -155,7 +155,7 @@ def coolt():
     print string1, string2
 
 def shrug():
-    return u"¯\_(ツ)_/¯\n"
+    return u"¯\_(ツ)_/¯".encode('utf-8')
 
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go

@@ -143,7 +143,7 @@ while 1:
         continue
     
     if " :.shrug" in ircmsg and channel in ircmsg:
-        ircsock.send("PRIVMSG " + channel + " :" + commands.shrug() + "\n")
+        sendmsg(channel, commands.shrug())
         continue
 
     # if " :.trigger" in ircmsg:
