@@ -141,6 +141,10 @@ while 1:
     if " :.colors" in ircmsg:  # test colors
         sendmsg(channel, tcol.DARK_GREEN + unicode(commands. shitpost()))
         continue
+    
+    if " :.shrug" in ircmsg and channel in ircmsg:
+        ircsock.send("PRIVMSG " + channel + " :" + commands.shrug() + "\n")
+        continue
 
     # if " :.trigger" in ircmsg:
     #     sendmsg(channel, commands.trigger(getargs(ircmsg)))

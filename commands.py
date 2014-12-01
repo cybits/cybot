@@ -144,6 +144,19 @@ def implying():  # >implying this needs a comment
 
 def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
     return get_random_line(random.choice(os.listdir("/home/pi/PycharmProjects/cybot/texts/"))) + "\n"
+    # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
+
+
+def coolt():
+    spaces1 = random.randint(1,5)
+    spaces2 = random.randint(1,3)
+    string1 = (" "*spaces1 + ("▲").encode('utf-8'))
+    string2 = (" "*spaces2 + ("▲ ▲").encode('utf-8'))
+    print string1, string2
+
+
+def shrug():
+    return u"¯\_(ツ)_/¯\n"
 
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
