@@ -90,6 +90,10 @@ while 1:
     if " :.git" in ircmsg and channel in ircmsg: 
         ircsock.send("PRIVMSG " + Channel + " :" + commands.git() + "\n")
         continue
+    
+    if " :.shrug" in ircmsg and channel in ircmsg:
+        ircsock.send("PRIVMSG " + channel + " :" + commands.shrug() + "\n")
+        continue
 
     if "PING :" in ircmsg:  # respond to pings
         ping()
