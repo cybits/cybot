@@ -119,6 +119,9 @@ def coolt():
     string1 = (" "*spaces1 + ("▲").encode('utf-8'))
     string2 = (" "*spaces2 + ("▲ ▲").encode('utf-8'))
     print string1, string2
+    
+def shrug():
+    return "¯\_(ツ)_/¯\n"
 
 
 
