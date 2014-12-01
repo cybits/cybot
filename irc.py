@@ -3,12 +3,12 @@ import socket
 import string
 import commands
 import time
+import sched
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
 channel = "#omgatestchannel"  # Channel
 botnick = "cybits1"  # bot's nick
-
 
 class tcol:
         NORMAL = u"\u000f"
@@ -105,12 +105,12 @@ while 1:
         print len(shitpostinit)
         while i < len(shitpostinit):
             if shitpostinit[i] == ">":
-                if i is not 0:
-                    prev = shitpost[:i-1] + tcol.DARK_GREEN + u" "
+                if i is not 0 or 1:
+                    prev = shitpost[:i+1] + tcol.DARK_GREEN + u" "
                     shitpost = prev + shitpostinit[i:]
                 else:
                     shitpost = tcol.DARK_GREEN + shitpostinit
-            i+=1
+            i += 1
 
         sendmsg(channel, shitpost)          # shitpost()
         continue
@@ -120,6 +120,7 @@ while 1:
         continue
 
     if " :.int" in ircmsg and channel in ircmsg:  # If we can find ".int" it will call the function intensifies()
+        print getargs(ircmsg)
         sendmsg(channel, commands.intensifies(getargs(ircmsg)))
         continue
 
@@ -140,6 +141,14 @@ while 1:
     if " :.colors" in ircmsg:  # test colors
         sendmsg(channel, tcol.DARK_GREEN + unicode(commands. shitpost()))
         continue
+    
+    if " :.shrug" in ircmsg and channel in ircmsg:
+        ircsock.send("PRIVMSG " + channel + " :" + commands.shrug() + "\n")
+        continue
+
+    # if " :.trigger" in ircmsg:
+    #     sendmsg(channel, commands.trigger(getargs(ircmsg)))
+    #     continue
 
     if "PING :" in ircmsg:  # respond to pings
         ping()
