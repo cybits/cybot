@@ -68,7 +68,7 @@ def intensifies(args):  # [python intensifies]
     if len(args.split(" ")) > 1:
         args = args.split(" ")[1:]
         print args
-        return "[" + " ".join(args) + " intensifies]\n"
+        return "[" + " ".join(args).strip("\r\n") + " intensifies]\n"
     else:
         return "[no argument intensifies]\n"
 
