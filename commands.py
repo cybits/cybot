@@ -150,9 +150,9 @@ def sentence():  # This function grabs a random sentence from a txt file and pos
 def coolt():
     spaces1 = random.randint(1,5)
     spaces2 = random.randint(1,3)
-    string1 = (" "*spaces1 + ("▲").encode('utf-8'))
-    string2 = (" "*spaces2 + ("▲ ▲").encode('utf-8'))
-    print string1, string2
+    string1 = (" "*spaces1 + (u"▲").encode('utf-8'))
+    string2 = (" "*spaces2 + (u"▲ ▲").encode('utf-8'))
+    return string1, string2
 
 def shrug():
     return u"¯\_(ツ)_/¯".encode('utf-8')

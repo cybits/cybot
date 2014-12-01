@@ -146,6 +146,11 @@ while 1:
         sendmsg(channel, commands.shrug())
         continue
 
+    if " :.triforce" in ircmsg and channel in ircmsg:
+        triforce = commands.coolt()
+        sendmsg(channel, triforce[0])
+        sendmsg(channel, triforce[1])
+
     # if " :.trigger" in ircmsg:
     #     sendmsg(channel, commands.trigger(getargs(ircmsg)))
     #     continue
