@@ -41,7 +41,6 @@ def getuser(ircmsg):
 def getargs(ircmsg):
     return ircmsg.split(":")[2].split('!')[0]
 
-
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667))  # connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :some stuff\n")  # user authentication
@@ -147,7 +146,7 @@ while 1:
         continue
 
     if " :.cute" in ircmsg and channel in ircmsg:
-        sendmsg(channel, commands.cute())
+        sendmsg(channel, commands.cute(getuser(ircmsg), getargs(ircmsg)))
         continue
 
     if "triforce" in ircmsg and channel in ircmsg:

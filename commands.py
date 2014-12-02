@@ -80,7 +80,6 @@ def memearrows():  # >implying you can triforce
 def intensifies(args):  # [python intensifies]
     if len(args.split(" ")) > 1:
         args = args.split(" ")[1:]
-        print args
         return "[" + " ".join(args).strip("\r\n") + " intensifies]\n"
     else:
         return "[no argument intensifies]\n"
@@ -171,19 +170,32 @@ def coolt():
 def shrug():
     return u"¯\_(ツ)_/¯".encode('utf-8')
 
-def cute():
-    cutelist = [u"✿◕ ‿ ◕✿".encode('utf-8'), u"❀◕ ‿ ◕❀".encode('utf-8'), u"(✿◠‿◠)".encode('utf-8'),
-                u"(◕‿◕✿) ".encode('utf-8'), u"( ｡◕‿◕｡)".encode('utf-8'), u"(◡‿◡✿)".encode('utf-8'),
-                u"⊂◉‿◉つ ❤".encode('utf-8'), u"{ ◕ ◡ ◕}".encode('utf-8'), u"( ´・‿-) ~ ♥".encode('utf-8'),
-                u"(っ⌒‿⌒)っ~ ♥".encode('utf-8'), u"ʕ´•ᴥ•`ʔσ”".encode('utf-8'), u"(･Θ･) caw".encode('utf-8'),
-                u"(=^･ω･^)y＝".encode('utf-8'), u"ヽ(=^･ω･^=)丿".encode('utf-8'), u"~(=^･ω･^)ヾ(^^ )".encode('utf-8'),
-                u"| (•□•) | (❍ᴥ❍ʋ)".encode('utf-8'), u"ϞϞ(๑⚈ ․̫ ⚈๑)∩".encode('utf-8'), u"ヾ(･ω･*)ﾉ".encode('utf-8'),
-                u"▽・ω・▽ woof~".encode('utf-8'), u"(◎｀・ω・´)人(´・ω・｀*)".encode('utf-8'), u"(*´・ω・)ノ(-ω-｀*)".encode('utf-8'),
-                u"(❁´ω`❁)".encode('utf-8'), u"(＊◕ᴗ◕＊)".encode('utf-8'), u"{´◕ ◡ ◕｀}".encode('utf-8'), u"₍•͈ᴗ•͈₎".encode('utf-8'),
-                u"(˘･ᴗ･˘)".encode('utf-8'), u"(ɔ ˘⌣˘)˘⌣˘ c)".encode('utf-8'), u"(⊃｡•́‿•̀｡)⊃".encode('utf-8'), u"(´ε｀ )♡".encode('utf-8'),
-                u"(◦˘ З(◦’ںˉ◦)♡".encode('utf-8'), u"( ＾◡＾)っ~ ❤ Leper".encode('utf-8'),
-                u"╰(　´◔　ω　◔ `)╯".encode('utf-8'), u"(*･ω･)".encode('utf-8'), u"(∗•ω•∗)".encode('utf-8'), u"( ◐ω◐ )".encode('utf-8')]
-    return random.choice(cutelist)
+def cute(user, args):
+    if not args:
+        cutelist = [u"✿◕ ‿ ◕✿".encode('utf-8'), u"❀◕ ‿ ◕❀".encode('utf-8'), u"(✿◠‿◠)".encode('utf-8'),
+                    u"(◕‿◕✿) ".encode('utf-8'), u"( ｡◕‿◕｡)".encode('utf-8'), u"(◡‿◡✿)".encode('utf-8'),
+                    u"⊂◉‿◉つ ❤".encode('utf-8'), u"{ ◕ ◡ ◕}".encode('utf-8'), u"( ´・‿-) ~ ♥".encode('utf-8'),
+                    u"(っ⌒‿⌒)っ~ ♥".encode('utf-8'), u"ʕ´•ᴥ•`ʔσ”".encode('utf-8'), u"(･Θ･) caw".encode('utf-8'),
+                    u"(=^･ω･^)y＝".encode('utf-8'), u"ヽ(=^･ω･^=)丿".encode('utf-8'), u"~(=^･ω･^)ヾ(^^ )".encode('utf-8'),
+                    u"| (•□•) | (❍ᴥ❍ʋ)".encode('utf-8'), u"ϞϞ(๑⚈ ․̫ ⚈๑)∩".encode('utf-8'), u"ヾ(･ω･*)ﾉ".encode('utf-8'),
+                    u"▽・ω・▽ woof~".encode('utf-8'), u"(◎｀・ω・´)人(´・ω・｀*)".encode('utf-8'), u"(*´・ω・)ノ(-ω-｀*)".encode('utf-8'),
+                    u"(❁´ω`❁)".encode('utf-8'), u"(＊◕ᴗ◕＊)".encode('utf-8'), u"{´◕ ◡ ◕｀}".encode('utf-8'), u"₍•͈ᴗ•͈₎".encode('utf-8'),
+                    u"(˘･ᴗ･˘)".encode('utf-8'), u"(ɔ ˘⌣˘)˘⌣˘ c)".encode('utf-8'), u"(⊃｡•́‿•̀｡)⊃".encode('utf-8'), u"(´ε｀ )♡".encode('utf-8'),
+                    u"(◦˘ З(◦’ںˉ◦)♡".encode('utf-8'), u"( ＾◡＾)っ~ ❤ Leper".encode('utf-8'),
+                    u"╰(　´◔　ω　◔ `)╯".encode('utf-8'), u"(*･ω･)".encode('utf-8'), u"(∗•ω•∗)".encode('utf-8'), u"( ◐ω◐ )".encode('utf-8')]
+        return random.choice(cutelist)
+    else:
+        args = args.split(" ")[1:]
+        args = " ".join(args).strip("\r\n")
+        print args
+        cutelist = [u"(✿◠‿◠)っ~ ♥ ".encode('utf-8') + args, u"⊂◉‿◉つ ❤ ".encode('utf-8') + args, u"( ´・‿-) ~ ♥ ".encode('utf-8') + args,
+                    u"(っ⌒‿⌒)っ~ ♥ ".encode('utf-8') + args, u"ʕ´•ᴥ•`ʔσ” BEARHUG ".encode('utf-8') + args,
+                    user + u" ~(=^･ω･^)ヾ(^^ ) ".encode('utf-8') + args, user + u" (◎｀・ω・´)人(´・ω・｀*) ".encode('utf-8') + args,
+                    user + u" (*´・ω・)ノ(-ω-｀*) ".encode('utf-8') + args,
+                    u"(˘･ᴗ･˘)".encode('utf-8'), user + u" (ɔ ˘⌣˘)˘⌣˘ c) ".encode('utf-8') + args,
+                    u"(⊃｡•́‿•̀｡)⊃ U GONNA GET HUGGED ".encode('utf-8') + args, u"(´ε｀ )♡ ".encode('utf-8') + args,
+                    user + u" (◦˘ З(◦’ںˉ◦)♡ ".encode('utf-8') + args, u"( ＾◡＾)っ~ ❤ ".encode('utf-8') + args]
+        return random.choice(cutelist)
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
