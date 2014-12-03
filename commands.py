@@ -192,8 +192,8 @@ def cute(user, args):
                     u"(っ⌒‿⌒)っ~ ♥ ".encode('utf-8') + args, u"ʕ´•ᴥ•`ʔσ” BEARHUG ".encode('utf-8') + args,
                     user + u" ~(=^･ω･^)ヾ(^^ ) ".encode('utf-8') + args, user + u" (◎｀・ω・´)人(´・ω・｀*) ".encode('utf-8') + args,
                     user + u" (*´・ω・)ノ(-ω-｀*) ".encode('utf-8') + args,
-                    u"(˘･ᴗ･˘)".encode('utf-8'), user + u" (ɔ ˘⌣˘)˘⌣˘ c) ".encode('utf-8') + args,
-                    u"(⊃｡•́‿•̀｡)⊃ U GONNA GET HUGGED ".encode('utf-8') + args, u"(´ε｀ )♡ ".encode('utf-8') + args,
+                    user + u" (ɔ ˘⌣˘)˘⌣˘ c) ".encode('utf-8') + args,
+                    u"(⊃｡•́‿•̀｡)⊃ U GONNA GET HUGGED ".encode('utf-8') + args, args + u" (´ε｀ )♡".encode('utf-8'),
                     user + u" (◦˘ З(◦’ںˉ◦)♡ ".encode('utf-8') + args, u"( ＾◡＾)っ~ ❤ ".encode('utf-8') + args]
         return random.choice(cutelist)
 
