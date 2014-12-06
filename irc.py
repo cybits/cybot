@@ -7,6 +7,8 @@ import sched
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
+# channel = "#/g/punk"  # Channel
+# botnick = "cybits"  # bot's nick
 channel = "#omgatestchannel"  # Channel
 botnick = "cybits1"  # bot's nick
 
@@ -137,10 +139,6 @@ while 1:
         sendmsg(channel, commands.git())
         continue
 
-    if " :.colors" in ircmsg:  # test colors
-        sendmsg(channel, tcol.DARK_GREEN + unicode(commands. shitpost()))
-        continue
-    
     if " :.shrug" in ircmsg and channel in ircmsg:
         sendmsg(channel, commands.shrug())
         continue
@@ -153,6 +151,9 @@ while 1:
         triforce = commands.coolt()
         sendmsg(channel, triforce[0])
         sendmsg(channel, triforce[1])
+
+    if (" :.booty" in ircmsg or " :.smug" in ircmsg) and channel in ircmsg:
+        sendmsg(channel, commands.booty())
 
     # if " :.trigger" in ircmsg:
     #     sendmsg(channel, commands.trigger(getargs(ircmsg)))

@@ -3,6 +3,7 @@ import os
 import fourchan_json
 import random
 import string
+import re
 
 class tcol:
         NORMAL = u"\u000f"
@@ -45,6 +46,7 @@ def get_random_line(file_name):
         s += c
         c = xfile.read(1)
     s.replace("- ", " ")
+    s = re.sub('\s+', ' ', s)
     return s
 
 
@@ -155,8 +157,8 @@ def implying():  # >implying this needs a comment
 
 
 def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
-    return get_random_line(random.choice(os.listdir("/home/pi/PycharmProjects/cybot/texts/"))) + "\n"
-    # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
+    # return get_random_line(random.choice(os.listdir("/home/pi/PycharmProjects/cybot/texts/"))) + "\n"
+    return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
 
 
 def coolt():
@@ -166,6 +168,9 @@ def coolt():
     string2 = (" "*spaces2 + (u"▲ ▲").encode('utf-8'))
     return string1, string2
 
+
+def booty():
+    return u"( ͡° ͜ʖ ͡°)".encode('utf-8')
 
 def shrug():
     return u"¯\_(ツ)_/¯".encode('utf-8')
