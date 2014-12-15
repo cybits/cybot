@@ -80,9 +80,8 @@ def memearrows():  # >implying you can triforce
 
 
 def intensifies(args):  # [python intensifies]
-    if len(args.split(" ")) > 1:
-        args = args.split(" ")[1:]
-        return "[" + " ".join(args).strip("\r\n") + " intensifies]\n"
+    if len(args) > 0:
+        return "[" + args + " intensifies]\n"
     else:
         return "[no argument intensifies]\n"
 
@@ -157,8 +156,8 @@ def implying():  # >implying this needs a comment
 
 
 def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
-    # return get_random_line(random.choice(os.listdir("/home/pi/PycharmProjects/cybot/texts/"))) + "\n"
-    return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
+    return get_random_line(random.choice(os.listdir("/home/pi/git/cybot/texts/"))) + "\n"
+    # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
 
 
 def coolt():

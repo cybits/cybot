@@ -8,10 +8,10 @@ import requests
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
-# channel = "#/g/punk"  # Channel
-# botnick = "cybits"  # bot's nick
-channel = "#omgatestchannel"  # Channel
-botnick = "cybits1"  # bot's nick
+channel = "#/g/punk"  # Channel
+botnick = "cybits"  # bot's nick
+# channel = "#omgatestchannel"  # Channel
+# botnick = "cybits1"  # bot's nick
 
 class tcol:
         NORMAL = u"\u000f"
@@ -42,7 +42,29 @@ def getuser(ircmsg):
     return ircmsg.split(":")[1].split('!')[0]
 
 def getargs(ircmsg):
-    return ircmsg.split(":")[2].split('!')[0]
+    # return ircmsg.split(":")[2].split('!')[0]
+    args = parsemsg(ircmsg)[2][1:]
+    args = args[len(args)-1].strip("\r\n")
+    args = " ".join(str(args).split(" ")[1:])
+    return args
+
+
+def parsemsg(s):
+    # Breaks a message from an IRC server into its prefix, command, and arguments.
+    prefix = ''
+    trailing = []
+    if not s:
+        pass
+    if s[0] == ':':
+        prefix, s = s[1:].split(' ', 1)
+    if s.find(' :') != -1:
+        s, trailing = s.split(' :', 1)
+        args = s.split()
+        args.append(trailing)
+    else:
+        args = s.split()
+    command = args.pop(0)
+    return prefix, command, args
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667))  # connect to the server using the port 6667
@@ -53,10 +75,9 @@ joinchan(channel)  # Join the channel using the functions we previously defined
 while 1:
     ircmsg = ircsock.recv(1024)  # receive data from the server
     print(ircmsg)  # Here we print what's coming from the server
-
-    # if ircmsg.find(botnick) in ircmsg and "PRIVMSG ") in ircmsg and "rizon") == -1:
-    # # If we can find "cybits" it will call the function hello()
-    #     hello(ircmsg.split(":")[1].split('!')[0])
+    # if ircmsg.find(botnick) in ircmsg and "PRIVMSG " in ircmsg:
+    # # # If we can find "cybits" it will call the function hello()
+    #     hello(getuser(ircmsg))
     #     continue
 
     if " :.lit" in ircmsg and channel in ircmsg:  # If we can find ".lit" it will call the function sentence()
@@ -79,9 +100,6 @@ while 1:
 
     if " :.tweet" in ircmsg and channel in ircmsg:
         tweet = getargs(ircmsg)
-        if len(tweet.split(" ")) > 1:
-                tweet = tweet.split(" ")[1:]
-                tweet = " ".join(tweet).strip("\r\n") + "\n"
         r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
         if "200" in r.text:
             sendmsg(channel, ":DDD https://twitter.com/proxytwt")
@@ -143,7 +161,7 @@ while 1:
         continue
 
     if " :.cybhelp" in ircmsg and channel in ircmsg:  # If we can find ".cybhelp" it will call the function help()
-        array = commands.halp(user)
+        array = commands.halp(getuser(ircmsg))
         sendmsg(channel, array[0])
         sendmsg(getuser(ircmsg), array[1])
         continue
