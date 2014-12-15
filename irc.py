@@ -4,6 +4,7 @@ import string
 import commands
 import time
 import sched
+import requests
 
 # Some basic variables used to configure the bot        
 server = "irc.rizon.net"  # Server
@@ -74,6 +75,15 @@ while 1:
 
     if " :.interject" in ircmsg and channel in ircmsg:  # If we can find ".interject" it will call the function
         sendmsg(channel, commands.interjection())       # interjection()
+        continue
+
+    if " :.tweet" in ircmsg and channel in ircmsg:
+        tweet = getargs(ircmsg)
+        r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
+        if "200" in r.text:
+            sendmsg(channel, ":DDD https://twitter.com/proxytwt")
+        else:
+            sendmsg(channel, ":( pls fix me ;-;")
         continue
 
     # lircmsg = string.lower(ircmsg)
