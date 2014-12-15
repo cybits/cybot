@@ -79,6 +79,9 @@ while 1:
 
     if " :.tweet" in ircmsg and channel in ircmsg:
         tweet = getargs(ircmsg)
+        if len(tweet.split(" ")) > 1:
+                tweet = tweet.split(" ")[1:]
+                tweet = " ".join(tweet).strip("\r\n") + "\n"
         r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
         if "200" in r.text:
             sendmsg(channel, ":DDD https://twitter.com/proxytwt")
