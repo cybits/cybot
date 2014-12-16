@@ -193,7 +193,7 @@ def feel(args):  # >tfw
 
     ircmsg = args["raw"]
     user = ircmsg.split(":")[1].split('!')[0]
-    channel = args["args"][1]
+    channel = args["channel"]
     sendmsg(channel, line)
     for lines in feelguy:
         sendmsg(user, lines)
