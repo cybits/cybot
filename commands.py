@@ -4,6 +4,7 @@ import fourchan_json
 import random
 import string
 import re
+import requests
 
 
 class tcol:
@@ -68,7 +69,10 @@ _command_dict = {}
 
 
 def command(name):
+    # The decorator appending all fn's to a dict
     def _(fn):
+        # Decorators return an inner function whom we
+        # pass the function.
         _command_dict[name] = fn
     return _
 
@@ -80,15 +84,13 @@ def nothing(args):
 def get_command(name):
     # Explicity over implicity?
     # Fuck that
+
+    # We just lower the string.
+    # and check later its upper cased
     if name.lower() in _command_dict:
         return _command_dict[name.lower()]
     else:
         return nothing
-
-
-@command("ping")
-def ping(args):  # This is our first function! It will respond to server Pings.
-    return "PONG :ping\n"
 
 
 # TODO: Uppercase version
@@ -119,8 +121,8 @@ def halp(args):
     return string
 
 
-# TODO: Use this for something
-def interjection():  # I'd just like to interject for a moment
+@command("interject")
+def interjection(args):  # I'd just like to interject for a moment
     str = ("I'd just like to interject for moment. What you're referring to as "
               "Linux, is in fact, GNU/Linux, or as I've recently taken to calling it,"
               " GNU plus Linux. pastebin.com/2YxSM4St\n")
@@ -143,7 +145,7 @@ def memearrows(args):  # >implying you can triforce
 @command("int")
 def intensifies(args):  # [python intensifies]
     if args["args"]:
-        ret = "[" + args + " intensifies]\n"
+        ret = "[" + " ".join(args["args"]) + " intensifies]\n"
     else:
         ret = "[no argument intensifies]\n"
     if args["command"].isupper():
@@ -160,6 +162,7 @@ def hello(user):  # This function responds to a user that inputs "Hello cybits"
 
 @command("feel")
 def feel(args):  # >tfw
+    import time
     sendmsg = args["sendmsg"]
     line = ('"tfw no gf" is an abbreviated expression for "that feeling [I get] '
               'when [I have] no girlfriend" often used in online discussions and '
@@ -190,6 +193,7 @@ def feel(args):  # >tfw
 
     ircmsg = args["raw"]
     user = ircmsg.split(":")[1].split('!')[0]
+    channel = args["args"][1]
     sendmsg(channel, line)
     for lines in feelguy:
         sendmsg(user, lines)
@@ -199,7 +203,7 @@ def feel(args):  # >tfw
     return ""
 
 
-@command("interject")
+# TODO: Use this for something
 def autointerject(args):  # making sure users don't forget the GNU
     str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
             "GNU/Linux - further messages sent privately.\n")
@@ -235,13 +239,14 @@ def implying(args):  # >implying this needs a comment
 
 @command("tweet")
 def twitter(args):
-    tweet = args["args"]
+    tweet = "".join(args["args"])
     sendmsg = args["sendmsg"]
+    channel = args["channel"]
     r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
     if "200" in r.text:
-        sendmsg(channel, ":DDD https://twitter.com/proxytwt")
+        return ":DDD https://twitter.com/proxytwt"
     else:
-        sendmsg(channel, ":( pls fix me ;-;")
+        return ":( pls fix me ;-;"
 
 
 @command("lit")
@@ -257,19 +262,16 @@ def coolt(args):
     spaces2 = random.randint(1,3)
     string1 = (" "*spaces1 + (u"▲").encode('utf-8'))
     string2 = (" "*spaces2 + (u"▲ ▲").encode('utf-8'))
-    sendmsg(args["channel"], string1)
-    sendmsg(args["channel"], string2)
-    return ""
+    return string1, string2
 
 
-@command("smug")
 @command("booty")
-def booty():
+def booty(args):
     return u"( ͡° ͜ʖ ͡°)".encode('utf-8')
 
 
 @command("shrug")
-def shrug():
+def shrug(args):
     return u"¯\_(ツ)_/¯".encode('utf-8')
 
 
@@ -306,6 +308,6 @@ def cute(args):
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
-    for lines in range(0, len(strarray)):
-        print strarray[lines]
+    for line in strarray:
+        print line
     return strarray
