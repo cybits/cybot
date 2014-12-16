@@ -7,8 +7,8 @@ from commands import get_command
 
 # Some basic variables used to configure the bot
 server = "irc.rizon.net"  # Server
-channel = "#/g/punk"  # Channel
-botnick = "cybits"  # bot's nick
+channel = "#cybitsBETA"  # Channel
+botnick = "cybitsBETA"  # bot's nick
 commandprefix = "."
 # channel = "#omgatestchannel"  # Channel
 # botnick = "cybits1"  # bot's nick
@@ -85,9 +85,10 @@ while 1:
         ircsock.send("PONG :ping\n")
     else:
         args = parsemsg(ircmsg)
-        print args
+        #print args
         cmd = get_command(args["command"])
         try:
             sendmsg(channel, cmd(args))
         except Exception as e:
-            sendmsg(channel, (e, "plz, fix me mother valka"))
+            sendmsg(channel, (str(e), "plz fix"))
+            print(e)
