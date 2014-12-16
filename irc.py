@@ -78,21 +78,19 @@ def process_data(data):
     """
     global _partial_data
 
-    data = data.decode('utf-8')
+    if not data:
+        return []
     lines = data.splitlines()
-
     # There is at least one newline => this data chunk contains the end of at
     # least one command. If previous command was stored then it is complete now.
     if '\n' in data and _partial_data:
         lines[0] = _partial_data + lines[0]
         _partial_data = None
-
     # Store partial data.
     if not data.endswith('\n'):
         if _partial_data is None:
             _partial_data = ''
         _partial_data += lines.pop()
-
     return lines
 
 
