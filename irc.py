@@ -7,8 +7,8 @@ from commands import get_command
 
 # Some basic variables used to configure the bot
 server = "irc.rizon.net"  # Server
-channel = "#cybitsBETA"  # Channel
-botnick = "cybitsBETA"  # bot's nick
+channel = "#/g/punk"  # Channel
+botnick = "cybits"  # bot's nick
 commandprefix = "."
 # channel = "#omgatestchannel"  # Channel
 # botnick = "cybits1"  # bot's nick
