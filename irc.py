@@ -87,4 +87,7 @@ while 1:
         args = parsemsg(ircmsg)
         print args
         cmd = get_command(args["command"])
-        sendmsg(channel, cmd(args))
+        try:
+            sendmsg(channel, cmd(args))
+        except Exception as e:
+            sendmsg(channel, (e, "plz, fix me mother valka"))
