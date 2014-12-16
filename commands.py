@@ -4,19 +4,7 @@ import fourchan_json
 import random
 import string
 import re
-
-class tcol:
-        NORMAL = u"\u000f"
-        BOLD = u"\u0002"
-        UNDERLINE = u"\u001f"
-        REVERSE = u"\u0016"
-        WHITE = u"\u00030"
-        BLACK = u"\u00031"
-        DARK_BLUE = u"\u00032"
-        DARK_GREEN = u"\u00033"
-        RED = u"\u00034"
-        BROWN = u"\u00035"
-        GREEN = u"\u00039"
+from irc import sendmsg, tcol
 
 def get_random_line(file_name):
     total_bytes = os.stat(file_name).st_size
@@ -50,17 +38,68 @@ def get_random_line(file_name):
     return s
 
 
-def shitpost():  # almost entirely automated shitposting
-    post = fourchan_json.get_random_post()
-    return post
+def getuser(ircmsg):
+    return ircmsg.split(":")[1].split('!')[0]
 
 
-def halp(user):
+def getargs(ircmsg):
+    # return ircmsg.split(":")[2].split('!')[0]
+    args = parsemsg(ircmsg)[2][1:]
+    args = args[len(args)-1].strip("\r\n")
+    args = " ".join(str(args).split(" ")[1:])
+    return args
+
+
+_command_dict = {}
+
+
+def command(name):
+    def _(fn):
+        _command_dict[name] = fn
+    return _
+
+
+def nothing(args):
+    return ""
+
+
+def get_command(name):
+    # Explicity over implicity?
+    # Fuck that
+    if name.lower() in _command_dict:
+        return _command_dict[name.lower()]
+    else:
+        return nothing
+
+
+# TODO: Uppercase version
+@command("shitpost")
+def shitpost(args):  # almost entirely automated shitposting
+    shitpostinit = fourchan_json.get_random_post()
+
+    i = 0
+    print len(shitpostinit)
+    while i < len(shitpostinit):
+        if shitpostinit[i] == ">":
+            if i is not 0 or 1:
+                prev = shitpost[:i+1] + tcol.DARK_GREEN + u" "
+                shitpost = prev + shitpostinit[i:]
+            else:
+                shitpost = tcol.DARK_GREEN + shitpostinit
+        i += 1
+    if args["command"].isupper():
+        shitpost = shitpost.upper()
+    return shitpost
+
+
+@command("cybhelp")
+def halp(args):
     string = user + ", sending you a private message of my commands.\n"
     string1 = "ur a faget"
     return string, string1
 
 
+# TODO: Use this for something
 def interjection():  # I'd just like to interject for a moment
     str = ("I'd just like to interject for moment. What you're referring to as "
               "Linux, is in fact, GNU/Linux, or as I've recently taken to calling it,"
@@ -68,62 +107,79 @@ def interjection():  # I'd just like to interject for a moment
     return str
 
 
+@command("git")
 def git():
     str = "https://github.com/lovelaced/cybot What are we going to do on the repo? waaaah fork =3\n"
     return str
 
 
-def memearrows():  # >implying you can triforce
+@command("memearrows")
+def memearrows(args):  # >implying you can triforce
     str = ("Meme arrows are often used to preface implications or feels. See "
               "also: implying, feel.\n")
     return str
 
 
+@command("int")
 def intensifies(args):  # [python intensifies]
-    if len(args) > 0:
-        return "[" + args + " intensifies]\n"
+    if args["args"]:
+        ret = "[" + args + " intensifies]\n"
     else:
-        return "[no argument intensifies]\n"
+        ret = "[no argument intensifies]\n"
+    if args["command"].isupper():
+        return ret.upper()
+    else: return ret
 
 
+# TODO: Use for something
 def hello(user):  # This function responds to a user that inputs "Hello cybits"
     # random.randint(0, 5)
     str = ("are you even cyb, " + user + "?\n")
     return str
 
 
-def feel():  # >tfw
-    str = ('"tfw no gf" is an abbreviated expression for "that feeling [I get] '
+@command("feel")
+def feel(args):  # >tfw
+    line = ('"tfw no gf" is an abbreviated expression for "that feeling [I get] '
               'when [I have] no girlfriend" often used in online discussions and '
-              'comments.\n')
+              'comments.')
 
-    str1 = ("░░░░░░░▄▀▀▀▀▀▀▀▀▀▀▄▄░░░░░░░░░\n"
-                "░░░░▄▀▀░░░░░░░░░░░░░▀▄░░░░░░░\n"
-                "░░▄▀░░░░░░░░░░░░░░░░░░▀▄░░░░░\n"
-                "░░█░░░░░░░░░░░░░░░░░░░░░▀▄░░░\n"
-                "░▐▌░░░░░░░░▄▄▄▄▄▄▄░░░░░░░▐▌░░\n"
-                "░█░░░░░░░░░░░▄▄▄▄░░▀▀▀▀▀░░█░░\n"
-                "▐▌░░░░░░░▀▀▀▀░░░░░▀▀▀▀▀░░░▐▌░\n"
-                "█░░░░░░░░░▄▄▀▀▀▀▀░░░░▀▀▀▀▄░█░\n"
-                "█░░░░░░░░░░░░░░░░▀░░░▐░░░░░▐▌\n"
-                "▐▌░░░░░░░░░▐▀▀██▄░░░░░░▄▄▄░▐▌\n"
-                "░█░░░░░░░░░░░▀▀▀░░░░░░▀▀██░▀▄\n"
-                "░▐▌░░░░▄░░░░░░░░░░░░░▌░░░░░░█\n"
-                "░░▐▌░░▐░░░░░░░░░░░░░░▀▄░░░░░█\n"
-                "░░░█░░░▌░░░░░░░░▐▀░░░░▄▀░░░▐▌\n"
-                "░░░▐▌░░▀▄░░░░░░░░▀░▀░▀▀░░░▄▀░\n"
-                "░░░▐▌░░▐▀▄░░░░░░░░░░░░░░░░█░░\n"
-                "░░░▐▌░░░▌░▀▄░░░░▀▀▀▀▀▀░░░█░░░\n"
-                "░░░█░░░▀░░░░▀▄░░░░░░░░░░▄▀░░░\n"
-                "░░▐▌░░░░░░░░░░▀▄░░░░░░▄▀░░░░░\n"
-                "░▄▀░░░▄▀░░░░░░░░▀▀▀▀█▀░░░░░░░\n"
-                "▀░░░▄▀░░░░░░░░░░▀░░░▀▀▀▀▄▄▄▄▄\n")
-
-
-    return str, str1
+    feelguy  = ["░░░░░░░▄▀▀▀▀▀▀▀▀▀▀▄▄░░░░░░░░░",
+                "░░░░▄▀▀░░░░░░░░░░░░░▀▄░░░░░░░",
+                "░░▄▀░░░░░░░░░░░░░░░░░░▀▄░░░░░",
+                "░░█░░░░░░░░░░░░░░░░░░░░░▀▄░░░",
+                "░▐▌░░░░░░░░▄▄▄▄▄▄▄░░░░░░░▐▌░░",
+                "░█░░░░░░░░░░░▄▄▄▄░░▀▀▀▀▀░░█░░",
+                "▐▌░░░░░░░▀▀▀▀░░░░░▀▀▀▀▀░░░▐▌░",
+                "█░░░░░░░░░▄▄▀▀▀▀▀░░░░▀▀▀▀▄░█░",
+                "█░░░░░░░░░░░░░░░░▀░░░▐░░░░░▐▌",
+                "▐▌░░░░░░░░░▐▀▀██▄░░░░░░▄▄▄░▐▌",
+                "░█░░░░░░░░░░░▀▀▀░░░░░░▀▀██░▀▄",
+                "░▐▌░░░░▄░░░░░░░░░░░░░▌░░░░░░█",
+                "░░▐▌░░▐░░░░░░░░░░░░░░▀▄░░░░░█",
+                "░░░█░░░▌░░░░░░░░▐▀░░░░▄▀░░░▐▌",
+                "░░░▐▌░░▀▄░░░░░░░░▀░▀░▀▀░░░▄▀░",
+                "░░░▐▌░░▐▀▄░░░░░░░░░░░░░░░░█░░",
+                "░░░▐▌░░░▌░▀▄░░░░▀▀▀▀▀▀░░░█░░░",
+                "░░░█░░░▀░░░░▀▄░░░░░░░░░░▄▀░░░",
+                "░░▐▌░░░░░░░░░░▀▄░░░░░░▄▀░░░░░",
+                "░▄▀░░░▄▀░░░░░░░░▀▀▀▀█▀░░░░░░░",
+                "▀░░░▄▀░░░░░░░░░░▀░░░▀▀▀▀▄▄▄▄▄"]
 
 
-def autointerject():  # making sure users don't forget the GNU
+    ircmsg = args["raw"]
+    user = ircmsg.split(":")[1].split('!')[0]
+    sendmsg(channel, line)
+    for lines in feelguy:
+        sendmsg(user, lines)
+        time.sleep(1)
+    # Doing all the logic inside the function
+    # Since sendmsg wont post empty strings.
+    return ""
+
+
+@command("interject")
+def autointerject(args):  # making sure users don't forget the GNU
     str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
             "GNU/Linux - further messages sent privately.\n")
 
@@ -149,32 +205,55 @@ def autointerject():  # making sure users don't forget the GNU
     return str1, str2
 
 
-def implying():  # >implying this needs a comment
+@command("implying")
+def implying(args):  # >implying this needs a comment
     return ('>implying is used in a mocking manner to challenge an "implication" '
             'that has been made, or sometimes it can be simply used as a joke in '
             'itself.\n')
 
 
+@command("tweet")
+def twitter(args):
+    tweet = args["args"]
+    r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
+    if "200" in r.text:
+        sendmsg(channel, ":DDD https://twitter.com/proxytwt")
+    else:
+        sendmsg(channel, ":( pls fix me ;-;")
+
+
+@command("lit")
 def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
     return get_random_line(random.choice(os.listdir("/home/pi/git/cybot/texts/"))) + "\n"
     # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
 
 
-def coolt():
+@command("triforce")
+def coolt(args):
     spaces1 = random.randint(1,5)
     spaces2 = random.randint(1,3)
     string1 = (" "*spaces1 + (u"▲").encode('utf-8'))
     string2 = (" "*spaces2 + (u"▲ ▲").encode('utf-8'))
-    return string1, string2
+    sendmsg(args["channel"], string1)
+    sendmsg(args["channel"], string2)
+    return ""
 
 
+@command("smug")
+@command("booty")
 def booty():
     return u"( ͡° ͜ʖ ͡°)".encode('utf-8')
 
+
+@command("shrug")
 def shrug():
     return u"¯\_(ツ)_/¯".encode('utf-8')
 
-def cute(user, args):
+
+@command("cute")
+def cute(args):
+    user = getuser(args["raw"])
+    args = args["args"]
     if len(args.split(" ")) <= 1:
         cutelist = [u"✿◕ ‿ ◕✿".encode('utf-8'), u"❀◕ ‿ ◕❀".encode('utf-8'), u"(✿◠‿◠)".encode('utf-8'),
                     u"(◕‿◕✿) ".encode('utf-8'), u"( ｡◕‿◕｡)".encode('utf-8'), u"(◡‿◡✿)".encode('utf-8'),
@@ -200,6 +279,7 @@ def cute(user, args):
                     u"(⊃｡•́‿•̀｡)⊃ U GONNA GET HUGGED ".encode('utf-8') + args, args + u" (´ε｀ )♡".encode('utf-8'),
                     user + u" (◦˘ З(◦’ںˉ◦)♡ ".encode('utf-8') + args, u"( ＾◡＾)っ~ ❤ ".encode('utf-8') + args]
         return random.choice(cutelist)
+
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
