@@ -4,7 +4,21 @@ import fourchan_json
 import random
 import string
 import re
-from irc import sendmsg, tcol
+
+
+class tcol:
+        NORMAL = u"\u000f"
+        BOLD = u"\u0002"
+        UNDERLINE = u"\u001f"
+        REVERSE = u"\u0016"
+        WHITE = u"\u00030"
+        BLACK = u"\u00031"
+        DARK_BLUE = u"\u00032"
+        DARK_GREEN = u"\u00033"
+        RED = u"\u00034"
+        BROWN = u"\u00035"
+        GREEN = u"\u00039"
+
 
 def get_random_line(file_name):
     total_bytes = os.stat(file_name).st_size
@@ -72,11 +86,16 @@ def get_command(name):
         return nothing
 
 
+@command("ping")
+def ping(args):  # This is our first function! It will respond to server Pings.
+    return "PONG :ping\n"
+
+
 # TODO: Uppercase version
 @command("shitpost")
-def shitpost(args):  # almost entirely automated shitposting
+def shitposting(args):  # almost entirely automated shitposting
     shitpostinit = fourchan_json.get_random_post()
-
+    shitpost = ""
     i = 0
     print len(shitpostinit)
     while i < len(shitpostinit):
@@ -94,9 +113,10 @@ def shitpost(args):  # almost entirely automated shitposting
 
 @command("cybhelp")
 def halp(args):
+    user = getuser(args["raw"])
     string = user + ", sending you a private message of my commands.\n"
-    string1 = "ur a faget"
-    return string, string1
+    args["sendmsg"](user, "ur a faget")
+    return string
 
 
 # TODO: Use this for something
@@ -108,7 +128,7 @@ def interjection():  # I'd just like to interject for a moment
 
 
 @command("git")
-def git():
+def git(args):
     str = "https://github.com/lovelaced/cybot What are we going to do on the repo? waaaah fork =3\n"
     return str
 
@@ -140,6 +160,7 @@ def hello(user):  # This function responds to a user that inputs "Hello cybits"
 
 @command("feel")
 def feel(args):  # >tfw
+    sendmsg = args["sendmsg"]
     line = ('"tfw no gf" is an abbreviated expression for "that feeling [I get] '
               'when [I have] no girlfriend" often used in online discussions and '
               'comments.')
@@ -215,6 +236,7 @@ def implying(args):  # >implying this needs a comment
 @command("tweet")
 def twitter(args):
     tweet = args["args"]
+    sendmsg = args["sendmsg"]
     r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
     if "200" in r.text:
         sendmsg(channel, ":DDD https://twitter.com/proxytwt")
@@ -230,6 +252,7 @@ def sentence():  # This function grabs a random sentence from a txt file and pos
 
 @command("triforce")
 def coolt(args):
+    sendmsg = args["sendmsg"]
     spaces1 = random.randint(1,5)
     spaces2 = random.randint(1,3)
     string1 = (" "*spaces1 + (u"▲").encode('utf-8'))
