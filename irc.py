@@ -7,13 +7,9 @@ from commands import get_command
 
 # Some basic variables used to configure the bot
 server = "irc.rizon.net"  # Server
-channel = "#cybitsBETA"  # Channel
-botnick = "cybitsBETA"  # bot's nick
+channel = "#/g/punk"  # Channel
+botnick = "cybits"  # bot's nick
 commandprefix = "."
-# channel = "#omgatestchannel"  # Channel
-# botnick = "cybits1"  # bot's nick
-
-
 
 
 def sendmsg(recipient, msg):  # This is the send message function, it simply sends messages to the channel.
@@ -68,27 +64,54 @@ def parsemsg(s):
            "sendmsg": sendmsg}
     return ret
 
+
+_partial_data = None
+
+
+def process_data(data):
+    """Process the data received from the socket. Ensures that there is no
+    partial command at the end of the data chunk (that can happen if the data
+    does not fit in the socket buffer). If that happens the partial command will
+    be reconstructed next time this function is called.
+
+    data: raw data from the socket.
+    """
+    global _partial_data
+
+    data = data.decode('utf-8')
+    lines = data.splitlines()
+
+    # There is at least one newline => this data chunk contains the end of at
+    # least one command. If previous command was stored then it is complete now.
+    if '\n' in data and _partial_data:
+        lines[0] = _partial_data + lines[0]
+        _partial_data = None
+
+    # Store partial data.
+    if not data.endswith('\n'):
+        if _partial_data is None:
+            _partial_data = ''
+        _partial_data += lines.pop()
+
+    return lines
+
+
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667))  # connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :some stuff\n")  # user authentication
 ircsock.send("NICK " + botnick + "\n")  # here we actually assign the nick to the bot
 joinchan(channel)  # Join the channel using the functions we previously defined
 
-while 1:
-    ircmsg = ircsock.recv(1024)  # receive data from the server
-    #print(ircmsg)  # Here we print what's coming from the server
-    # if ircmsg.find(botnick) in ircmsg and "PRIVMSG " in ircmsg:
-    # # # If we can find "cybits" it will call the function hello()
-    #     hello(getuser(ircmsg))
-    #     continue
-    if "PING :" in ircmsg:
-        ircsock.send("PONG :ping\n")
-    else:
-        args = parsemsg(ircmsg)
-        #print args
-        cmd = get_command(args["command"])
-        try:
-            sendmsg(channel, cmd(args))
-        except Exception as e:
-            sendmsg(channel, (str(e), "plz fix"))
-            print(e)
+
+while True:
+    data = ircsock.recv(1024)
+    for ircmsg in process_data(data):
+        if "PING :" in ircmsg:
+            ircsock.send("PONG :ping\n")
+        else:
+            args = parsemsg(ircmsg)
+            cmd = get_command(args["command"])
+            try:
+                sendmsg(channel, cmd(args))
+            except Exception as e:
+                sendmsg(channel, (str(e), "plz, fix me mother valka"))
