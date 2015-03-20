@@ -303,6 +303,9 @@ def cute(args):
                     user + u" (◦˘ З(◦’ںˉ◦)♡ ".encode('utf-8') + args, u"( ＾◡＾)っ~ ❤ ".encode('utf-8') + args]
     return random.choice(cutelist)
 
+@command("bots")
+def bots(args):
+    return "Reporting in! [Python] Try .cybhelp for commands."
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
