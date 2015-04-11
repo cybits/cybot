@@ -97,7 +97,7 @@ def get_command(name):
 @command("shitpost")
 def shitposting(args):  # almost entirely automated shitposting
     shitpostinit = fourchan_json.get_random_post()
-    shitpost = ""
+    shitpost = shitpostinit 
     i = 0
     print len(shitpostinit)
     while i < len(shitpostinit):
@@ -244,7 +244,7 @@ def twitter(args):
     channel = args["channel"]
     r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
     if "200" in r.text:
-        return ":DDD https://twitter.com/proxytwt"
+        return ":DDD brought to you by @proxytwt"
     else:
         return ":( pls fix me ;-;"
 
