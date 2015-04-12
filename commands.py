@@ -58,13 +58,13 @@ def get_random_line(file_name):
 def getuser(ircmsg):
     return ircmsg.split(":")[1].split('!')[0]
 
-
-def getargs(ircmsg):
-    # return ircmsg.split(":")[2].split('!')[0]
-    args = parsemsg(ircmsg)[2][1:]
-    args = args[len(args)-1].strip("\r\n")
-    args = " ".join(str(args).split(" ")[1:])
-    return args
+#
+# def getargs(ircmsg):
+#     # return ircmsg.split(":")[2].split('!')[0]
+#     args = parsemsg(ircmsg)[2][1:]
+#     args = args[len(args)-1].strip("\r\n")
+#     args = " ".join(str(args).split(" ")[1:])
+#     return args
 
 
 _command_dict = {}
@@ -241,7 +241,7 @@ def implying(args):  # >implying this needs a comment
 
 @command("tweet")
 def twitter(args):
-    tweet = "".join(args["args"])
+    tweet = " ".join(args["args"])
     sendmsg = args["sendmsg"]
     channel = args["channel"]
     r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
