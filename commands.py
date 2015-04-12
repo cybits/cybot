@@ -254,6 +254,17 @@ def sentence():  # This function grabs a random sentence from a txt file and pos
     return get_random_line(random.choice(os.listdir("/home/pi/git/cybot/texts/"))) + "\n"
     # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
 
+@command("terry")
+def terry(args):  # Grabs a random Terry quote from the 9front list
+    directory = os.path.dirname(__file__)
+    terry = directory + os.path.join("/texts/terry.txt")
+    return random.choice(list(open(terry)))
+
+@command("rob")
+def pike(args):
+    directory = os.path.dirname(__file__)
+    pike = directory + os.path.join("/texts/rob.txt")
+    return random.choice(list(open(pike)))
 
 @command("triforce")
 def coolt(args):

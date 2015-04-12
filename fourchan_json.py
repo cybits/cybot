@@ -104,4 +104,4 @@ def get_random_post():
             else:
                 get_random_post()
         except:
-            return "Fuck Unicode"
+            return "Fuck unicode"
