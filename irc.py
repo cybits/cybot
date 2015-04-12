@@ -106,8 +106,6 @@ joinchan(channel)
 while True:
     data = ircsock.recv(1024)
     for ircmsg in process_data(data):
-        print data
-
         if "PING :" in ircmsg:
             ircsock.send("PONG :ping\n")
         elif channel in data:
