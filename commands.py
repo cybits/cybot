@@ -41,6 +41,8 @@ def get_random_line(file_name):
                 s += c
             else:
                 s += " "
+        else:
+            s += " "
         c = xfile.read(1)
     s += c
     c = xfile.read(1)
@@ -250,20 +252,23 @@ def twitter(args):
 
 
 @command("lit")
-def sentence():  # This function grabs a random sentence from a txt file and posts it to the channel
-    return get_random_line(random.choice(os.listdir("/home/pi/git/cybot/texts/"))) + "\n"
+def sentence(args):  # This function grabs a random sentence from a txt file and posts it to the channel
+    directory = os.path.dirname(__file__)
+    directory = directory + os.path.join("/texts/books/")
+    line = directory + os.path.join(random.choice(os.listdir(directory)))
+    return get_random_line(line) + "\n"
     # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
 
 @command("terry")
 def terry(args):  # Grabs a random Terry quote from the 9front list
     directory = os.path.dirname(__file__)
-    terry = directory + os.path.join("/texts/terry.txt")
+    terry = directory + os.path.join("/texts/other/terry.txt")
     return random.choice(list(open(terry)))
 
 @command("rob")
 def pike(args):
     directory = os.path.dirname(__file__)
-    pike = directory + os.path.join("/texts/rob.txt")
+    pike = directory + os.path.join("/texts/other/rob.txt")
     return random.choice(list(open(pike)))
 
 @command("triforce")
