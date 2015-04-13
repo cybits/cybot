@@ -1,5 +1,4 @@
 import socket
-import requests
 from commands import get_command
 
 
@@ -35,6 +34,7 @@ def parsemsg(s):
     retargs = []
     raw = s
     command = ""
+    print raw
     if not s:
         pass
     if s[0] == ":":
@@ -43,10 +43,13 @@ def parsemsg(s):
         s, trailing = s.split(" :", 1)
         args = s.split()
         args.append(trailing)
-        commands = args[2][1:].strip().split() if len(args) >= 3 else ""
-        if commands:
-            command = commands[0]
-            retargs = commands[1:]
+        if trailing[0] == commandprefix:
+            commands = args[2][1:].strip().split() if len(args) >= 3 else ""
+            if commands:
+                command = commands[0]
+                retargs = commands[1:]
+        else:
+            pass
     else:
         args = s.split()
     event = args[0]

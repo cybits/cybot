@@ -104,6 +104,8 @@ def shitposting(args):  # almost entirely automated shitposting
         i += 1
     if args["command"].isupper():
         shitpost = shitpost.upper()
+    directory = os.path.dirname(__file__)
+   # with open(directory + "/shitpost.txt")
     return shitpost
 
 
