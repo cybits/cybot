@@ -106,7 +106,6 @@ def twitter(args):
 def tweet(args):
     return twitter(args)
 
-# TODO: Uppercase version
 @command("shitpost")
 def shitposting(args):  # almost entirely automated shitposting
     if " ".join(args["args"]) == "| tweet":
@@ -114,17 +113,16 @@ def shitposting(args):  # almost entirely automated shitposting
         with open(directory + "/shitpost.txt", 'r') as twit:
             shitpost = twit.read()
         return twitter(shitpost)
-    shitpostinit = fourchan_json.get_random_post()
-    shitpost = shitpostinit 
-    i = 0
-    while i < len(shitpostinit):
-        if shitpostinit[i] == ">":
-            if i is not 0 or 1:
-                prev = shitpost[:i+1] + tcol.DARK_GREEN + u" "
-                shitpost = prev + shitpostinit[i:]
-            else:
-                shitpost = tcol.DARK_GREEN + shitpostinit
-        i += 1
+
+    shitpost = fourchan_json.get_random_post()
+    shitpost = shitpost.split("\x0f")
+    res_shitpost = []
+    for l in shitpost:
+        if l.strip().startswith(">"):
+            l = tcol.DARK_GREEN + l
+        res_shitpost.append(l)
+    shitpost = "\x0f".join(res_shitpost)
+
     if args["command"].isupper():
         shitpost = shitpost.upper()
     directory = os.path.dirname(__file__)
