@@ -87,13 +87,36 @@ def get_command(name):
         return nothing
 
 
+def twitter(args):
+    print args
+    if type(args) is not str:
+        tweet = " ".join(args["args"])
+        sendmsg = args["sendmsg"]
+        channel = args["channel"]
+    else:
+        tweet = args
+    r = requests.post("http://carta.im/tweetproxy/", data={'tweet': tweet})
+    if "200" in r.text:
+        return ":DDD brought to you by @proxytwt"
+    else:
+        return ":( pls fix me ;-;"
+
+
+@command("tweet")
+def tweet(args):
+    return twitter(args)
+
 # TODO: Uppercase version
 @command("shitpost")
 def shitposting(args):  # almost entirely automated shitposting
+    if " ".join(args["args"]) == "| tweet":
+        directory = os.path.dirname(__file__)
+        with open(directory + "/shitpost.txt", 'r') as twit:
+            shitpost = twit.read()
+        return twitter(shitpost)
     shitpostinit = fourchan_json.get_random_post()
     shitpost = shitpostinit 
     i = 0
-    print len(shitpostinit)
     while i < len(shitpostinit):
         if shitpostinit[i] == ">":
             if i is not 0 or 1:
@@ -105,7 +128,8 @@ def shitposting(args):  # almost entirely automated shitposting
     if args["command"].isupper():
         shitpost = shitpost.upper()
     directory = os.path.dirname(__file__)
-   # with open(directory + "/shitpost.txt")
+    with open(directory + "/shitpost.txt", 'w') as tweet:
+        tweet.write(shitpost)
     return shitpost
 
 
@@ -231,18 +255,6 @@ def implying(args):  # >implying this needs a comment
     return ('>implying is used in a mocking manner to challenge an "implication" '
             'that has been made, or sometimes it can be simply used as a joke in '
             'itself.\n')
-
-
-@command("tweet")
-def twitter(args):
-    tweet = " ".join(args["args"])
-    sendmsg = args["sendmsg"]
-    channel = args["channel"]
-    r = requests.post("http://carta.im/tweetproxy/", data={'tweet':tweet})
-    if "200" in r.text:
-        return ":DDD brought to you by @proxytwt"
-    else:
-        return ":( pls fix me ;-;"
 
 
 @command("lit")

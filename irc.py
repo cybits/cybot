@@ -5,8 +5,8 @@ from commands import get_command
 # Basic config
 server = "irc.rizon.net"
 port = 6667
-channel = "#/g/punk"
-botnick = "cybits"
+channel = "#omgatestchannel"
+botnick = "cybots"
 commandprefix = "."
 
 
@@ -34,7 +34,6 @@ def parsemsg(s):
     retargs = []
     raw = s
     command = ""
-    print raw
     if not s:
         pass
     if s[0] == ":":
