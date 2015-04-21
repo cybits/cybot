@@ -294,6 +294,10 @@ def booty(args):
 def shrug(args):
     return u"¯\_(ツ)_/¯".encode('utf-8')
 
+@command("denko")
+def denko(args):
+    return u"(´･ω･`)".encode('utf-8')
+
 
 @command("cute")
 def cute(args):
