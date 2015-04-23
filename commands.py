@@ -281,6 +281,12 @@ def ray(args):
     ray = directory + os.path.join("/texts/other/timecube.txt")
     return random.choice(list(open(ray)))
 
+@command("rms")
+def stallman(args):
+    directory = os.path.dirname(__file__)
+    richard = directory + os.path.join("/text/other/stallman.txt")
+    return random.choice(list(open(richard)))
+
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
