@@ -111,7 +111,7 @@ def shitposting(args):  # almost entirely automated shitposting
     if " ".join(args["args"]) == "| tweet":
         directory = os.path.dirname(__file__)
         with open(directory + "/shitpost.txt", 'r') as twit:
-            shitpost = twit.read()
+            shitpost = twit.read()[0:140]
         return twitter(shitpost)
 
     shitpost = fourchan_json.get_random_post()
@@ -274,6 +274,12 @@ def pike(args):
     directory = os.path.dirname(__file__)
     pike = directory + os.path.join("/texts/other/rob.txt")
     return random.choice(list(open(pike)))
+
+@command("gene")
+def ray(args):
+    directory = os.path.dirname(__file__)
+    ray = directory + os.path.join("/texts/other/timecube.txt")
+    return random.choice(list(open(ray)))
 
 @command("triforce")
 def coolt(args):
