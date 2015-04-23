@@ -284,7 +284,7 @@ def ray(args):
 @command("rms")
 def stallman(args):
     directory = os.path.dirname(__file__)
-    richard = directory + os.path.join("/text/other/stallman.txt")
+    richard = directory + os.path.join("/texts/other/stallman.txt")
     return random.choice(list(open(richard)))
 
 @command("triforce")
