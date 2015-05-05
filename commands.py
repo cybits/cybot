@@ -280,6 +280,12 @@ def ray(args):
     directory = os.path.dirname(__file__)
     ray = directory + os.path.join("/texts/other/timecube.txt")
     return random.choice(list(open(ray)))
+    
+@command("linus")
+def torv(args):
+    directory = os.path.dirname(__file__)
+    torv = directory + os.path.join("/texts/other/linus.txt")
+    return random.choice(list(open(torv)))
 
 @command("rms")
 def stallman(args):
