@@ -1,0 +1,12 @@
+Portability is for people who cannot write new programs. 
+If you need more than 3 levels of indentation, you're screwed anyway, and should fix your program. 
+Making Linux GPL'd was definitely the best thing I ever did. 
+Hey, that's not a bug, that's a feature!
+I personally just encourage people to switch to KDE.
+Gcc is crap. 
+It has nothing to do with dinosaurs. Good taste doesn't go out of style 
+WE DO NOT BREAK USERSPACE!
+I wish everybody was as nice as I am.
+Nvidia, fuck you!
+I don’t care about you.
+I am a lazy person, which is why I like open source, for other people to do work for me. 
