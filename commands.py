@@ -293,6 +293,12 @@ def stallman(args):
     richard = directory + os.path.join("/texts/other/stallman.txt")
     return random.choice(list(open(richard)))
 
+@command("eightball")
+def eight(args):
+    directory = os.path.dirname(__file__)
+    eightball = directory + os.path.join("/texts/other/eightball.txt")
+    return random.choice(list(open(eight)))
+
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
