@@ -1,0 +1,22 @@
+Portability is for people who cannot write new programs. 
+If you need more than 3 levels of indentation, you're screwed anyway, and should fix your program. 
+Making Linux GPL'd was definitely the best thing I ever did. 
+Hey, that's not a bug, that's a feature!
+I personally just encourage people to switch to KDE.
+Gcc is crap. 
+It has nothing to do with dinosaurs. Good taste doesn't go out of style 
+WE DO NOT BREAK USERSPACE!
+I wish everybody was as nice as I am.
+Nvidia, fuck you!
+I don’t care about you.
+I am a lazy person, which is why I like open source, for other people to do work for me. 
+That's the spirit. Greg has taught you well. You have controlled your fear. Now, release your anger. Only your hatred can destroy me.
+An infinite number of monkeys typing into GNU emacs would never make a good program.
+Your problem has nothing to do with git, and everything to do with emacs.
+It's what I call "mental masturbation", when you engage is some pointless intellectual exercise that has no possible meaning. 
+Your code is shit.. your argument is shit.
+Standards are paper. I use paper to wipe my butt every day.
+I hope I won't end up having to hunt you all down and kill you in your sleep. 
+XML is crap.
+Lookie here, your compiler does some absolutely insane things with the spilling, including spilling a *constant*. For chrissake, that compiler shouldn't have been allowed to graduate from kindergarten. We're talking "sloth that was dropped on the head as a baby" level retardation levels here. 
+I am a lazy person, which is why I like open source, for other people to do work for me. 
