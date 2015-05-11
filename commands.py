@@ -296,7 +296,7 @@ def stallman(args):
 @command("eightball")
 def eight(args):
     directory = os.path.dirname(__file__)
-    eightball = directory + os.path.join("/texts/other/eightball.txt")
+    eight = directory + os.path.join("/texts/other/eightball.txt")
     return random.choice(list(open(eight)))
 
 @command("triforce")
