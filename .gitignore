@@ -8,7 +8,7 @@
 shitpost.txt
 ## Directory-based project format:
 .idea/
-texts/
+texts/books
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
