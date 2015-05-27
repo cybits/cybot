@@ -354,6 +354,11 @@ def cute(args):
 @command("bots")
 def bots(args):
     return "Reporting in! [Python] Try .cybhelp for commands."
+    
+@command("valka")
+def bots(args):
+    """We miss you"""
+    return "RIP"
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
