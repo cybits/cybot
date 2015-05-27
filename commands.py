@@ -358,7 +358,7 @@ def bots(args):
 @command("valka")
 def bots(args):
     """We miss you"""
-    return "RIP"
+    return "she's dead"
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
