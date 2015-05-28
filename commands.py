@@ -356,9 +356,15 @@ def bots(args):
     return "Reporting in! [Python] Try .cybhelp for commands."
     
 @command("valka")
-def bots(args):
+def valka(args):
     """We miss you"""
-    return "she's dead"
+    return "Foxboron is my favorite Norwegian"
+    
+@command("hackers")
+def hackers(args):
+    directory = os.path.dirname(__file__)
+    hackers = directory + os.path.join("/texts/other/hackers.txt")
+    return random.choice(list(open(hackers)))
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
