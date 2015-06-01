@@ -110,7 +110,7 @@ while True:
     for ircmsg in process_data(data):
         if "PING :" in ircmsg:
             ircsock.send("PONG :ping\n")
-        elif channel in data:
+        elif channel in ircmsg:
             args = parsemsg(ircmsg)
             cmd = get_command(args["command"])
             try:
