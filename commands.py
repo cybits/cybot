@@ -178,6 +178,31 @@ def hello(user):  # This function responds to a user that inputs "Hello cybits"
     return str
 
 
+@command("ayylmao")
+def ayylmao(args): 
+	import time
+	sendmsg = args["sendmsg"]
+	line = ('ABDUCTION: INCOMING')
+ayylien = ["       .-""""-.        .-""""-.    ",
+           "      /        \      /        \   ",
+           "     /_        _\    /_        _\  ",
+           "    // \      / \\  // \      / \\ ",
+           "    |\__\    /__/|  |\__\    /__/| ",
+	   "     \    ||    /    \    ||    /  ",
+	   "      \        /      \        /   ",
+	   "       \  __  /        \  __  /    ",
+           "        '.__.' ayy lmao '.__.'     "]
+ircmsg = args["raw"]
+user = ircmsg.split(":")[1].split('!')[0]
+channel = args["channel"]
+sendmsg(channel, line)
+for lines in ayylien:
+	sendmsg(user, lines)
+	time.sleep(1)
+# Doing all the logic inside the function
+# Since sendmsg wont post empty strings.
+return ""
+
 @command("feel")
 def feel(args):  # >tfw
     import time
