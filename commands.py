@@ -387,7 +387,7 @@ def bots(args):
 @command("valka")
 def valka(args):
     """We miss you"""
-    return "Foxboron is my favorite Norwegian"
+    return "..."
     
 @command("hackers")
 def hackers(args):
