@@ -395,6 +395,12 @@ def hackers(args):
     hackers = directory + os.path.join("/texts/other/hackers.txt")
     return random.choice(list(open(hackers)))
 
+@command("noided")
+def noided(args):
+    directory = os.path.dirname(__file__)
+    noided = directory + os.path.join("/texts/other/grips.txt")
+    return random.choice(list(open(noided)))
+
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
     for line in strarray:
