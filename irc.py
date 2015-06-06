@@ -6,7 +6,7 @@ from commands import get_command
 server = "irc.rizon.net"
 port = 6667
 channel = "#/g/punk"
-botnick = "cybutts"
+botnick = "cybits"
 commandprefix = "."
 
 
