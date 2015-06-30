@@ -114,7 +114,12 @@ def shitposting(args):  # almost entirely automated shitposting
             shitpost = twit.read()[0:140]
         return twitter(shitpost)
 
-    shitpost = fourchan_json.get_random_post()
+    m = re.search(r"from /([a-z]{1,3})/", " ".join(args["args"]))
+    if m:
+        shitpost = fourchan_json.get_not_so_random_post(m.group(1))
+    else:
+        shitpost = fourchan_json.get_random_post()
+
     shitpost = shitpost.split("\x0f")
     res_shitpost = []
     for l in shitpost:
