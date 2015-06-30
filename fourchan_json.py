@@ -4,6 +4,8 @@ import random
 import sys
 from HTMLParser import HTMLParser
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class MLStripper(HTMLParser):
         def __init__(self):
@@ -121,6 +123,4 @@ def get_not_so_random_post(board):
             if len(text) > 1 and not text[2:].isdigit():
                 final = text.encode('utf-8')
                 return final
-            else:
-                return get_not_so_random_post(board)
     return "ded."
