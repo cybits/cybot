@@ -4,8 +4,6 @@ import random
 import sys
 from HTMLParser import HTMLParser
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 class MLStripper(HTMLParser):
         def __init__(self):
@@ -107,20 +105,3 @@ def get_random_post():
                 get_random_post()
         except:
             return "Fuck unicode"
-
-def get_not_so_random_post(board):
-    valid_boards = ["3","a","adv","an","asp","b","biz","c","cgl","ck","cm","co","d","diy","e","f","fa","fit","g","gd","gif","h","hc","hm","hr","i","ic","int","jp","k","lgbt","lit","m","mlp","mu","n","o","out","p","po","pol","qa","r","r9k","s","s4s","sci","soc","sp","t","tg","toy","trv","tv","u","v","vg","vp","vr","w","wg","wsg","x","y"]
-    if board not in valid_boards:
-       return get_random_post()
-    
-    data = json.loads((urllib.urlopen("http://a.4cdn.org/" + board + "/1.json")).read())
-    threads = data['threads']
-    for i in range(0,len(threads)):
-        thread = threads[i]['posts'][0]
-        if 'com' in thread and 'sticky' not in thread:
-            content = thread['com']
-            text = (formattext(content))
-            if len(text) > 1 and not text[2:].isdigit():
-                final = text.encode('utf-8')
-                return final
-    return "ded."
