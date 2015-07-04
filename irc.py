@@ -1,4 +1,5 @@
 import socket
+import ssl
 from commands import get_command
 
 
@@ -99,8 +100,9 @@ def process_data(data):
     return lines
 
 
-ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-ircsock.connect((server, port))
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((server, port))
+ircsock = ssl.wrap_socket(s)
 ircsock.send("USER %s %s %s :some stuff\n" % (botnick, botnick, botnick))
 ircsock.send("NICK %s\n" % botnick)
 joinchan(channel)
