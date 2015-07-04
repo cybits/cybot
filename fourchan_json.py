@@ -69,15 +69,19 @@ def get_random_post(args):
 
         allboards = data['boards']
 
-        i = random.randint(0, len(allboards)-1)
+        found = False
 
         if args['args']:
             i = 0
             for board in allboards:
                 i += 1
                 if args['args'][-1:][0] in board['meta_description'].split()[0]:
+                    found = True
                     i -= 1
                     break
+
+        if not found:
+            i = random.randint(0, len(allboards)-1)
 
         board = allboards[i]['board']
         numpages = allboards[i]['pages']
