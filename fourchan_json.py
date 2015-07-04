@@ -110,12 +110,12 @@ def get_random_post(args):
                     final = text.encode('utf-8')
                     return final
                 else:
-                    get_random_post()
+                    get_random_post(args)
 
             elif iterations == 10:
                 return "No shitpost found."
 
             else:
-                get_random_post()
+                get_random_post(args)
         except:
             return "Fuck unicode"
