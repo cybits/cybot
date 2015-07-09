@@ -72,10 +72,11 @@ def get_random_post(args):
         found = False
 
         if args['args']:
+            print args['args']
             i = 0
             for board in allboards:
                 i += 1
-                if args['args'][-1:][0] in board['meta_description'].split()[0]:
+                if args['args'][-1:][0] in board['meta_description'].split()[0].split('&quot;')[-1:]:
                     found = True
                     i -= 1
                     break
