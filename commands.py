@@ -149,7 +149,7 @@ def interjection(args):  # I'd just like to interject for a moment
 
 @command("git")
 def git(args):
-    str = "https://github.com/lovelaced/cybot What are we going to do on the repo? waaaah fork =3\n"
+    str = "https://github.com/cybits/cybot What are we going to do on the repo? waaaah fork =3\n"
     return str
 
 
