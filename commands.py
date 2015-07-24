@@ -403,7 +403,7 @@ def noided(args):
    
 @command("just")
 def just(args):
-	return "DO IT", "JUST DO IT", "DON'T LET YOUR DREAMS BE DREAMS", "YESTERDAY YOU SAID TOMORROW", "SO JUST-", "DO IT", "MAKE YOUR DREAMS COME TRUE", "JUST-DO IT", "YES YOU CAN", "JUST DO IT", "If you are tired of starting over, stop giving up", "/me flexes"
+	return "DO IT", "JUST DO IT", "DON'T LET YOUR DREAMS BE DREAMS", "YESTERDAY YOU SAID TOMORROW", "SO JUST-", "DO IT", "MAKE YOUR DREAMS COME TRUE", "JUST-DO IT", "YES YOU CAN", "JUST DO IT", "If you are tired of starting over, stop giving up", "*flexes*"
 
 @command("spooky")
 def spooky(args):
