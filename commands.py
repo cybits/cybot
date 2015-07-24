@@ -400,6 +400,10 @@ def noided(args):
     directory = os.path.dirname(__file__)
     noided = directory + os.path.join("/texts/other/grips.txt")
     return random.choice(list(open(noided)))
+   
+@command("just")
+def just(args):
+	return "DO IT", "JUST DO IT", "DON'T LET YOUR DREAMS BE DREAMS", "YESTERDAY YOU SAID TOMORROW", "SO JUST-", "DO IT", "MAKE YOUR DREAMS COME TRUE", "JUST-DO IT", "YES YOU CAN", "JUST DO IT", "If you are tired of starting over, stop giving up", "/me flexes"
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
