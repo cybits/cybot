@@ -400,7 +400,17 @@ def noided(args):
     directory = os.path.dirname(__file__)
     noided = directory + os.path.join("/texts/other/grips.txt")
     return random.choice(list(open(noided)))
+   
+@command("just")
+def just(args):
+	return "DO IT", "JUST DO IT", "DON'T LET YOUR DREAMS BE DREAMS", "YESTERDAY YOU SAID TOMORROW", "SO JUST-", "DO IT", "MAKE YOUR DREAMS COME TRUE", "JUST-DO IT", "YES YOU CAN", "JUST DO IT", "If you are tired of starting over, stop giving up", "/me flexes"
 
+@command("spooky")
+def spooky(args):
+    directory = os.path.dirname(__file__)
+    spook = directory + os.path.join("/texts/other/spooks")
+    return random.choice(list(open(spook)))
+   
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
     for line in strarray:
