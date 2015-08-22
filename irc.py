@@ -7,7 +7,7 @@ from commands import get_command
 server = "irc.rizon.net"
 port = 6667
 
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print("Usage: main.py <channel> [nick]")
     exit(1)
 channel = sys.argv[1]
