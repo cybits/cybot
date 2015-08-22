@@ -30,5 +30,3 @@ http://gateway.ipfs.io/ipfs/QmNiRaRz6t5FU9DMGVzFuHeS6bP9N7SoaPtSrLtMZzqHwD/giphy
 http://gateway.ipfs.io/ipfs/QmebQxuj9Z9u79XMUWBN6nGjfCRmPtP1tsQ4fRPUsPTSVU/guinea-pig-110309-bg.jpg
 http://gateway.ipfs.io/ipfs/QmP8G3HeafuPk3hv6rxtRXQPUEcamo8X3WWbPff1RBhdzW/13897-Young-Abyssinian-rosette-Guinea-pigs-white-background.jpg
 http://gateway.ipfs.io/ipfs/QmcRdXuDb92Bf4SCuNbxCHkkzTxLf7VgSRB84cTWqFaWPv/p5548_column_grid_12.jpg
-
-
