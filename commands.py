@@ -151,7 +151,9 @@ def interjection(args):  # I'd just like to interject for a moment
 def git(args):
     str = "https://github.com/cybits/cybot What are we going to do on the repo? waaaah fork =3\n"
     return str
-
+@command("reminder")
+def reminder(args):  # today, I will remind them
+    return ('Remember to fix your posture :D http://gateway.ipfs.io/ipfs/QmR91KZ77KMg1h8HqBTxtHNZiWCECiXhHkTR7coVqyyFvF/posture.jpg\n')
 
 @command("memearrows")
 def memearrows(args):  # >implying you can triforce
