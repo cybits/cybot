@@ -294,6 +294,12 @@ def sentence(args):  # This function grabs a random sentence from a txt file and
     return get_random_line(line) + "\n"
     # return get_random_line(random.choice(os.listdir("/home/polaris/PycharmProjects/cybot/texts/"))) + "\n"
 
+@command("guinea")
+def guinea(args):
+    directory = os.path.dirname(__file__)	
+    guinea = directory + os.path.join("/texts/other/guinea.txt")
+    return random.choice(list(open(guinea)))
+    
 @command("terry")
 def terry(args):  # Grabs a random Terry quote from the 9front list
     directory = os.path.dirname(__file__)
