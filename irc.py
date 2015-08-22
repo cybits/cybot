@@ -12,7 +12,7 @@ if len(sys.argv) < 2:
     print("Usage: main.py <channel> [nick]")
     exit(1)
 channel = sys.argv[1]
-botnick = "BOT" + str(random.randint(1, 9999)) if len(sys.argv) < 4 else sys.argv[2]
+botnick = "BOT" + str(random.randint(1, 9999)) if len(sys.argv) < 3 else sys.argv[2]
 commandprefix = "."
 
 def sendmsg(recipient, msg):
