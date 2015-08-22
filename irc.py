@@ -1,4 +1,5 @@
 import socket
+import sys
 from commands import get_command
 
 
@@ -7,7 +8,7 @@ server = "irc.rizon.net"
 port = 6667
 
 if len(sys.argv) < 1:
-    print "Usage: main.py <channel> [nick]"
+    print("Usage: main.py <channel> [nick]")
     exit(1)
 channel = sys.argv[1]
 botnick = "BOT" + random.randint(1, 9999) if len(sys.argv) < 3 else sys.argv[2]
