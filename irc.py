@@ -105,6 +105,7 @@ def process_data(data):
 
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+time.sleep(.5)
 ircsock.connect((server, port))
 time.sleep(.5)
 ircsock.send("USER %s %s %s :some stuff\n" % (botnick, botnick, botnick))
