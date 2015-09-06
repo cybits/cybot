@@ -300,6 +300,12 @@ def guinea(args):
     guinea = directory + os.path.join("/texts/other/guinea.txt")
     return random.choice(list(open(guinea)))
     
+@command("checkem")
+def checkem(args):
+    directory = os.path.dirname(__file__)	
+    checkem = directory + os.path.join("/texts/other/checkem.txt")
+    return random.choice(list(open(checkem)))
+    
 @command("terry")
 def terry(args):  # Grabs a random Terry quote from the 9front list
     directory = os.path.dirname(__file__)
