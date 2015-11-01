@@ -251,6 +251,10 @@ def feel(args):  # >tfw
     # Since sendmsg wont post empty strings.
     return ""
 
+@command("wake")
+def wake(args):
+    return "(can't wake up)"
+
 
 # TODO: Use this for something
 def autointerject(args):  # making sure users don't forget the GNU
@@ -302,9 +306,8 @@ def guinea(args):
     
 @command("checkem")
 def checkem(args):
-    directory = os.path.dirname(__file__)	
-    checkem = directory + os.path.join("/texts/other/checkem.txt")
-    return random.choice(list(open(checkem)))
+    not_dubs = random.randint(0, 99)
+    return str(not_dubs).zfill(2)
     
 @command("terry")
 def terry(args):  # Grabs a random Terry quote from the 9front list
