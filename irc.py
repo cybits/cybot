@@ -1,5 +1,6 @@
 import socket
 import sys
+import ssl
 import time
 import random
 from commands import get_command
@@ -7,7 +8,7 @@ from commands import get_command
 
 # Basic config
 server = "irc.rizon.net"
-port = 6667
+port = 6697
 if len(sys.argv) < 2:
     print("Usage: main.py <channel> [nick]")
     exit(1)
@@ -103,10 +104,11 @@ def process_data(data):
         _partial_data += lines.pop()
     return lines
 
-
-ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 time.sleep(.5)
-ircsock.connect((server, port))
+s.connect((server, port))
+time.sleep(.5)
+ircsock = ssl.wrap_socket(s)
 time.sleep(.5)
 ircsock.send("USER %s %s %s :some stuff\n" % (botnick, botnick, botnick))
 time.sleep(.5)
