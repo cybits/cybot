@@ -5,7 +5,11 @@ import random
 import string
 import re
 import requests
+import praw
 
+
+user_agent = ("get_random_post from subreddit for IRC")
+r = praw.Reddit(user_agent=user_agent)
 
 class tcol:
         NORMAL = u"\u000f"
@@ -130,6 +134,22 @@ def shitposting(args):  # almost entirely automated shitposting
         tweet.write(shitpost)
     return shitpost
 
+@command("le")
+def reddit(args):
+
+    subreddit = args["args"][0]
+
+    if not args:
+        subreddit = "Windows10"
+
+    rando_list = []
+
+    subr = r.get_random_submission(subreddit)
+    flat_comments = praw.helpers.flatten_tree(subr.comments)
+    rando_list.append(subr.selftext)
+    for comment in flat_comments:
+        rando_list.append(comment.body)
+    return random.choice(rando_list).replace('\n', ' ')
 
 @command("cybhelp")
 def halp(args):
