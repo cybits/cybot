@@ -137,9 +137,9 @@ def shitposting(args):  # almost entirely automated shitposting
 @command("le")
 def reddit(args):
 
-    subreddit = args["args"][0]
-
-    if not args:
+    if args["args"][0]:
+        subreddit = args["args"][0]
+    else:
         subreddit = "Windows10"
 
     rando_list = []
@@ -148,7 +148,11 @@ def reddit(args):
     flat_comments = praw.helpers.flatten_tree(subr.comments)
     rando_list.append(subr.selftext)
     for comment in flat_comments:
-        rando_list.append(comment.body)
+        if type(comment) == "MoreComments":
+            for comm in comment.comments:
+                rando_list.append(comm)
+        else:
+            rando_list.append(comment.body)
     return random.choice(rando_list).replace('\n', ' ')
 
 @command("cybhelp")
