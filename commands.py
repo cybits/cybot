@@ -146,7 +146,6 @@ def reddit(args):
     rando_list = []
     try:
         subr = r.get_random_submission(subreddit)
-        r.get
     except Exception as e:
         return e
 
