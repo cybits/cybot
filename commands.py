@@ -4,6 +4,7 @@ import fourchan_json
 import random
 import string
 import re
+import time
 import requests
 import praw
 
@@ -140,19 +141,22 @@ def reddit(args):
     if args["args"][0]:
         subreddit = args["args"][0]
     else:
-        subreddit = "Windows10"
+        subreddit = "linux"
 
     rando_list = []
+    try:
+        subr = r.get_random_submission(subreddit)
+        r.get
+    except Exception as e:
+        return e
 
-    subr = r.get_random_submission(subreddit)
+    subr.replace_more_comments(limit=None, threshold=0)
     flat_comments = praw.helpers.flatten_tree(subr.comments)
+    print subr.selftext
+    print rando_list
     rando_list.append(subr.selftext)
     for comment in flat_comments:
-        if type(comment) == "MoreComments":
-            for comm in comment.comments:
-                rando_list.append(comm)
-        else:
-            rando_list.append(comment.body)
+        rando_list.append(comment.body)
     return random.choice(rando_list).replace('\n', ' ')
 
 @command("cybhelp")
