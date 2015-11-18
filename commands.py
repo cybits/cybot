@@ -7,10 +7,11 @@ import re
 import time
 import requests
 import praw
-
+#from hackn import HN
 
 user_agent = ("get_random_post from subreddit for IRC")
 r = praw.Reddit(user_agent=user_agent)
+#hn = HN()
 
 class tcol:
         NORMAL = u"\u000f"
@@ -137,11 +138,12 @@ def shitposting(args):  # almost entirely automated shitposting
 
 @command("le")
 def reddit(args):
+    new_args = args["args"]
 
-    if args["args"][0]:
-        subreddit = args["args"][0]
+    if new_args:
+        subreddit = new_args[0]
     else:
-        subreddit = "linux"
+        subreddit = "linuxcirclejerk"
 
     rando_list = []
     try:
@@ -149,14 +151,39 @@ def reddit(args):
     except Exception as e:
         return e
 
+
     subr.replace_more_comments(limit=None, threshold=0)
     flat_comments = praw.helpers.flatten_tree(subr.comments)
     print subr.selftext
-    print rando_list
     rando_list.append(subr.selftext)
+    print subr.short_link[7:]
     for comment in flat_comments:
         rando_list.append(comment.body)
-    return random.choice(rando_list).replace('\n', ' ')
+    print rando_list
+    if not rando_list:
+        reddit(args)
+    choice_post = None
+    while not choice_post:
+        choice_post = random.choice(rando_list).replace('\n', ' ')
+
+    if len(choice_post) > 500:
+        return choice_post[:480] + " " + subr.short_link
+    else:
+        return choice_post
+
+#@command("hn")
+#def hackernews(args):
+
+#    comments = []
+
+ #   for story in hn.get_stories(story_type='newest', limit=120):
+  #      for comment in story.get_comments():
+  #          comments.append(comment.body)
+
+   # comment = random.choice(comments)
+
+   # return comment.replace('\n', ' ')
+
 
 @command("cybhelp")
 def halp(args):
