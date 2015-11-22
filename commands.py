@@ -160,7 +160,7 @@ def reddit(args):
     for comment in flat_comments:
         rando_list.append(comment.body)
     print rando_list
-    if not rando_list:
+    if len(rando_list) < 2:
         reddit(args)
     choice_post = None
     while not choice_post:
