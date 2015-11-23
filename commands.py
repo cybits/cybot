@@ -160,16 +160,17 @@ def reddit(args):
     for comment in flat_comments:
         rando_list.append(comment.body)
     print rando_list
-    if len(rando_list) < 2:
-        reddit(args)
+    if rando_list:
+        if len(rando_list) < 2:
+            reddit(args)
     choice_post = None
     while not choice_post:
         choice_post = random.choice(rando_list).replace('\n', ' ')
 
-    if len(choice_post) > 500:
-        return choice_post[:480] + " " + subr.short_link
-    else:
-        return choice_post
+    #if len(choice_post) > 500:
+     #   return choice_post[:480] + " " + subr.short_link
+    #else:
+    return choice_post
 
 #@command("hn")
 #def hackernews(args):
