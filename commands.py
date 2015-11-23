@@ -163,6 +163,8 @@ def reddit(args):
     if rando_list:
         if len(rando_list) < 2:
             reddit(args)
+    if not rando_list:
+        reddit(args)
     choice_post = None
     while not choice_post:
         choice_post = random.choice(rando_list).replace('\n', ' ')
