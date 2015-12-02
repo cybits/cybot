@@ -458,11 +458,6 @@ def cute(args):
 def bots(args):
     return "Reporting in! [Python] Try .cybhelp for commands."
     
-@command("valka")
-def valka(args):
-    """We miss you"""
-    return "..."
-  
 @command("spikehog")
 def spikehog(args):
     directory = os.path.dirname(__file__)	
