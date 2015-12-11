@@ -7,7 +7,7 @@ cybot
 __Features include:__
 * featured in quality channels IRC-wide
 * the subject of much debate and controversy
-* runs on __any hardware__ (that runs python 2.7)
+* runs on __any hardware__ (that runs python 3.4)
 * fresh, new talent in the bot world
 
 __Reviews:__
@@ -20,4 +20,4 @@ For extensive help, all you have to do is type `.cybhelp` in the channel!
 
 For any nerds not running a good shell, to get the bot running: 
 cd into the cybot directory 
-python2.7 irc.py '#nameofchannel' botname
+python3.4 irc.py '#nameofchannel' botname
