@@ -153,10 +153,13 @@ def reddit(args):
     if not subr:
         reddit(args)
 
-    subr.replace_more_comments(limit=None, threshold=0)
-
-    if not subr.comments or subr.selftext:
+    if not subr.comments and not subr.selftext:
         reddit(args)
+
+    if subr.comments: 
+    	subr.replace_more_comments(limit=None, threshold=0)
+    else:
+        return subr.selftext
 
     flat_comments = praw.helpers.flatten_tree(subr.comments)
 
