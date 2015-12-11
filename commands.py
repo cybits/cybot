@@ -14,17 +14,17 @@ r = praw.Reddit(user_agent=user_agent)
 #hn = HN()
 
 class tcol:
-        NORMAL = u"\u000f"
-        BOLD = u"\u0002"
-        UNDERLINE = u"\u001f"
-        REVERSE = u"\u0016"
-        WHITE = u"\u00030"
-        BLACK = u"\u00031"
-        DARK_BLUE = u"\u00032"
-        DARK_GREEN = u"\u00033"
-        RED = u"\u00034"
-        BROWN = u"\u00035"
-        GREEN = u"\u00039"
+        NORMAL = "\u000f"
+        BOLD = "\u0002"
+        UNDERLINE = "\u001f"
+        REVERSE = "\u0016"
+        WHITE = "\u00030"
+        BLACK = "\u00031"
+        DARK_BLUE = "\u00032"
+        DARK_GREEN = "\u00033"
+        RED = "\u00034"
+        BROWN = "\u00035"
+        GREEN = "\u00039"
 
 
 def get_random_line(file_name):
@@ -94,7 +94,6 @@ def get_command(name):
 
 
 def twitter(args):
-    print args
     if type(args) is not str:
         tweet = " ".join(args["args"])
         sendmsg = args["sendmsg"]
@@ -151,15 +150,20 @@ def reddit(args):
     except Exception as e:
         return e
 
+    if not subr:
+        reddit(args)
 
     subr.replace_more_comments(limit=None, threshold=0)
+
+    if not subr.comments or subr.selftext:
+        reddit(args)
+
     flat_comments = praw.helpers.flatten_tree(subr.comments)
-    print subr.selftext
+
     rando_list.append(subr.selftext)
-    print subr.short_link[7:]
     for comment in flat_comments:
-        rando_list.append(comment.body)
-    print rando_list
+        if comment.body:
+            rando_list.append(comment.body)
     if rando_list:
         if len(rando_list) < 2:
             reddit(args)
@@ -259,8 +263,8 @@ def ayylmao(args):
     channel = args["channel"]
     sendmsg(channel, line)
     for lines in ayylien:
-	sendmsg(user, lines)
-	time.sleep(1)
+        sendmsg(user, lines)
+        time.sleep(1)
    # ayy lmao 
    # Doing all the logic inside the function
    # Since sendmsg wont post empty strings.
@@ -407,23 +411,23 @@ def coolt(args):
     sendmsg = args["sendmsg"]
     spaces1 = random.randint(1,5)
     spaces2 = random.randint(1,3)
-    string1 = (" "*spaces1 + (u"▲").encode('utf-8'))
-    string2 = (" "*spaces2 + (u"▲ ▲").encode('utf-8'))
+    string1 = (" "*spaces1 + ("▲"))
+    string2 = (" "*spaces2 + ("▲ ▲"))
     return string1, string2
 
 
 @command("booty")
 def booty(args):
-    return u"( ͡° ͜ʖ ͡°)".encode('utf-8')
+    return "( ͡° ͜ʖ ͡°)"
 
 
 @command("shrug")
 def shrug(args):
-    return u"¯\_(ツ)_/¯".encode('utf-8')
+    return "¯\_(ツ)_/¯"
 
 @command("denko")
 def denko(args):
-    return u"(´･ω･`)".encode('utf-8')
+    return "(´･ω･`)"
 
 
 @command("cute")
@@ -431,27 +435,26 @@ def cute(args):
     user = getuser(args["raw"])
     args = args["args"]
     if len(args) < 1:
-        cutelist = [u"✿◕ ‿ ◕✿".encode('utf-8'), u"❀◕ ‿ ◕❀".encode('utf-8'), u"(✿◠‿◠)".encode('utf-8'),
-                    u"(◕‿◕✿) ".encode('utf-8'), u"( ｡◕‿◕｡)".encode('utf-8'), u"(◡‿◡✿)".encode('utf-8'),
-                    u"⊂◉‿◉つ ❤".encode('utf-8'), u"{ ◕ ◡ ◕}".encode('utf-8'), u"( ´・‿-) ~ ♥".encode('utf-8'),
-                    u"(っ⌒‿⌒)っ~ ♥".encode('utf-8'), u"ʕ´•ᴥ•`ʔσ”".encode('utf-8'), u"(･Θ･) caw".encode('utf-8'),
-                    u"(=^･ω･^)y＝".encode('utf-8'), u"ヽ(=^･ω･^=)丿".encode('utf-8'), u"~(=^･ω･^)ヾ(^^ )".encode('utf-8'),
-                    u"| (•□•) | (❍ᴥ❍ʋ)".encode('utf-8'), u"ϞϞ(๑⚈ ․̫ ⚈๑)∩".encode('utf-8'), u"ヾ(･ω･*)ﾉ".encode('utf-8'),
-                    u"▽・ω・▽ woof~".encode('utf-8'), u"(◎｀・ω・´)人(´・ω・｀*)".encode('utf-8'), u"(*´・ω・)ノ(-ω-｀*)".encode('utf-8'),
-                    u"(❁´ω`❁)".encode('utf-8'), u"(＊◕ᴗ◕＊)".encode('utf-8'), u"{´◕ ◡ ◕｀}".encode('utf-8'), u"₍•͈ᴗ•͈₎".encode('utf-8'),
-                    u"(˘･ᴗ･˘)".encode('utf-8'), u"(ɔ ˘⌣˘)˘⌣˘ c)".encode('utf-8'), u"(⊃｡•́‿•̀｡)⊃".encode('utf-8'), u"(´ε｀ )♡".encode('utf-8'),
-                    u"(◦˘ З(◦’ںˉ◦)♡".encode('utf-8'), u"( ＾◡＾)っ~ ❤ Leper".encode('utf-8'),
-                    u"╰(　´◔　ω　◔ `)╯".encode('utf-8'), u"(*･ω･)".encode('utf-8'), u"(∗•ω•∗)".encode('utf-8'), u"( ◐ω◐ )".encode('utf-8')]
+        cutelist = ["✿◕ ‿ ◕✿", "❀◕ ‿ ◕❀", "(✿◠‿◠)",
+                    "(◕‿◕✿) ", "( ｡◕‿◕｡)", "(◡‿◡✿)",
+                    "⊂◉‿◉つ ❤", "{ ◕ ◡ ◕}", "( ´・‿-) ~ ♥",
+                    "(っ⌒‿⌒)っ~ ♥", "ʕ´•ᴥ•`ʔσ”", "(･Θ･) caw",
+                    "(=^･ω･^)y＝", "ヽ(=^･ω･^=)丿", "~(=^･ω･^)ヾ(^^ )",
+                    "| (•□•) | (❍ᴥ❍ʋ)", "ϞϞ(๑⚈ ․̫ ⚈๑)∩", "ヾ(･ω･*)ﾉ",
+                    "▽・ω・▽ woof~", "(◎｀・ω・´)人(´・ω・｀*)", "(*´・ω・)ノ(-ω-｀*)",
+                    "(❁´ω`❁)", "(＊◕ᴗ◕＊)", "{´◕ ◡ ◕｀}", "₍•͈ᴗ•͈₎",
+                    "(˘･ᴗ･˘)", "(ɔ ˘⌣˘)˘⌣˘ c)", "(⊃｡•́‿•̀｡)⊃", "(´ε｀ )♡",
+                    "(◦˘ З(◦’ںˉ◦)♡", "( ＾◡＾)っ~ ❤ Leper",
+                    "╰(　´◔　ω　◔ `)╯", "(*･ω･)", "(∗•ω•∗)", "( ◐ω◐ )"]
     else:
         args = " ".join(args)
-        print args
-        cutelist = [u"(✿◠‿◠)っ~ ♥ ".encode('utf-8') + args, u"⊂◉‿◉つ ❤ ".encode('utf-8') + args, u"( ´・‿-) ~ ♥ ".encode('utf-8') + args,
-                    u"(っ⌒‿⌒)っ~ ♥ ".encode('utf-8') + args, u"ʕ´•ᴥ•`ʔσ” BEARHUG ".encode('utf-8') + args,
-                    user + u" ~(=^･ω･^)ヾ(^^ ) ".encode('utf-8') + args, user + u" (◎｀・ω・´)人(´・ω・｀*) ".encode('utf-8') + args,
-                    user + u" (*´・ω・)ノ(-ω-｀*) ".encode('utf-8') + args,
-                    user + u" (ɔ ˘⌣˘)˘⌣˘ c) ".encode('utf-8') + args,
-                    u"(⊃｡•́‿•̀｡)⊃ U GONNA GET HUGGED ".encode('utf-8') + args, args + u" (´ε｀ )♡".encode('utf-8'),
-                    user + u" (◦˘ З(◦’ںˉ◦)♡ ".encode('utf-8') + args, u"( ＾◡＾)っ~ ❤ ".encode('utf-8') + args]
+        cutelist = ["(✿◠‿◠)っ~ ♥ " + args, "⊂◉‿◉つ ❤ " + args, "( ´・‿-) ~ ♥ " + args,
+                    "(っ⌒‿⌒)っ~ ♥ " + args, "ʕ´•ᴥ•`ʔσ” BEARHUG " + args,
+                    user + " ~(=^･ω･^)ヾ(^^ ) " + args, user + " (◎｀・ω・´)人(´・ω・｀*) " + args,
+                    user + " (*´・ω・)ノ(-ω-｀*) " + args,
+                    user + " (ɔ ˘⌣˘)˘⌣˘ c) " + args,
+                    "(⊃｡•́‿•̀｡)⊃ U GONNA GET HUGGED " + args, args + " (´ε｀ )♡",
+                    user + " (◦˘ З(◦’ںˉ◦)♡ " + args, "( ＾◡＾)っ~ ❤ " + args]
     return random.choice(cutelist)
 
 @command("bots")
@@ -488,6 +491,4 @@ def spooky(args):
    
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
-    for line in strarray:
-        print line
     return strarray

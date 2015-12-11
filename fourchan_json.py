@@ -2,11 +2,12 @@ import json
 import urllib
 import random
 import sys
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 
 class MLStripper(HTMLParser):
         def __init__(self):
+                super().__init__()
                 self.reset()
                 self.fed = []
 
@@ -19,12 +20,14 @@ class MLStripper(HTMLParser):
 
 def strip_tags(html):
         s = MLStripper()
+        print("html", html)
         s.feed(html)
+        print("get data", s.get_data())
         return s.get_data()
 
 
 def formattext(text):
-        text = text.replace("<br>", u"\u000f ")
+        text = text.replace("<br>", " ")
         text = text.replace("&gt;", ">")
         text = text.replace("&#039;", "'")
         text = strip_tags(text)
@@ -44,16 +47,16 @@ def is_number(s):
 
 
 def get_boards_json():
-    response = urllib.urlopen("http://a.4cdn.org/boards.json")
-    return json.loads(response.read())
+    response = urllib.request.urlopen("http://a.4cdn.org/boards.json")
+    return json.loads(response.read().decode('utf-8'))
 
 
 def get_page_json(board, pageindex):
-    return json.loads((urllib.urlopen("http://a.4cdn.org/" + board + "/" + str(pageindex) + ".json")).read())
+    return json.loads(((urllib.request.urlopen("http://a.4cdn.org/" + board + "/" + str(pageindex) + ".json")).read().decode('utf-8')))
 
 
 def get_thread_json(board, threadno):
-    return json.loads((urllib.urlopen("http://a.4cdn.org/" + board + "/thread/" + str(threadno) + ".json")).read())
+    return json.loads((urllib.request.urlopen("http://a.4cdn.org/" + board + "/thread/" + str(threadno) + ".json")).read().decode('utf-8'))
 
 
 def get_op_no(pagedata, threadindex):
@@ -66,13 +69,11 @@ def get_random_post(args):
 
     for iterations in range(0, 10):
         data = get_boards_json()
-
         allboards = data['boards']
 
         found = False
 
         if args['args']:
-            print args['args']
             i = 0
             for board in allboards:
                 i += 1
@@ -108,7 +109,7 @@ def get_random_post(args):
                 text = (formattext(content))
 
                 if len(text) > 1 and not text[2:].isdigit():
-                    final = text.encode('utf-8')
+                    final = text
                     return final
                 else:
                     get_random_post(args)
@@ -119,4 +120,4 @@ def get_random_post(args):
             else:
                 get_random_post(args)
         except:
-            return "Fuck unicode"
+            return "No random post for you"

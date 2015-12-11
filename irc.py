@@ -22,12 +22,13 @@ def sendmsg(recipient, msg):
         for i in msg:
             ircsock.send("PRIVMSG %s :%s\n" % (recipient, i))
     elif msg:
-        ircsock.send("PRIVMSG %s :%s\n" % (recipient, msg))
+        ircsock.send(bytes("PRIVMSG %s :%s\n" % (recipient, msg), 'UTF-8'))
 
 
 def joinchan(chan):
     """Joins a channel."""
-    ircsock.send("JOIN %s\n" % chan)
+    print("trying")
+    ircsock.send(bytes("JOIN %s\n" % chan, 'UTF-8'))
 
 
 def parsemsg(s):
@@ -88,7 +89,9 @@ def process_data(data):
     data: raw data from the socket.
     """
     global _partial_data
-
+    
+    data = data.decode(encoding='UTF-8')
+    print(data)
     if not data:
         return []
     lines = data.splitlines()
@@ -110,9 +113,9 @@ s.connect((server, port))
 time.sleep(.5)
 ircsock = ssl.wrap_socket(s)
 time.sleep(.5)
-ircsock.send("USER %s %s %s :some stuff\n" % (botnick, botnick, botnick))
+ircsock.send(bytes("USER %s %s %s :some stuff\n" % (botnick, botnick, botnick), 'UTF-8'))
 time.sleep(.5)
-ircsock.send("NICK %s\n" % botnick)
+ircsock.send(bytes("NICK %s\n" % botnick, 'UTF-8'))
 time.sleep(.5)
 joinchan(channel)
 
@@ -120,9 +123,9 @@ while True:
     data = ircsock.recv(1024)
     for ircmsg in process_data(data):
         if "PING :" in ircmsg:
-            ircsock.send("PONG :ping\n")
+            ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
         elif channel in ircmsg:
-            args = parsemsg(ircmsg)
+            args = parsemsg(str(ircmsg))
             cmd = get_command(args["command"])
             try:
                 sendmsg(channel, cmd(args))
