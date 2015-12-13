@@ -139,16 +139,17 @@ def shitposting(args):  # almost entirely automated shitposting
 def reddit(args):
     new_args = args["args"]
 
+    subreddit = "linuxcirclejerk"
     if new_args:
         subreddit = new_args[0]
-    else:
-        subreddit = "linuxcirclejerk"
 
     rando_list = []
-    try:
-        subr = r.get_random_submission(subreddit)
-    except Exception as e:
-        return e
+
+    while True:
+        try:
+            subr = r.get_random_submission(subreddit)
+        except: pass
+        finally: break
 
     if not subr:
         reddit(args)
@@ -156,8 +157,8 @@ def reddit(args):
     if not subr.comments and not subr.selftext:
         reddit(args)
 
-    if subr.comments: 
-    	subr.replace_more_comments(limit=None, threshold=0)
+    if subr.comments:
+        subr.replace_more_comments(limit=None, threshold=0)
     else:
         return subr.selftext
 
@@ -245,11 +246,11 @@ def hello(user):  # This function responds to a user that inputs "Hello cybits"
 
 
 @command("ayylmao")
-def ayylmao(args): 
+def ayylmao(args):
     import time
     sendmsg = args["sendmsg"]
     line = ('ABDUCTION: INCOMING')
-    
+
     ayylien = ["       .-""""-.        .-""""-.    ",
                "      /        \      /        \   ",
                "     /_        _\    /_        _\  ",
@@ -259,8 +260,8 @@ def ayylmao(args):
                "      \        /      \        /   ",
                "       \  __  /        \  __  /    ",
                "        '.__.' ayy lmao '.__.'     "]
-    
-    
+
+
     ircmsg = args["raw"]
     user = ircmsg.split(":")[1].split('!')[0]
     channel = args["channel"]
@@ -268,7 +269,7 @@ def ayylmao(args):
     for lines in ayylien:
         sendmsg(user, lines)
         time.sleep(1)
-   # ayy lmao 
+   # ayy lmao
    # Doing all the logic inside the function
    # Since sendmsg wont post empty strings.
     return ""
@@ -364,15 +365,15 @@ def sentence(args):  # This function grabs a random sentence from a txt file and
 
 @command("guinea")
 def guinea(args):
-    directory = os.path.dirname(__file__)	
+    directory = os.path.dirname(__file__)
     guinea = directory + os.path.join("/texts/other/guinea.txt")
     return random.choice(list(open(guinea)))
-    
+
 @command("checkem")
 def checkem(args):
     not_dubs = random.randint(0, 99)
     return str(not_dubs).zfill(2)
-    
+
 @command("terry")
 def terry(args):  # Grabs a random Terry quote from the 9front list
     directory = os.path.dirname(__file__)
@@ -390,7 +391,7 @@ def ray(args):
     directory = os.path.dirname(__file__)
     ray = directory + os.path.join("/texts/other/timecube.txt")
     return random.choice(list(open(ray)))
-    
+
 @command("linus")
 def torv(args):
     directory = os.path.dirname(__file__)
@@ -463,12 +464,12 @@ def cute(args):
 @command("bots")
 def bots(args):
     return "Reporting in! [Python] Try .cybhelp for commands."
-    
+
 @command("spikehog")
 def spikehog(args):
-    directory = os.path.dirname(__file__)	
+    directory = os.path.dirname(__file__)
     spikehog = directory + os.path.join("/texts/other/spikehog.txt")
-    return random.choice(list(open(spikehog)))   
+    return random.choice(list(open(spikehog)))
 
 @command("hackers")
 def hackers(args):
@@ -481,7 +482,7 @@ def noided(args):
     directory = os.path.dirname(__file__)
     noided = directory + os.path.join("/texts/other/grips.txt")
     return random.choice(list(open(noided)))
-   
+
 @command("just")
 def just(args):
 	return "DO IT", "JUST DO IT", "DON'T LET YOUR DREAMS BE DREAMS", "YESTERDAY YOU SAID TOMORROW", "SO JUST-", "DO IT", "MAKE YOUR DREAMS COME TRUE", "JUST-DO IT", "YES YOU CAN", "JUST DO IT", "If you are tired of starting over, stop giving up", "*flexes*"
@@ -491,7 +492,7 @@ def spooky(args):
     directory = os.path.dirname(__file__)
     spook = directory + os.path.join("/texts/other/spooks")
     return random.choice(list(open(spook)))
-   
+
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
     return strarray
