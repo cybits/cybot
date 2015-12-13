@@ -19,5 +19,9 @@ __Reviews:__
 For extensive help, all you have to do is type `.cybhelp` in the channel!
 
 For any nerds not running a good shell, to get the bot running: 
-cd into the cybot directory 
-python3.4 irc.py '#nameofchannel' botname
+
+```
+cd cybot
+pip install -r requirements.txt
+python irc.py '#nameofchannel' botname
+```
