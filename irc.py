@@ -123,8 +123,9 @@ def pipe_commands(args, channel):
             a.append(out)
         args["command"] = cmd
         args["args"] = a
+        print(a)
         c = get_command(args["command"])
-        out = c(args)
+        out = " ".join(c(args))
     sendmsg(channel, out)
 
 
