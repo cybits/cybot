@@ -130,7 +130,7 @@ while True:
             try:
                 sendmsg(channel, cmd(args))
             except Exception as e:
-                raise e
+                print(e)
                 sendmsg(channel, (str(e)))
         else:
             continue

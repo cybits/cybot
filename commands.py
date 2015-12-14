@@ -148,9 +148,7 @@ def reddit(args):
     subr = None
     while True:
         subr = r.get_random_submission(subreddit)
-        if subr.comments and subr.selftext:
-            break
-        if subr:
+        if subr.comments and subr.selftext or subr and subr.selftext:
             break
 
 
