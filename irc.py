@@ -3,6 +3,7 @@ import sys
 import ssl
 import time
 import random
+import itertools
 from commands import get_command
 
 
@@ -107,6 +108,27 @@ def process_data(data):
         _partial_data += lines.pop()
     return lines
 
+def isplit(iterable,splitters):
+    return [list(g) for k,g in itertools.groupby(iterable,lambda x:x in splitters) if not k]
+
+def pipe_commands(args, channel):
+    pipelist = args["args"].copy()
+    pipelist.insert(0,args["command"])
+    l = isplit(pipelist,"|")
+    out = None
+    for i in l:
+        cmd = i[0].strip(".")
+        a = i[1:]
+        if out:
+            a.append(out)
+        args["command"] = cmd
+        args["args"] = a
+        c = get_command(args["command"])
+        out = c(args)
+    sendmsg(channel, out)
+
+
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 time.sleep(.5)
 s.connect((server, port))
@@ -126,11 +148,14 @@ while True:
             ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
         elif channel in ircmsg:
             args = parsemsg(str(ircmsg))
-            cmd = get_command(args["command"])
-            try:
-                sendmsg(channel, cmd(args))
-            except Exception as e:
-                print(e)
-                sendmsg(channel, (str(e)))
+            if "|" in args["args"]:
+                pipe_commands(args, channel)
+            else:
+                cmd = get_command(args["command"])
+                try:
+                    sendmsg(channel, cmd(args))
+                except Exception as e:
+                    print(e)
+                    sendmsg(channel, (str(e)))
         else:
             continue
