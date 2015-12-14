@@ -100,7 +100,7 @@ def twitter(args):
         channel = args["channel"]
     else:
         tweet = args
-    r = requests.post("http://carta.im/tweetproxy/", data={'tweet': tweet[139]})
+    r = requests.post("http://carta.im/tweetproxy/", data={'tweet': tweet[:139]})
     if "200" in r.text:
         return ":DDD brought to you by @proxytwt"
     else:
