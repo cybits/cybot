@@ -102,7 +102,7 @@ def twitter(args):
         tweet = args
     r = requests.post("http://carta.im/tweetproxy/", data={'tweet': tweet[:139]})
     if "200" in r.text:
-        return ":DDD brought to you by @proxytwt"
+        return tweet[:139] @proxytwt
     else:
         return ":( pls fix me ;-;"
 
