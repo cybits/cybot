@@ -89,7 +89,7 @@ def process_data(data):
     data: raw data from the socket.
     """
     global _partial_data
-    
+
     data = data.decode(encoding='UTF-8')
     print(data)
     if not data:
@@ -130,6 +130,7 @@ while True:
             try:
                 sendmsg(channel, cmd(args))
             except Exception as e:
+                raise e
                 sendmsg(channel, (str(e)))
         else:
             continue
