@@ -145,17 +145,14 @@ def reddit(args):
 
     rando_list = []
 
+    subr = None
     while True:
-        try:
-            subr = r.get_random_submission(subreddit)
-        except: pass
-        finally: break
+        subr = r.get_random_submission(subreddit)
+        if subr.comments and subr.selftext:
+            break
+        if subr:
+            break
 
-    if not subr:
-        reddit(args)
-
-    if not subr.comments and not subr.selftext:
-        reddit(args)
 
     if subr.comments:
         subr.replace_more_comments(limit=None, threshold=0)
@@ -171,8 +168,6 @@ def reddit(args):
     if rando_list:
         if len(rando_list) < 2:
             reddit(args)
-    if not rando_list:
-        reddit(args)
     choice_post = None
     while not choice_post:
         choice_post = random.choice(rando_list).replace('\n', ' ')
