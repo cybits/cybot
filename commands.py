@@ -7,11 +7,9 @@ import re
 import time
 import requests
 import praw
-#from hackn import HN
 
 user_agent = ("get_random_post from subreddit for IRC")
 r = praw.Reddit(user_agent=user_agent)
-#hn = HN()
 
 class tcol:
         NORMAL = "\u000f"
@@ -113,20 +111,15 @@ def tweet(args):
 
 @command("shitpost")
 def shitposting(args):  # almost entirely automated shitposting
-    if " ".join(args["args"]) == "| tweet":
-        directory = os.path.dirname(__file__)
-        with open(directory + "/shitpost.txt", 'r') as twit:
-            shitpost = twit.read()[0:140]
-        return twitter(shitpost)
 
     shitpost = fourchan_json.get_random_post(args)
-    shitpost = shitpost.split("\x0f")
+    shitpost = shitpost.split("\x0F")
     res_shitpost = []
     for l in shitpost:
         if l.strip().startswith(">"):
             l = tcol.DARK_GREEN + l
         res_shitpost.append(l)
-    shitpost = "\x0f".join(res_shitpost)
+    shitpost = "\x0F".join(res_shitpost)
 
     if args["command"].isupper():
         shitpost = shitpost.upper()
@@ -167,23 +160,8 @@ def reddit(args):
     while not choice_post:
         choice_post = random.choice(rando_list).replace('\n', ' ')
 
-    #if len(choice_post) > 500:
-     #   return choice_post[:480] + " " + subr.short_link
-    #else:
+    print(subr.short_link)
     return choice_post
-
-#@command("hn")
-#def hackernews(args):
-
-#    comments = []
-
- #   for story in hn.get_stories(story_type='newest', limit=120):
-  #      for comment in story.get_comments():
-  #          comments.append(comment.body)
-
-   # comment = random.choice(comments)
-
-   # return comment.replace('\n', ' ')
 
 
 @command("cybhelp")
