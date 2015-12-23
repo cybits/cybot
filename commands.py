@@ -92,7 +92,8 @@ def get_command(name):
 
 
 def twitter(args):
-    if type(args) is not str:
+    print(args["args"], type(args["args"]))
+    if type(args["args"]) is not str:
         tweet = " ".join(args["args"])
         sendmsg = args["sendmsg"]
         channel = args["channel"]
@@ -113,13 +114,13 @@ def tweet(args):
 def shitposting(args):  # almost entirely automated shitposting
 
     shitpost = fourchan_json.get_random_post(args)
-    shitpost = shitpost.split("\x0F")
+    shitpost = shitpost.split(" ")
     res_shitpost = []
     for l in shitpost:
         if l.strip().startswith(">"):
             l = tcol.DARK_GREEN + l
         res_shitpost.append(l)
-    shitpost = "\x0F".join(res_shitpost)
+    shitpost = (tcol.NORMAL + " ").join(res_shitpost)
 
     if args["command"].isupper():
         shitpost = shitpost.upper()
