@@ -4,12 +4,9 @@ import fourchan_json
 import random
 import string
 import re
+import reddit
 import time
 import requests
-import praw
-
-user_agent = ("get_random_post from subreddit for IRC")
-r = praw.Reddit(user_agent=user_agent)
 
 class tcol:
         NORMAL = "\u000f"
@@ -127,43 +124,21 @@ def shitposting(args):  # almost entirely automated shitposting
     return shitpost
 
 @command("le")
-def reddit(args):
+def reddit_le(args):
     new_args = args["args"]
 
     subreddit = "linuxcirclejerk"
     if new_args:
         subreddit = new_args[0]
 
-    rando_list = []
+    try:
+        response = reddit.get_random_comment(subreddit)
+    except reddit.APIError as e:
+        raise e
+    except:
+        raise Exception('Serious Reddit API error, everything is on fire')
 
-    subr = None
-    while True:
-        subr = r.get_random_submission(subreddit)
-        if subr.comments and subr.selftext or subr and subr.selftext:
-            break
-
-
-    if subr.comments:
-        subr.replace_more_comments(limit=None, threshold=0)
-    else:
-        return subr.selftext
-
-    flat_comments = praw.helpers.flatten_tree(subr.comments)
-
-    rando_list.append(subr.selftext)
-    for comment in flat_comments:
-        if comment.body:
-            rando_list.append(comment.body)
-    if rando_list:
-        if len(rando_list) < 2:
-            reddit(args)
-    choice_post = None
-    while not choice_post:
-        choice_post = random.choice(rando_list).replace('\n', ' ')
-
-    print(subr.short_link)
-    return choice_post
-
+    return response
 
 @command("cybhelp")
 def halp(args):
@@ -288,7 +263,6 @@ def feel(args):  # >tfw
 @command("wake")
 def wake(args):
     return "(can't wake up)"
-
 
 # TODO: Use this for something
 def autointerject(args):  # making sure users don't forget the GNU
