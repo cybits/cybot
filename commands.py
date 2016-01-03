@@ -8,6 +8,7 @@ import reddit
 import time
 import requests
 
+
 class tcol:
         NORMAL = "\u000f"
         BOLD = "\u0002"
@@ -111,13 +112,13 @@ def tweet(args):
 def shitposting(args):  # almost entirely automated shitposting
 
     shitpost = fourchan_json.get_random_post(args)
-    shitpost = shitpost.split(" ")
     res_shitpost = []
-    for l in shitpost:
-        if l.strip().startswith(">"):
-            l = tcol.DARK_GREEN + l
+    for l in shitpost.splitlines():
+        l = l.strip()
+        if l.startswith(">"):
+            l = tcol.DARK_GREEN + l + tcol.NORMAL
         res_shitpost.append(l)
-    shitpost = (tcol.NORMAL + " ").join(res_shitpost)
+    shitpost = " ".join(res_shitpost)
 
     if args["command"].isupper():
         shitpost = shitpost.upper()
