@@ -27,7 +27,7 @@ def strip_tags(html):
 
 
 def formattext(text):
-        text = text.replace("<br>", " ")
+        text = text.replace("<br>", "\n")
         text = text.replace("&gt;", ">")
         text = text.replace("&#039;", "'")
         text = strip_tags(text)
