@@ -192,7 +192,6 @@ def hello(user):  # This function responds to a user that inputs "Hello cybits"
 
 @command("ayylmao")
 def ayylmao(args):
-    import time
     sendmsg = args["sendmsg"]
     line = ('ABDUCTION: INCOMING')
 
@@ -221,7 +220,6 @@ def ayylmao(args):
 
 @command("feel")
 def feel(args):  # >tfw
-    import time
     sendmsg = args["sendmsg"]
     line = ('"tfw no gf" is an abbreviated expression for "that feeling [I get] '
               'when [I have] no girlfriend" often used in online discussions and '
