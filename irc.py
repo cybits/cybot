@@ -90,8 +90,10 @@ def process_data(data):
     data: raw data from the socket.
     """
     global _partial_data
-
-    data = data.decode(encoding='UTF-8')
+    try:
+        data = data.decode(encoding='UTF-8')
+    except Exception as e:
+        return 
     print(data)
     if not data:
         return []
@@ -118,6 +120,8 @@ def pipe_commands(args, channel):
     out = None
     for i in l:
         cmd = i[0].strip(".")
+        if cmd == "tweet":
+            pass
         a = i[1:]
         if out:
             a.append(out)
@@ -126,7 +130,8 @@ def pipe_commands(args, channel):
         print(a)
         c = get_command(args["command"])
         print(type(c), c)
-        out = "".join(c(args))
+        if not cmd == "rate" or not cmd == "r8":
+            out = "".join(c(args))
     sendmsg(channel, out)
 
 
@@ -145,11 +150,20 @@ joinchan(channel)
 
 while True:
     data = ircsock.recv(1024)
+    try:
+        valid_data = process_data(data)
+    except Exception as e:
+        continue
+    if not valid_data:
+        continue
     for ircmsg in process_data(data):
         if "PING :" in ircmsg:
             ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
         elif channel in ircmsg:
-            args = parsemsg(str(ircmsg))
+            try:
+                args = parsemsg(str(ircmsg))
+            except Exception as e:
+                pass
             if "|" in args["args"]:
                 pipe_commands(args, channel)
             else:

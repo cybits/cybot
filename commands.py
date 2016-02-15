@@ -5,8 +5,10 @@ import random
 import string
 import re
 import reddit
+from nltk.tag import pos_tag
 import time
 import requests
+from bs4 import BeautifulSoup
 
 
 class tcol:
@@ -413,6 +415,45 @@ def spikehog(args):
     spikehog = directory + os.path.join("/texts/other/spikehog.txt")
     return random.choice(list(open(spikehog)))
 
+@command("rate")
+def random_rate0(args):
+    message = args["args"]
+    give_rating = random.randint(0, 1)
+    message = pos_tag(message)
+    print(message)
+    nounlist = []
+    for word, tag in message:
+        if tag == "NNP" or tag == "NN":
+            nounlist.append(word)
+    if not nounlist:
+        nounlist.append("nothings")
+    word = nounlist[random.randint(0, len(nounlist)-1)]
+    rating = random.randint(0, 10)
+    if give_rating or nounlist[0] == "nothings":
+        return str(rating) + "/10"
+    else:
+        return word + "/10"
+
+
+@command("r8")
+def random_rate(args):
+    message = args["args"]
+    give_rating = random.randint(0, 1)
+    message = pos_tag(message)
+    print(message)
+    nounlist = []
+    for word, tag in message:
+        if tag == "NNP" or tag == "NN":
+            nounlist.append(word)
+    if not nounlist:
+        nounlist.append("nothings")
+    word = nounlist[random.randint(0, len(nounlist)-1)]
+    rating = random.randint(0, 10)
+    if give_rating or nounlist[0] == "nothings":
+        return str(rating) + "/10"
+    else:
+        return word + "/10"
+
 @command("hackers")
 def hackers(args):
     directory = os.path.dirname(__file__)
@@ -438,3 +479,58 @@ def spooky(args):
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
     strarray = string.split(str, "\n")
     return strarray
+
+@command("ba")  
+def ba(args):  
+    #define a user agent  
+    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}  
+    baseurl = "http://www.beeradvocate.com"  
+    if args["args"]:  
+        try:  
+            int(args["args"][-1])  
+            payload = {"q" : " ".join(args["args"][:-1])}  
+        except ValueError:  
+            payload = {"q" : " ".join(args["args"])}  
+        r = requests.get(baseurl + "/search/", headers=user_agent, params=payload)  
+        if r.status_code == 200:  
+            soup = BeautifulSoup(r.text, "html.parser")  
+            regex = re.compile("/beer/profile/.*/.+") #so we match only the beers and not the brewery.
+            beers = []
+            for i in range(int(round(len(soup.find_all('a'))/2))):
+                if re.match(regex, (soup.find_all('a')[i].get("href"))):
+                    beers.append(soup.find_all('a')[i].get("href"))
+            if len(beers) > 0:  
+                data = beer_lookup(baseurl+beers[0], user_agent)
+                print(data)
+                oneliner = data['name'].decode() + " | " + data['style'].decode(), "BA score: " + data['ba_score'].decode() + " (From: " + data['ba_ratings'].decode() +") | Bro score: " + data['bro_score'].decode(), data['brewery'].decode() + " | " + data['abv'].decode(), (baseurl+beers[0])[11:]
+                return " ".join(oneliner)
+  
+            else:  
+               return "No results from BA."  
+  
+# BA helper function.  
+def beer_lookup(url, user_agent):  
+    r = requests.get(url, headers=user_agent)  
+    if r.status_code == 200:  
+        soup = BeautifulSoup(r.text, "html.parser")  
+        table = soup.find('table', attrs = {"width" : "100%"})  
+        data = []  
+        rows = table.find_all("tr")  
+        for r in rows:  
+            cols = r.find_all("td")  
+            cols = [e.text.strip() for e in cols]  
+            data.append([e for e in cols if e])  
+  
+        info = {}  
+        rel_data = data[0][1].split('\n')  
+        info['name'] = soup.title.string.split("|")[0]  
+        info['ba_score'] = rel_data[1]  
+        info['ba_class'] = rel_data[2]  
+        info['ba_ratings'] = rel_data[3]  
+        info['bro_score'] = rel_data[7]  
+        info['brewery'] = rel_data[25]  
+        (info['style'], info['abv']) = rel_data[29].split("|")  
+        for e in info.keys():  
+            info[e] = info[e].encode("utf-8")
+        return info  
+
