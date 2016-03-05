@@ -106,10 +106,26 @@ def twitter(args):
     else:
         return ":( pls fix me ;-;"
 
+def random_image(image_link):
+    """
+    Opens a directory with images using bs4.
+    Then picks one value from list of images.
+    """
+    img_list = []
+    soup = BeautifulSoup(requests.get(image_link).text, "html.parser")
+    for i in soup.findAll("a"):
+        parsed = image_link+i['href']
+        img_list.append(parsed)
+    img_link = random.choice(img_list)
+    return img_link
 
 @command("tweet")
 def tweet(args):
     return twitter(args)
+
+@command("rms.sexy")
+def rms_sexy(args):
+    return random_image("https://rms.sexy/img/")
 
 @command("shitpost")
 def shitposting(args):  # almost entirely automated shitposting
