@@ -4,18 +4,33 @@ import ssl
 import time
 import random
 import itertools
+import json
 from commands import get_command
 
 
-# Basic config
-server = "irc.rizon.net"
-port = 6697
 if len(sys.argv) < 2:
-    print("Usage: main.py <channel> [nick]")
+    print("Usage: irc.py [config.json]")
     exit(1)
-channel = sys.argv[1]
-botnick = "BOT" + str(random.randint(1, 9999)) if len(sys.argv) < 3 else sys.argv[2]
-commandprefix = "."
+#load config from json, check if everything is alrighty
+with open(sys.argv[1], 'r') as data_file:
+    try:
+        config = json.loads(data_file.read())
+    except json.decoder.JSONDecodeError:
+        print('Please provide valid config')
+        exit(1)
+try:
+    server = config["server"]
+    port = config["port"]
+    channel_list = config["channels"]
+    if config["bot_nick"]:
+        botnick = config["bot_nick"]
+    else:
+        botnick = "BOT" + str(random.randint(1, 9999))
+    password = config["password"]
+    commandprefix = config["prefix"]
+except KeyError:
+    print('Please provide valid config')
+    exit(1)
 
 def sendmsg(recipient, msg):
     """Sends a message."""
@@ -31,6 +46,9 @@ def joinchan(chan):
     print("trying")
     ircsock.send(bytes("JOIN %s\n" % chan, 'UTF-8'))
 
+def auth(pass_word):
+    """Works only on Nickserv servers"""
+    sendmsg("Nickserv", "identify %s" % pass_word)
 
 def parsemsg(s):
     """Breaks a message from an IRC server into its prefix, command, and
@@ -145,8 +163,13 @@ time.sleep(.5)
 ircsock.send(bytes("USER %s %s %s :some stuff\n" % (botnick, botnick, botnick), 'UTF-8'))
 time.sleep(.5)
 ircsock.send(bytes("NICK %s\n" % botnick, 'UTF-8'))
+if password:
+    time.sleep(.5)
+    auth(password)
 time.sleep(.5)
-joinchan(channel)
+for channel in channel_list:
+    joinchan(channel)
+    time.sleep(.5)
 
 while True:
     data = ircsock.recv(1024)
@@ -159,9 +182,10 @@ while True:
     for ircmsg in process_data(data):
         if "PING :" in ircmsg:
             ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
-        elif channel in ircmsg:
+        elif any(channel in ircmsg for channel in channel_list):
             try:
                 args = parsemsg(str(ircmsg))
+                channel = args['channel']
             except Exception as e:
                 pass
             if "|" in args["args"]:

@@ -1,0 +1,8 @@
+{
+    "server" : "irc.rizon.net",
+    "port" : 6697, 
+    "bot_nick" : 0,
+    "channels" : ["#bots", "#test"],
+    "password" : 0 ,
+    "prefix" : "."
+}
