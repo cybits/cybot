@@ -372,12 +372,14 @@ def eight(args):
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
+    channel = args["channel"]
     spaces1 = random.randint(1,5)
     spaces2 = random.randint(1,3)
     string1 = (" "*spaces1 + ("▲"))
     string2 = (" "*spaces2 + ("▲ ▲"))
-    return string1, string2
-
+    sendmsg(channel, string1)
+    sendmsg(channel, string2)
+    return ""
 
 @command("booty")
 def booty(args):
