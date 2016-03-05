@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import fourchan_json
+import fourchan_pic
 import random
 import string
 import re
@@ -125,6 +126,20 @@ def shitposting(args):  # almost entirely automated shitposting
     if args["command"].isupper():
         shitpost = shitpost.upper()
     return shitpost
+
+@command("pic")
+def pic(args): #random pic from 4chan for big guys
+    new_args = args["args"]
+    new_args.append('')
+    nick = args["prefix"].split('!')[0]
+    random = True
+    board_exists = False
+    if len(new_args) != 1:
+        random = False
+        board_exists = fourchan_pic.open_board(new_args[0])
+    if board_exists or random:
+            response = '{}: {}'.format(nick, fourchan_pic.main(new_args))
+            return response
 
 @command("le")
 def reddit_le(args):
