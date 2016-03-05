@@ -6,6 +6,7 @@
 *.iml
 *.pyc
 shitpost.txt
+*.json
 ## Directory-based project format:
 .idea/
 texts/books

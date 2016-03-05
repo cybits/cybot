@@ -23,5 +23,17 @@ For any nerds not running a good shell, to get the bot running:
 ```
 cd cybot
 pip install -r requirements.txt
-python irc.py '#nameofchannel' botname
+python irc.py <config.json>
+```
+
+Config Syntax
+```
+{
+    "server" : "irc.rizon.net", <- server address
+    "port" : 6697, <- server port
+    "bot_nick" : "cybot", <- nick of bot, 0 for random nick
+    "channels" : ["#bots", "#test"], <- list of channels to connect to
+    "password" : "bot123", <- password of bot, 0 for random password
+    "prefix" : "." <- command prefix so commands start with $prefix
+}
 ```
