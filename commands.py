@@ -385,6 +385,12 @@ def eight(args):
     eight = directory + os.path.join("/texts/other/eightball.txt")
     return random.choice(list(open(eight)))
 
+@command("lewd")
+def lewd(args):
+    directory = os.path.dirname(__file__)
+    lewd = directory + os.path.join("/texts/other/lewd.txt")
+    return random.choice(list(open(lewd)))
+
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
