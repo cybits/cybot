@@ -395,6 +395,12 @@ def lewd(args):
     lewd = directory + os.path.join("/texts/other/lewd.txt")
     return random.choice(list(open(lewd)))
 
+@command("smug")
+def smug(args):
+    directory = os.path.dirname(__file__)
+    smug = directory + os.path.join("/texts/other/smug.txt")
+    return random.choice(list(open(smug)))
+
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
