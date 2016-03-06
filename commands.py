@@ -512,7 +512,7 @@ def just(args):
 @command("spooky")
 def spooky(args):
     directory = os.path.dirname(__file__)
-    spook = directory + os.path.join("/texts/other/spooks")
+    spook = directory + os.path.join("/texts/other/spooks.txt")
     return random.choice(list(open(spook)))
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
