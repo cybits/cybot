@@ -296,6 +296,10 @@ def feel(args):  # >tfw
 def wake(args):
     return "(can't wake up)"
 
+@command("twerk")
+def twerk(args):
+    return "♪┏(・o･)┛♪┗ ( ･o･) ┓♪┏ (・o･) ┛♪┗ (･o･ ) ┓♪┏(･o･)┛♪"
+
 # TODO: Use this for something
 def autointerject(args):  # making sure users don't forget the GNU
     str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
