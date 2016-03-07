@@ -1,6 +1,7 @@
 """Gets random picture from chosen board"""
 from urllib import request, error
 from random import randrange
+import json
 import re
 
 class Info:
@@ -19,16 +20,16 @@ def open_board(board_c):
             return None
 
 def main(info=['', '']):
+    board_list_json = json.loads(request.urlopen("http://a.4cdn.org/boards.json").read().decode('utf-8'))
+    board_dict = {i["board"]:i["ws_board"] for i in board_list_json["boards"]}
+    board_l = list(board_dict.keys())
     if not info[0]:
-        board_list_json = request.urlopen("http://a.4cdn.org/boards.json").read().decode('utf-8')
-        board_l = re.findall(r'"board":"(\w+)"', board_list_json)
         information = Info(board_l[randrange(0, len(board_l))], '')
     else:
         information = Info(info[0], info[1])
-    if information.board == 'f': #/f/ is causing tons of problems
+    if information.board == 'f' or information.board not in board_l: #/f/ is causing tons of problems
         return main()
-    if information.board in ['s', 'hc', 'hm', 'h', 'e', 'u', 'd', 'y', 'hr', 'gif', 'b', 'aco', \
-                            'r', 'r9k', 'pol', 'soc']:
+    if board_dict[information.board] == 0:
         nsfw = ' [NSFW]'
     else:
         nsfw = ''

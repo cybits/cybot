@@ -106,10 +106,26 @@ def twitter(args):
     else:
         return ":( pls fix me ;-;"
 
+def random_image(image_link):
+    """
+    Opens a directory with images using bs4.
+    Then picks one value from list of images.
+    """
+    img_list = []
+    soup = BeautifulSoup(requests.get(image_link).text, "html.parser")
+    for i in soup.findAll("a"):
+        parsed = image_link+i['href']
+        img_list.append(parsed)
+    img_link = random.choice(img_list)
+    return img_link
 
 @command("tweet")
 def tweet(args):
     return twitter(args)
+
+@command("rms.sexy")
+def rms_sexy(args):
+    return random_image("https://rms.sexy/img/")
 
 @command("shitpost")
 def shitposting(args):  # almost entirely automated shitposting
@@ -280,6 +296,10 @@ def feel(args):  # >tfw
 def wake(args):
     return "(can't wake up)"
 
+@command("twerk")
+def twerk(args):
+    return "♪┏(・o･)┛♪┗ ( ･o･) ┓♪┏ (・o･) ┛♪┗ (･o･ ) ┓♪┏(･o･)┛♪"
+
 # TODO: Use this for something
 def autointerject(args):  # making sure users don't forget the GNU
     str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
@@ -368,6 +388,18 @@ def eight(args):
     directory = os.path.dirname(__file__)
     eight = directory + os.path.join("/texts/other/eightball.txt")
     return random.choice(list(open(eight)))
+
+@command("lewd")
+def lewd(args):
+    directory = os.path.dirname(__file__)
+    lewd = directory + os.path.join("/texts/other/lewd.txt")
+    return random.choice(list(open(lewd)))
+
+@command("smug")
+def smug(args):
+    directory = os.path.dirname(__file__)
+    smug = directory + os.path.join("/texts/other/smug.txt")
+    return random.choice(list(open(smug)))
 
 @command("triforce")
 def coolt(args):
@@ -490,7 +522,7 @@ def just(args):
 @command("spooky")
 def spooky(args):
     directory = os.path.dirname(__file__)
-    spook = directory + os.path.join("/texts/other/spooks")
+    spook = directory + os.path.join("/texts/other/spooks.txt")
     return random.choice(list(open(spook)))
 
 def breaklines(str):  # This function breaks lines at \n and sends the split lines to where they need to go
