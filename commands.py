@@ -401,6 +401,33 @@ def smug(args):
     smug = directory + os.path.join("/texts/other/smug.txt")
     return random.choice(list(open(smug)))
 
+@command("joerogan")
+def joerogan(args):
+    sendmsg = args["sendmsg"]
+    channel = args["channel"]
+    if random.randrange(1,5) == 3: # chosen by fair dice roll.
+                                   # guaranteed to be random.
+        intromsg = [
+            "THIS IS YOUR DAILY REMINDER TO PLUG IN YOUR BLENDERS, HEAT UP YOUR FLOTATION TANKS TO SKIN TEMP (35.5*C)",
+            "THE WEED HAS BEEN LIT AND IT'S TIME TO SLAM YOUR KALE SHAKES, TAKE A TOKE & MARK OFF YOUR CHECKLIST TO POP YOUR:",
+            "ALPHA BRAIN",
+            "SHROOMTECH",
+            "KRILL & MCT OIL",
+            "PRIMATE CARE PILLS",
+            "https://www.youtube.com/watch?v=22GjkJw0WXk <---- HIT PLAY NIGGA"]
+        for msg in intromsg:
+            sendmsg(channel, msg)
+            time.sleep(1)
+        return ""
+    else:
+        directory = os.path.dirname(__file__)
+        joerogan = directory + os.path.join("/texts/other/joerogan.txt")
+        l = random.choice(list(open(joerogan)))
+        l = l.strip()
+        if l.startswith(">"):
+            l = tcol.DARK_GREEN + l + tcol.NORMAL
+        return l
+        
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
