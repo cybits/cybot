@@ -5,6 +5,7 @@ import time
 import random
 import itertools
 import json
+import re
 from commands import get_command
 
 
@@ -171,6 +172,8 @@ for channel in channel_list:
     joinchan(channel)
     time.sleep(.5)
 
+quotepong = re.compile(r"^:[^\s]+ 513 %s :To connect type /QUOTE PONG (\d+)" % re.escape(botnick))
+
 while True:
     data = ircsock.recv(1024)
     try:
@@ -198,4 +201,7 @@ while True:
                     print(e)
                     sendmsg(channel, (str(e)))
         else:
+            qp = quotepong.match(ircmsg)
+            if qp:
+                ircsock.send(bytes("QUOTE PONG %d\n" % int(qp.group(1)), 'UTF-8'))
             continue
