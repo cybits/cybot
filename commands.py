@@ -665,9 +665,10 @@ bicd ={"epic":"ebin",
 }
 ebinFaces = [ ':D', ':DD', ':DDD', ':-D', 'XD', 'XXD', 'XDD', 'XXDD' ];
 @command("spurd")
-def spurd(str):
-	str.lower()
+def spurd(args):
+	new_args = " ".join(args["args"])
+	new_args.lower()
 	for k, v in bicd.items():
-		str = str.replace(k,v)
+		new_args = new_args.replace(k,v)
 	
-	return str+" "+ random.choice(ebinFaces)
+	return new_args+" "+ random.choice(ebinFaces)
