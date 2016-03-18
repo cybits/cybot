@@ -1,1 +1,3 @@
 requests
+nltk
+bs4
