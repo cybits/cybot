@@ -348,6 +348,12 @@ def guinea(args):
     guinea = directory + os.path.join("/texts/other/guinea.txt")
     return random.choice(list(open(guinea)))
 
+@command("guineas")
+def guinea(args):
+    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "lxml")
+    length = len(html.findAll("a", {"class": "image-list-link"}))
+    return "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+
 @command("checkem")
 def checkem(args):
     not_dubs = random.randint(0, 99)
