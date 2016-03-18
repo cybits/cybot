@@ -610,3 +610,65 @@ def beer_lookup(url, user_agent):
             info[e] = info[e].encode("utf-8")
         return info  
 
+bicd ={"epic":"ebin",
+        "penis":"benis",
+        "wh":"w",
+        "th":"d",
+        "af":"ab",
+        "ap":"ab",
+        "ca":"ga",
+        "ck":"gg",
+        "co":"go",
+        "ev":"eb",
+        "ex":"egz",
+        "et":"ed",
+        "iv":"ib",
+        "it":"id",
+        "ke":"ge",
+        "nt":"nd",
+        "op":"ob",
+        "ot":"od",
+        "po":"bo",
+        "pe":"be",
+        "pi":"bi",
+        "up":"ub",
+        "va":"ba",
+        "cr":"gr",
+        "kn":"gn",
+        "lt":"ld",
+        "mm":"m",
+        "nt":"dn",
+        "pr":"br",
+        "ts":"dz",
+        "tr":"dr",
+        "bs":"bz",
+        "ds":"dz",
+        "fs":"fz",
+        "gs":"gz",
+        "is":"iz",
+        "ls":"lz",
+        "ms":"mz",
+        "ns":"nz",
+        "rs":"rz",
+        "ss":"sz",
+        "ts":"tz",
+        "us":"uz",
+        "ws":"wz",
+        "ys":"yz",
+        "alk":"olk",
+        "ing":"ign",
+        "ic":"ig",
+        "ng":"nk",
+        "kek":"geg",
+        "some":"sum",
+        "meme":"maymay"
+}
+ebinFaces = [ ':D', ':DD', ':DDD', ':-D', 'XD', 'XXD', 'XDD', 'XXDD' ];
+@command("spurd")
+def spurd(args):
+	new_args = " ".join(args["args"])
+	new_args.lower()
+	for k, v in bicd.items():
+		new_args = new_args.replace(k,v)
+	
+	return new_args+" "+ random.choice(ebinFaces)
