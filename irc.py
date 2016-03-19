@@ -203,5 +203,5 @@ while True:
         else:
             qp = quotepong.match(ircmsg)
             if qp:
-                ircsock.send(bytes("QUOTE PONG %d\n" % int(qp.group(1)), 'UTF-8'))
+                ircsock.send(bytes("PONG %d\r\n" % int(qp.group(1)), 'UTF-8'))
             continue
