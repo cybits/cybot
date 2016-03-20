@@ -354,6 +354,9 @@ def guinea(args):
     retval = "*blames it on GreyMan*"
     try:
         retval = "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    except IndexError:
+        pass
+    return retval
 
 @command("checkem")
 def checkem(args):
