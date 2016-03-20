@@ -695,6 +695,7 @@ def leetspeak(args):
     if input.strip() == "":
         input = random.choice(["elite", "leet", "hacks", "hax", "cyb as fuck"])
 
+    # adapted from
     # https://scripts.irssi.org/scripts/dau.pl
     # line 2943
     output = re.sub(r'fucker', 'f@#$er', input, flags=re.I|re.U)
@@ -702,11 +703,11 @@ def leetspeak(args):
     output = re.sub(r'sucker', 'sux0r', output, flags=re.I|re.U)
     output = re.sub(r'fear', 'ph34r', output, flags=re.I|re.U)
 
-    output = re.sub(r'\b(\w+)ude\b', r'\{1}00d', output, flags=re.I|re.U)
-    output = re.sub(r'\b(\w+)um\b', r'\{1}00m', output, flags=re.I|re.U)
-    output = re.sub(r'\b(\w{3,})er\b', r'\{1}0r', output, flags=re.I|re.U)
+    output = re.sub(r'\b(?P<q>\w+)ude\b', r'\g<q>00d', output, flags=re.I|re.U)
+    output = re.sub(r'\b(?P<q>\w+)um\b', r'\g<q>00m', output, flags=re.I|re.U)
+    output = re.sub(r'\b(?P<q>\w{3,})er\b', r'\g<q>0r', output, flags=re.I|re.U)
     output = re.sub(r'\bdo\b', r'd00', output, flags=re.I|re.U)
-    output = re.sub(r'\bthe\b', r'd4', output, flags=re.I|re.U)
+    output = re.sub(r'\bthe\b', r'teh', output, flags=re.I|re.U)
     output = re.sub(r'\byou\b', r'j00', output, flags=re.I|re.U)
 
     output = output.translate(str.maketrans("lLzZeEaAsSgGtTbBqQoOiIcC", "11223344556677889900||(("))
