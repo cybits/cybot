@@ -113,7 +113,6 @@ def process_data(data):
         data = data.decode(encoding='UTF-8')
     except Exception as e:
         return 
-    print(data)
     if not data:
         return []
     lines = data.splitlines()

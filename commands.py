@@ -583,7 +583,6 @@ def ba(args):
                     beers.append(soup.find_all('a')[i].get("href"))
             if len(beers) > 0:  
                 data = beer_lookup(baseurl+beers[0], user_agent)
-                print(data)
                 oneliner = data['name'].decode() + " | " + data['style'].decode(), "BA score: " + data['ba_score'].decode() + " (From: " + data['ba_ratings'].decode() +") | Bro score: " + data['bro_score'].decode(), data['brewery'].decode() + " | " + data['abv'].decode(), ("!" + baseurl+beers[0])
                 return " ".join(oneliner)
   
@@ -615,6 +614,14 @@ def beer_lookup(url, user_agent):
         for e in info.keys():  
             info[e] = info[e].encode("utf-8")
         return info  
+
+# in place case-preserving function
+def replacement_func(match, repl_pattern):
+    match_str = match.group(0)
+    repl = ''.join([r_char if m_char.islower() else r_char.upper()
+                   for r_char, m_char in zip(repl_pattern, match_str)])
+    repl += repl_pattern[len(match_str):]
+    return repl
 
 bicd ={"epic":"ebin",
         "penis":"benis",
@@ -673,8 +680,6 @@ ebinFaces = [ ':D', ':DD', ':DDD', ':-D', 'XD', 'XXD', 'XDD', 'XXDD' ];
 @command("spurd")
 def spurd(args):
 	new_args = " ".join(args["args"])
-	new_args.lower()
 	for k, v in bicd.items():
-		new_args = new_args.replace(k,v)
-	
+		new_args = re.sub(k, lambda k: replacement_func(k,v), new_args, flags=re.I)
 	return new_args+" "+ random.choice(ebinFaces)
