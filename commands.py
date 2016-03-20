@@ -9,8 +9,7 @@ import reddit
 from nltk.tag import pos_tag
 import time
 import requests
-from bs4 import BeautifulSoup
-
+import bs4
 
 class tcol:
         NORMAL = "\u000f"
@@ -350,9 +349,14 @@ def guinea(args):
 
 @command("guineas")
 def guinea(args):
-    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "lxml")
+    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "html5lib")
     length = len(html.findAll("a", {"class": "image-list-link"}))
-    return "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    retval = "*blames it on GreyMan*"
+    try:
+        retval = "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    except IndexError:
+        pass
+    return retval
 
 @command("checkem")
 def checkem(args):
