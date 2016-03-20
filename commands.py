@@ -679,57 +679,27 @@ def spurd(args):
 	
 	return new_args+" "+ random.choice(ebinFaces)
 
-# this list taken from github.com/floft/leetspeak
-elite = {
-    "a":["a","4","@","/-\\","/\\","/_\\","^","aye","ci","λ","∂","//-\\\\","/=\\","ae"],
-    "b":["b","8","|3","6","13","l3","]3","|o","1o","lo","ß","]]3","|8","l8","18","]8"],
-    "c":["c","(","<","[","{","sea","see","k","©","¢","€"],
-    "d":["d","|]","l]","1]","|)","l)","1)","[)","|}","l]","1}","])","i>","|>","l>","1>","0","cl","o|","o1","ol","Ð","∂","ð"],
-    "e":["e","3","&","[-","€","ii","ə","£","iii"],
-    "f":["f","|=","]=","}","ph","(=","[=","ʃ","eph","ph"],
-    "g":["g","6","9","&","(_+","C-","gee","jee","(Y,","cj","[","-","(γ,","(_-"],
-    "h":["h","|-|","#","[-]","{-}","]-[",")-(","(-)",":-:","}{","}-{","aych","╫","]]-[[","aech"],
-    "i":["!","1","|","l","eye","3y3","ai","i"],
-    "j":["j","_|","_/","]","</","_)","_l","_1","¿","ʝ","ul","u1","u|","jay","(/","_]"],
-    "k":["k","x","|<","|x","|{","/<","\\<","/x","\\x","ɮ","kay"],
-    "l":["l","1","7","|_","1_","l_","lJ","£","¬","el"],
-    "m":["m","/\/\\","|\\/|","em","|v|","[v]","^^","nn","//\\\\//\\\\","(V)","(\/)","/|\\","/|/|",".\\\\","/^^\\","/V\\","|^^|","JVL","][\\\\//][","[]\/[]","[]v[]","(t)"],
-    "n":["n","|\\|","/\\/","//\\\\//","[\\]","<\\>","{\\}","//","[]\\[]","]\\[","~","₪","/|/","in"],
-    "o":["o","0","()","oh","[]","{}","¤","Ω","ω","*","[[]]","oh"],
-    "p":["p","|*","l*","1*","|o","lo","1o","|>","l>","1>","|\"","l\"","1\"","?","9","[]d","|7","l7","17","q","|d","ld","1d","℗","|º","1º","lº","þ","¶","pee"],
-    "q":["q","0_","o_","0,","o,","(,)","[,]","<|","<l","<1","cue","9","¶","kew"],
-    "r":["r","|2","l2","12","2","/2","I2","|^","l^","1^","|~","l~","1~","lz","[z","|`","l`","1`",".-","®","Я","ʁ","|?","l?","1?","arr"],
-    "s":["s","5","$","z","es","2","§","š",",,\\``"],
-    "t":["t","7","+","-|-","-l-","-1-","1","']['","†"],
-    "u":["u","|_|","l_l","1_1","(_)","[_]","{_}","y3w","m","\\_/","\\_\\","/_/","µ","yew","yoo","yuu"],
-    "v":["v","\\/","\\\\//","√"],
-    "w":["w","\\/\\/","vv","'//","\\\\'","\\^/","(n)","\\x/","\\|/","\\_|_/","\\_l_/","\\_1_/","\\//\\//","\\_:_/","]i[","uu","Ш","ɰ","1/\\/","\\/1/","1/1/"],
-    "x":["x","%","><","><,","}{","ecks","x","*",")(","ex","Ж","×"],
-    "y":["y","j","`/","`(","-/","'/","\\-/","Ψ","φ","λ","Ч","¥","``//","\\j","wai"],
-    "z":["z","2","~/_","%","7_","ʒ","≥","`/_"],
-    "0":["0","o","zero","cero","()"],
-    "1":["1","won","one","l","|","]["],
-    "2":["two","to","too","2","z"],
-    "3":["e","3","three"],
-    "4":["4","four","for","fore","a"],
-    "5":["5","five","s"],
-    "6":["6","six","g"],
-    "7":["7","seven","t","l"],
-    "8":["8","eight","b"],
-    "9":["9","nine","g"]
-}
-
 @command("1337")
 def leetspeak(args):
-    input = " ".join(args["args"]).lower()
-    if input.strip() == "":
-        input = random.choice(["elite", "leet", "hacks", "hax", "cyb as fuck"])
-    output = ""
-    for i in range(0, len(input)):
-        letter = input[i]
-        try:
-            letter = random.choice(elite[letter])
-        except KeyError:
-            pass
-        output += letter
+    input = " ".join(args["args"])
+
+    # https://scripts.irssi.org/scripts/dau.pl
+    # line 2943
+    output = re.sub(r'fucker', 'f@#$er', input, flags=re.I|re.U)
+    output = re.sub(r'hacker', 'h4x0r', output, flags=re.I|re.U)
+    output = re.sub(r'sucker', 'sux0r', output, flags=re.I|re.U)
+    output = re.sub(r'fear', 'ph34r', output, flags=re.I|re.U)
+
+    output = re.sub(r'\b(\w+)ude\b', r'\{1}00d', output, flags=re.I|re.U)
+    output = re.sub(r'\b(\w+)um\b', r'\{1}00m', output, flags=re.I|re.U)
+    output = re.sub(r'\b(\w{3,})er\b', r'\{1}0r', output, flags=re.I|re.U)
+    output = re.sub(r'\bdo\b', r'd00', output, flags=re.I|re.U)
+    output = re.sub(r'\bthe\b', r'd4', output, flags=re.I|re.U)
+    output = re.sub(r'\byou\b', r'j00', output, flags=re.I|re.U)
+
+    output = output.translate(str.maketrans("lLzZeEaAsSgGtTbBqQoOiIcC", "11223344556677889900||(("))
+    if random.randrange(0,2) == 1:
+        output = output.lower()
+    else:
+        output = output.upper()
     return output
