@@ -9,8 +9,7 @@ import reddit
 from nltk.tag import pos_tag
 import time
 import requests
-from bs4 import BeautifulSoup
-
+import bs4
 
 class tcol:
         NORMAL = "\u000f"
@@ -350,9 +349,14 @@ def guinea(args):
 
 @command("guineas")
 def guinea(args):
-    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "lxml")
+    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "html5lib")
     length = len(html.findAll("a", {"class": "image-list-link"}))
-    return "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    retval = "*blames it on GreyMan*"
+    try:
+        retval = "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    except IndexError:
+        pass
+    return retval
 
 @command("checkem")
 def checkem(args):
@@ -683,3 +687,31 @@ def spurd(args):
 	for k, v in bicd.items():
 		new_args = re.sub(k, lambda k: replacement_func(k,v), new_args, flags=re.I)
 	return new_args+" "+ random.choice(ebinFaces)
+
+@command("1337")
+def leetspeak(args):
+    input = " ".join(args["args"])
+
+    if input.strip() == "":
+        input = random.choice(["elite", "leet", "hacks", "hax", "cyb as fuck"])
+
+    # https://scripts.irssi.org/scripts/dau.pl
+    # line 2943
+    output = re.sub(r'fucker', 'f@#$er', input, flags=re.I|re.U)
+    output = re.sub(r'hacker', 'h4x0r', output, flags=re.I|re.U)
+    output = re.sub(r'sucker', 'sux0r', output, flags=re.I|re.U)
+    output = re.sub(r'fear', 'ph34r', output, flags=re.I|re.U)
+
+    output = re.sub(r'\b(\w+)ude\b', r'\{1}00d', output, flags=re.I|re.U)
+    output = re.sub(r'\b(\w+)um\b', r'\{1}00m', output, flags=re.I|re.U)
+    output = re.sub(r'\b(\w{3,})er\b', r'\{1}0r', output, flags=re.I|re.U)
+    output = re.sub(r'\bdo\b', r'd00', output, flags=re.I|re.U)
+    output = re.sub(r'\bthe\b', r'd4', output, flags=re.I|re.U)
+    output = re.sub(r'\byou\b', r'j00', output, flags=re.I|re.U)
+
+    output = output.translate(str.maketrans("lLzZeEaAsSgGtTbBqQoOiIcC", "11223344556677889900||(("))
+    if random.randrange(0,2) == 1:
+        output = output.lower()
+    else:
+        output = output.upper()
+    return output
