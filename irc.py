@@ -188,17 +188,17 @@ while True:
             try:
                 args = parsemsg(str(ircmsg))
                 channel = args['channel']
+                if "|" in args["args"]:
+                    pipe_commands(args, channel)
+                else:
+                    cmd = get_command(args["command"])
+                    try:
+                        sendmsg(channel, cmd(args))
+                    except Exception as e:
+                        print(e)
+                        sendmsg(channel, (str(e)))
             except Exception as e:
                 pass
-            if "|" in args["args"]:
-                pipe_commands(args, channel)
-            else:
-                cmd = get_command(args["command"])
-                try:
-                    sendmsg(channel, cmd(args))
-                except Exception as e:
-                    print(e)
-                    sendmsg(channel, (str(e)))
         else:
             qp = quotepong.match(ircmsg)
             if qp:
