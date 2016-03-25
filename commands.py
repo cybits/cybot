@@ -495,11 +495,16 @@ def cute(args):
 def bots(args):
     return "Reporting in! [Python] Try .cybhelp for commands."
 
-@command("spikehog")
-def spikehog(args):
-    directory = os.path.dirname(__file__)
-    spikehog = directory + os.path.join("/texts/other/spikehog.txt")
-    return random.choice(list(open(spikehog)))
+@command("spikepig")
+def spikepig(args):
+    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/hedgehog/").text, "html5lib")
+    length = len(html.findAll("a", {"class": "image-list-link"}))
+    retval = "*blames it on GreyMan*"
+    try:
+        retval = "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    except IndexError:
+        pass
+    return retval
 
 @command("rate")
 def random_rate0(args):
