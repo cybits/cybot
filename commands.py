@@ -118,6 +118,16 @@ def random_image(image_link):
     img_link = random.choice(img_list)
     return img_link
 
+def imgur_pic(subreddit):
+    html = BeautifulSoup(requests.get("http://imgur.com/r/{}/".format(subreddit)).text, "html.parser")
+    length = len(html.findAll("a", {"class": "image-list-link"}))
+    retval = "\001ACTION blames it on GreyMan\001"
+    try:
+        retval = "​http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
+    except IndexError:
+        pass
+    return retval
+
 @command("tweet")
 def tweet(args):
     return twitter(args)
@@ -156,6 +166,19 @@ def pic(args): #random pic from 4chan for big guys
             response = '{}: {}'.format(nick, fourchan_pic.main(new_args))
             return response
 
+@command("repic")
+def repic(args):
+    new_args = args["args"]
+    subreddit = "linuxcirclejerk"
+    if new_args:
+        subreddit = new_args[0]
+    return imgur_pic(subreddit)
+
+@command("wiki")
+def wiki(args):
+    return "​"+ requests.get("https://en.wikipedia.org/wiki/Special:Random").url
+
+
 @command("le")
 def reddit_le(args):
     new_args = args["args"]
@@ -185,13 +208,13 @@ def halp(args):
 def interjection(args):  # I'd just like to interject for a moment
     str = ("I'd just like to interject for moment. What you're referring to as "
               "Linux, is in fact, GNU/Linux, or as I've recently taken to calling it,"
-              " GNU plus Linux. !http://pastebin.com/2YxSM4St\n")
+              " GNU plus Linux. ​http://pastebin.com/2YxSM4St\n")
     return str
 
 
 @command("git")
 def git(args):
-    str = "!https://github.com/cybits/cybot What are we going to do on the repo? waaaah fork =3\n"
+    str = "​https://github.com/cybits/cybot What are we going to do on the repo? waaaah fork =3\n"
     return str
 @command("reminder")
 def reminder(args):  # today, I will remind them
@@ -349,14 +372,7 @@ def guinea(args):
 
 @command("guineas")
 def guinea(args):
-    html = BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "html5lib")
-    length = len(html.findAll("a", {"class": "image-list-link"}))
-    retval = "*blames it on GreyMan*"
-    try:
-        retval = "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
-    except IndexError:
-        pass
-    return retval
+    return imgur_pic("guineapigs")
 
 @command("checkem")
 def checkem(args):
@@ -424,7 +440,7 @@ def joerogan(args):
             "SHROOMTECH",
             "KRILL & MCT OIL",
             "PRIMATE CARE PILLS",
-            "!https://www.youtube.com/watch?v=22GjkJw0WXk <---- HIT PLAY NIGGA"]
+            "​https://www.youtube.com/watch?v=22GjkJw0WXk <---- HIT PLAY NIGGA"]
         for msg in intromsg:
             sendmsg(channel, msg)
             time.sleep(1)
@@ -497,14 +513,7 @@ def bots(args):
 
 @command("spikepig")
 def spikepig(args):
-    html = BeautifulSoup(requests.get("http://imgur.com/r/hedgehog/").text, "html5lib")
-    length = len(html.findAll("a", {"class": "image-list-link"}))
-    retval = "*blames it on GreyMan*"
-    try:
-        retval = "http://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
-    except IndexError:
-        pass
-    return retval
+    return imgur_pic("hedgehog")
 
 @command("rate")
 def random_rate0(args):
@@ -592,7 +601,7 @@ def ba(args):
                     beers.append(soup.find_all('a')[i].get("href"))
             if len(beers) > 0:  
                 data = beer_lookup(baseurl+beers[0], user_agent)
-                oneliner = data['name'].decode() + " | " + data['style'].decode(), "BA score: " + data['ba_score'].decode() + " (From: " + data['ba_ratings'].decode() +") | Bro score: " + data['bro_score'].decode(), data['brewery'].decode() + " | " + data['abv'].decode(), ("!" + baseurl+beers[0])
+                oneliner = data['name'].decode() + " | " + data['style'].decode(), "BA score: " + data['ba_score'].decode() + " (From: " + data['ba_ratings'].decode() +") | Bro score: " + data['bro_score'].decode(), data['brewery'].decode() + " | " + data['abv'].decode(), ("​" + baseurl+beers[0])
                 return " ".join(oneliner)
   
             else:  
