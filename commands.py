@@ -9,7 +9,7 @@ import reddit
 from nltk.tag import pos_tag
 import time
 import requests
-import bs4
+from bs4 import BeautifulSoup
 
 class tcol:
         NORMAL = "\u000f"
@@ -349,7 +349,7 @@ def guinea(args):
 
 @command("guineas")
 def guinea(args):
-    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "html5lib")
+    html = BeautifulSoup(requests.get("http://imgur.com/r/guineapigs/").text, "html5lib")
     length = len(html.findAll("a", {"class": "image-list-link"}))
     retval = "*blames it on GreyMan*"
     try:
@@ -497,7 +497,7 @@ def bots(args):
 
 @command("spikepig")
 def spikepig(args):
-    html = bs4.BeautifulSoup(requests.get("http://imgur.com/r/hedgehog/").text, "html5lib")
+    html = BeautifulSoup(requests.get("http://imgur.com/r/hedgehog/").text, "html5lib")
     length = len(html.findAll("a", {"class": "image-list-link"}))
     retval = "*blames it on GreyMan*"
     try:
