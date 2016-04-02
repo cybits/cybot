@@ -121,6 +121,7 @@ def random_image(image_link):
 def imgur_pic(subreddit):
     html = BeautifulSoup(requests.get("http://imgur.com/r/{}/".format(subreddit)).text, "html.parser")
     length = len(html.findAll("a", {"class": "image-list-link"}))
+    retval = ""
     try:
         retval = "​https://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
     except IndexError:
