@@ -5,14 +5,13 @@ import time
 import random
 import itertools
 import json
-import re
 from commands import get_command
 
 
 if len(sys.argv) < 2:
     print("Usage: irc.py [config.json]")
     exit(1)
-#load config from json, check if everything is alrighty
+#load config from json, check if everything is alright
 with open(sys.argv[1], 'r') as data_file:
     try:
         config = json.loads(data_file.read())
@@ -171,8 +170,6 @@ for channel in channel_list:
     joinchan(channel)
     time.sleep(.5)
 
-quotepong = re.compile(r"^:[^\s]+ 513 %s :To connect type /QUOTE PONG (\d+)" % re.escape(botnick))
-
 while True:
     data = ircsock.recv(1024)
     try:
@@ -181,9 +178,16 @@ while True:
         continue
     if not valid_data:
         continue
+    print(data)
     for ircmsg in process_data(data):
         if "PING :" in ircmsg:
             ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
+        elif "/QUOTE PONG" in ircmsg:
+            confirm = "PONG " + ircmsg.split()[-1:][0] + "\r\n"
+            ircsock.send(bytes(confirm, 'UTF-8'))
+            for channel in channel_list:
+                joinchan(channel)
+                time.sleep(.5)
         elif any(channel in ircmsg for channel in channel_list):
             try:
                 args = parsemsg(str(ircmsg))
@@ -199,8 +203,3 @@ while True:
                         sendmsg(channel, (str(e)))
             except Exception as e:
                 pass
-        else:
-            qp = quotepong.match(ircmsg)
-            if qp:
-                ircsock.send(bytes("PONG %d\r\n" % int(qp.group(1)), 'UTF-8'))
-            continue

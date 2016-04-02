@@ -121,7 +121,6 @@ def random_image(image_link):
 def imgur_pic(subreddit):
     html = BeautifulSoup(requests.get("http://imgur.com/r/{}/".format(subreddit)).text, "html.parser")
     length = len(html.findAll("a", {"class": "image-list-link"}))
-    retval = "\001ACTION blames it on GreyMan\001"
     try:
         retval = "​https://imgur.com{}".format(html.findAll("a", {"class": "image-list-link"})[random.randint(0, length)]['href'])
     except IndexError:
@@ -166,18 +165,13 @@ def pic(args): #random pic from 4chan for big guys
             response = '{}: {}'.format(nick, fourchan_pic.main(new_args))
             return response
 
-@command("repic")
-def repic(args):
+@command("lepic")
+def lepic(args):
     new_args = args["args"]
     subreddit = "linuxcirclejerk"
     if new_args:
         subreddit = new_args[0]
     return imgur_pic(subreddit)
-
-@command("wiki")
-def wiki(args):
-    return "​"+ requests.get("https://en.wikipedia.org/wiki/Special:Random").url
-
 
 @command("le")
 def reddit_le(args):
@@ -216,6 +210,7 @@ def interjection(args):  # I'd just like to interject for a moment
 def git(args):
     str = "​https://github.com/cybits/cybot What are we going to do on the repo? waaaah fork =3\n"
     return str
+
 @command("reminder")
 def reminder(args):  # today, I will remind them
     return ('Remember to fix your posture :D http://gateway.ipfs.io/ipfs/QmR91KZ77KMg1h8HqBTxtHNZiWCECiXhHkTR7coVqyyFvF/posture.jpg\n')
@@ -236,13 +231,6 @@ def intensifies(args):  # [python intensifies]
     if args["command"].isupper():
         return ret.upper()
     else: return ret
-
-
-# TODO: Use for something
-def hello(user):  # This function responds to a user that inputs "Hello cybits"
-    # random.randint(0, 5)
-    str = ("are you even cyb, " + user + "?\n")
-    return str
 
 
 @command("ayylmao")
@@ -318,14 +306,10 @@ def feel(args):  # >tfw
 def wake(args):
     return "(can't wake up)"
 
-@command("twerk")
-def twerk(args):
-    return "♪┏(・o･)┛♪┗ ( ･o･) ┓♪┏ (・o･) ┛♪┗ (･o･ ) ┓♪┏(･o･)┛♪"
-
 # TODO: Use this for something
 def autointerject(args):  # making sure users don't forget the GNU
     str1 = ("I'd just like to interject for moment. What you're referring to as Linux, is in fact, "
-            "GNU/Linux - further messages sent privately.\n")
+            "GNU/Linux.\n")
 
     str2 = ("I'd just like to interject for moment. What you're referring to as Linux, is "
             "in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux "
@@ -515,26 +499,6 @@ def bots(args):
 def spikepig(args):
     return imgur_pic("hedgehog")
 
-@command("rate")
-def random_rate0(args):
-    message = args["args"]
-    give_rating = random.randint(0, 1)
-    message = pos_tag(message)
-    print(message)
-    nounlist = []
-    for word, tag in message:
-        if tag == "NNP" or tag == "NN":
-            nounlist.append(word)
-    if not nounlist:
-        nounlist.append("nothings")
-    word = nounlist[random.randint(0, len(nounlist)-1)]
-    rating = random.randint(0, 10)
-    if give_rating or nounlist[0] == "nothings":
-        return str(rating) + "/10"
-    else:
-        return word + "/10"
-
-
 @command("r8")
 def random_rate(args):
     message = args["args"]
@@ -580,58 +544,61 @@ def breaklines(str):  # This function breaks lines at \n and sends the split lin
     strarray = string.split(str, "\n")
     return strarray
 
-@command("ba")  
-def ba(args):  
-    #define a user agent  
-    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}  
-    baseurl = "http://www.beeradvocate.com"  
-    if args["args"]:  
-        try:  
-            int(args["args"][-1])  
-            payload = {"q" : " ".join(args["args"][:-1])}  
-        except ValueError:  
-            payload = {"q" : " ".join(args["args"])}  
-        r = requests.get(baseurl + "/search/", headers=user_agent, params=payload)  
-        if r.status_code == 200:  
-            soup = BeautifulSoup(r.text, "html.parser")  
-            regex = re.compile("/beer/profile/.*/.+") #so we match only the beers and not the brewery.
-            beers = []
-            for i in range(int(round(len(soup.find_all('a'))/2))):
-                if re.match(regex, (soup.find_all('a')[i].get("href"))):
-                    beers.append(soup.find_all('a')[i].get("href"))
-            if len(beers) > 0:  
+
+
+@command("ba")
+def ba(args):
+    #define a user agent
+    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
+    baseurl = "http://www.beeradvocate.com"
+    if args["args"]:
+        try:
+            int(args["args"][-1])
+            payload = {"q" : " ".join(args["args"][:-1])}
+        except ValueError:
+            payload = {"q" : " ".join(args["args"])}
+        r = requests.get(baseurl + "/search/", headers=user_agent, params=payload)
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.text, "html.parser")
+            regex = re.compile("/beer/profile/.*/.+")
+            beers = [b.get("href") for b in soup.find_all(href=regex)]
+            if len(beers) > 0:
                 data = beer_lookup(baseurl+beers[0], user_agent)
-                oneliner = data['name'].decode() + " | " + data['style'].decode(), "BA score: " + data['ba_score'].decode() + " (From: " + data['ba_ratings'].decode() +") | Bro score: " + data['bro_score'].decode(), data['brewery'].decode() + " | " + data['abv'].decode(), ("​" + baseurl+beers[0])
-                return " ".join(oneliner)
-  
-            else:  
-               return "No results from BA."  
-  
-# BA helper function.  
-def beer_lookup(url, user_agent):  
-    r = requests.get(url, headers=user_agent)  
-    if r.status_code == 200:  
-        soup = BeautifulSoup(r.text, "html.parser")  
-        table = soup.find('table', attrs = {"width" : "100%"})  
-        data = []  
-        rows = table.find_all("tr")  
-        for r in rows:  
-            cols = r.find_all("td")  
-            cols = [e.text.strip() for e in cols]  
-            data.append([e for e in cols if e])  
-  
-        info = {}  
-        rel_data = data[0][1].split('\n')  
-        info['name'] = soup.title.string.split("|")[0]  
-        info['ba_score'] = rel_data[1]  
-        info['ba_class'] = rel_data[2]  
-        info['ba_ratings'] = rel_data[3]  
-        info['bro_score'] = rel_data[7]  
-        info['brewery'] = rel_data[25]  
-        (info['style'], info['abv']) = rel_data[29].split("|")  
-        for e in info.keys():  
-            info[e] = info[e].encode("utf-8")
-        return info  
+                msg = [
+                        data['name'] + " | " + data['style'],
+                        "BA score: " + data['ba_score'] + " (From: " + data['ba_ratings'] + ") | Bro score: " + data['bro_score'],
+                        data['brewery'] + " | " + data['abv'],
+                        baseurl + beers[0]
+                ]
+                sendmsg = args["sendmsg"]
+                channel = args["channel"]	
+                to_send = []
+                for line in msg:
+                    to_send.append(line)
+                return " | ".join(to_send)
+
+            else:
+               return "No results from BA."
+
+# BA helper function.
+def beer_lookup(url, user_agent):
+    r = requests.get(url, headers=user_agent)
+    if r.status_code == 200:
+        soup = BeautifulSoup(r.text, "html.parser")
+        # Stupid shit because ABV is just a barewords string somewhere in the div.
+        rightdiv = soup.find('div', style="float:right;width:70%;")
+        strsoup  = str(rightdiv.contents[5]).splitlines()
+
+        info = {}
+        info['name']       = str(soup.title.string.split("|")[0])
+        info['ba_score']   = soup.find('span', class_="BAscore_big ba-score").contents[0]
+        info['ba_class']   = soup.find('span', class_="ba-score_text").contents[0]
+        info['ba_ratings'] = soup.find('span', class_="ba-ratings").contents[0]
+        info['bro_score']  = soup.find('span', class_="BAscore_big ba-bro_score").contents[0]
+        info['brewery']    = soup.select('span[itemprop="title"]')[2].contents[0]
+        info['style']      = soup.select('a[href*="/beer/style/"]')[0].contents[0].contents[0]
+        info['abv']        = strsoup[7].split("</b>")[1].lstrip()
+        return info
 
 # in place case-preserving function
 def replacement_func(match, repl_pattern):
