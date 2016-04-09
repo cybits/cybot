@@ -189,7 +189,7 @@ def reddit_le(args):
     except:
         raise Exception('Serious Reddit API error, everything is on fire')
 
-    return response
+    return " ".join(response.splitlines())
 
 @command("cybhelp")
 def halp(args):
