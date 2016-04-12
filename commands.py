@@ -360,7 +360,7 @@ def guinea(args):
     return imgur_pic("guineapigs")
 
 @command("cat")
-def guinea(args):
+def cat(args):
     return imgur_pic("cats")
 
 @command("checkem")
