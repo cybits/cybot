@@ -573,7 +573,7 @@ def ba(args):
                         data['name'] + " | " + data['style'],
                         "BA score: " + data['ba_score'] + " (From: " + data['ba_ratings'] + ") | Bro score: " + data['bro_score'],
                         data['brewery'] + " | " + data['abv'],
-                        baseurl + beers[0]
+                        "!" + baseurl + beers[0]
                 ]
                 sendmsg = args["sendmsg"]
                 channel = args["channel"]	
