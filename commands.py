@@ -591,9 +591,8 @@ def beer_lookup(url, user_agent):
     if r.status_code == 200:
         soup = BeautifulSoup(r.text, "html.parser")
         # Stupid shit because ABV is just a barewords string somewhere in the div.
-        rightdiv = soup.find('div', style="float:right;width:70%;")
+        rightdiv = soup.find('div', style="float:right; width:70%;")
         strsoup  = str(rightdiv.contents[5]).splitlines()
-
         info = {}
         info['name']       = str(soup.title.string.split("|")[0])
         info['ba_score']   = soup.find('span', class_="BAscore_big ba-score").contents[0]
@@ -601,7 +600,7 @@ def beer_lookup(url, user_agent):
         info['ba_ratings'] = soup.find('span', class_="ba-ratings").contents[0]
         info['bro_score']  = soup.find('span', class_="BAscore_big ba-bro_score").contents[0]
         info['brewery']    = soup.select('span[itemprop="title"]')[2].contents[0]
-        info['style']      = soup.select('a[href*="/beer/style/"]')[0].contents[0].contents[0]
+        info['style']      = soup.find('a',href=re.compile("\/beer\/style\/\d+")).contents[0].contents[0]
         info['abv']        = strsoup[7].split("</b>")[1].lstrip()
         return info
 
