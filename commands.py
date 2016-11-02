@@ -380,6 +380,12 @@ def pike(args):
     pike = directory + os.path.join("/texts/other/rob.txt")
     return random.choice(list(open(pike)))
 
+@command("larry")
+def pike(args):
+    directory = os.path.dirname(__file__)
+    wall = directory + os.path.join("/texts/other/larry.txt")
+    return random.choice(list(open(wall)))
+
 @command("gene")
 def ray(args):
     directory = os.path.dirname(__file__)
