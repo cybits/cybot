@@ -363,6 +363,10 @@ def guinea(args):
 def cat(args):
     return imgur_pic("cats")
 
+@command("rat")
+def rat(args):
+    return imgur_pic("rats")
+
 @command("checkem")
 def checkem(args):
     not_dubs = random.randint(0, 99)
