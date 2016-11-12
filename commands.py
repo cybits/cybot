@@ -363,6 +363,10 @@ def guinea(args):
 def cat(args):
     return imgur_pic("cats")
 
+@command("rat")
+def rat(args):
+    return imgur_pic("rats")
+
 @command("checkem")
 def checkem(args):
     not_dubs = random.randint(0, 99)
@@ -712,6 +716,8 @@ def leetspeak(args):
 @command("stump")
 def trump(args):
     s = []
+    s.append("I'm the best meme for america. Kek says so. Top person. VERY high "\
+            "energy. Would god king kek lie about such a thing? Of course not.")
     s.append("I don't even want to talk about %s. Just look at his numbers. He's " \
             "a very low-energy person.")
     s.append("People come to me and tell me, they say, \"Donald, we like you, but" \
