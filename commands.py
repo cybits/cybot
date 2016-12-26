@@ -7,6 +7,7 @@ import string
 import re
 import reddit
 import json
+import requests
 from nltk.tag import pos_tag
 import time
 import threading
