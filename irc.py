@@ -56,6 +56,8 @@ def parsemsg(s):
     """Breaks a message from an IRC server into its prefix, command, and
     arguments.
     """
+
+    global config
     # TODO: Refactor the fuck out of this
     prefix = ""
     trailing = []
@@ -92,6 +94,7 @@ def parsemsg(s):
            "event": event,
            "args": retargs,
            "channel": channel,
+           "config": config,
 
         # Because circular imports
            "sendmsg": sendmsg}
