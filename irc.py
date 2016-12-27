@@ -57,7 +57,6 @@ def parsemsg(s):
     arguments.
     """
 
-    global config
     # TODO: Refactor the fuck out of this
     prefix = ""
     trailing = []
@@ -94,7 +93,6 @@ def parsemsg(s):
            "event": event,
            "args": retargs,
            "channel": channel,
-           "config": config,
 
         # Because circular imports
            "sendmsg": sendmsg}
@@ -197,8 +195,10 @@ while True:
                 joinchan(channel)
                 time.sleep(.5)
         elif any(channel in ircmsg for channel in channel_list):
-            try:
+            try:        
                 args = parsemsg(str(ircmsg))
+                args['config'] = config
+
                 channel = args['channel']
                 if "|" in args["args"]:
                     pipe_commands(args, channel)
