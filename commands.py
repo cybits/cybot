@@ -9,6 +9,7 @@ import reddit
 from nltk.tag import pos_tag
 import time
 import requests
+import urllib.parse
 from bs4 import BeautifulSoup
 
 class tcol:
@@ -559,8 +560,6 @@ def breaklines(str):  # This function breaks lines at \n and sends the split lin
     strarray = string.split(str, "\n")
     return strarray
 
-
-
 @command("ba")
 def ba(args):
     #define a user agent
@@ -613,6 +612,43 @@ def beer_lookup(url, user_agent):
         info['style']      = soup.find('a',href=re.compile("\/beer\/style\/\d+")).contents[0].contents[0]
         info['abv']        = strsoup[7].split("</b>")[1].lstrip()
         return info
+
+@command("ut")
+def ut(args):
+    #define a user agent
+    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
+    baseurl = "https://www.untappd.com"
+    if len(args["args"]) == 0:
+        return
+    query_string = urllib.parse.urlencode({"q":" ".join(args["args"])})
+    r = requests.get(baseurl + "/search?" + query_string, headers=user_agent)
+
+    if r.status_code != 200:
+        return
+
+    soup = BeautifulSoup(r.text, "html.parser")
+    beers = soup.findAll('div', class_="beer-item")
+
+    if len(beers) == 0:
+        return "No beers"
+
+    beer = beers[0]
+
+    # Shiny fucking penny to anyone that makes this not shit
+    # It's quite defensive, we never know if a beer actually won't have any of these fields
+    name = beer.find('p',class_='name').text if beer.find('p',class_='name') else '-'
+    brewery = beer.find('p',class_='brewery').text if beer.find('p',class_='brewery') else '-'
+    style = beer.find('p',class_='style').text if beer.find('p',class_='style') else '-'
+    abv = beer.find('p',class_='abv').text.strip() if beer.find('p',class_='abv') else '-'
+    ibu = beer.find('p',class_='ibu').text.strip() if beer.find('p',class_='ibu') else '-'
+    url = "!" + baseurl+beer.a['href']
+    score_span = beer.find('span',class_='num')
+    if score_span:
+        score = 'Score: ' + score_span.text[1:-1]
+    else:
+        score = 'Score: -'
+
+    return " | ".join([name,style,brewery,score,abv,ibu,url])
 
 # in place case-preserving function
 def replacement_func(match, repl_pattern):
