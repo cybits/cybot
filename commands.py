@@ -862,7 +862,7 @@ def twitter_feed(args):
     for line in r.iter_lines(decode_unicode=True):
         if line:
             data = json.loads(line)
-            if "user" not in data:
+            if "user" not in data or handle.lower() != data["user"]["screen_name"].lower():
                 continue
             name = data["user"]["name"]
             handle = data["user"]["screen_name"]
