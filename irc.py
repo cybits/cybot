@@ -5,6 +5,7 @@ import time
 import random
 import itertools
 import json
+import threading
 from commands import get_command
 
 
@@ -34,17 +35,18 @@ except KeyError:
 
 def sendmsg(recipient, msg):
     """Sends a message."""
-    if msg and isinstance(msg, tuple):
-        for i in msg:
-            ircsock.send("PRIVMSG %s :%s\n" % (recipient, i))
-    elif msg:
-        ircsock.send(bytes("PRIVMSG %s :%s\n" % (recipient, msg), 'UTF-8'))
-
+    with lock:
+        if msg and isinstance(msg, tuple):
+            for i in msg:
+                ircsock.send("PRIVMSG %s :%s\n" % (recipient, i))
+        elif msg:
+            ircsock.send(bytes("PRIVMSG %s :%s\n" % (recipient, msg), 'UTF-8'))
 
 def joinchan(chan):
     """Joins a channel."""
-    print("trying")
-    ircsock.send(bytes("JOIN %s\n" % chan, 'UTF-8'))
+    with lock:
+        print("trying")
+        ircsock.send(bytes("JOIN %s\n" % chan, 'UTF-8'))
 
 def auth(pass_word):
     """Works only on Nickserv servers"""
@@ -54,6 +56,7 @@ def parsemsg(s):
     """Breaks a message from an IRC server into its prefix, command, and
     arguments.
     """
+
     # TODO: Refactor the fuck out of this
     prefix = ""
     trailing = []
@@ -154,6 +157,7 @@ def pipe_commands(args, channel):
 
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+lock = threading.Lock()
 time.sleep(.5)
 s.connect((server, port))
 time.sleep(.5)
@@ -181,16 +185,20 @@ while True:
     print(data)
     for ircmsg in process_data(data):
         if "PING :" in ircmsg:
-            ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
+            with lock:
+                ircsock.send(bytes("PONG :ping\n", 'UTF-8'))
         elif "/QUOTE PONG" in ircmsg:
             confirm = "PONG " + ircmsg.split()[-1:][0] + "\r\n"
-            ircsock.send(bytes(confirm, 'UTF-8'))
+            with lock:
+                ircsock.send(bytes(confirm, 'UTF-8'))
             for channel in channel_list:
                 joinchan(channel)
                 time.sleep(.5)
         elif any(channel in ircmsg for channel in channel_list):
-            try:
+            try:        
                 args = parsemsg(str(ircmsg))
+                args['config'] = config
+
                 channel = args['channel']
                 if "|" in args["args"]:
                     pipe_commands(args, channel)

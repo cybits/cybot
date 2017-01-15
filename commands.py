@@ -6,11 +6,15 @@ import random
 import string
 import re
 import reddit
+import json
+import requests
 from nltk.tag import pos_tag
 import time
+import threading
 import requests
 import urllib.parse
 from bs4 import BeautifulSoup
+from requests_oauthlib import OAuth1Session
 
 class tcol:
         NORMAL = "\u000f"
@@ -827,3 +831,56 @@ def trump(args):
         return "You can't stump the Trump"
     selection = random.randint(0, 24)
     return s[selection].replace("%s", stumpee)
+
+def twitter_feed(args):
+    handle = args["args"][0].lstrip("@");
+    duration = 10 if len(args["args"]) < 2 else int(args["args"][1]);
+
+    # was it worth it for the extra dependency? :^)
+    config = args["config"]
+    ses = OAuth1Session(config["twitter"]["oauth_consumer_key"],
+                            client_secret=config["twitter"]["oauth_consumer_secret"],
+                            resource_owner_key=config["twitter"]["oauth_access_token"],
+                            resource_owner_secret=config["twitter"]["oauth_access_token_secret"])
+
+
+    # for some reason the Twitter streaming API doesn't allow following by screen name ;~;
+    uinfo = json.loads(ses.get("https://api.twitter.com/1.1/users/show.json?screen_name=%s" % handle).text)
+    
+    # let em know wassup
+    sendmsg = args["sendmsg"]
+    channel = args["channel"]
+    sendmsg(channel, "Following Tweets live from @" + handle + " for " + str(duration) + " minute(s).")
+
+    # stream statuses API
+    r = ses.get("https://stream.twitter.com/1.1/statuses/filter.json?follow=" + uinfo["id_str"], stream=True)
+    if r.encoding is None:
+        r.encoding = "utf-8"
+
+    # start feed
+    start_time = time.time()
+    for line in r.iter_lines(decode_unicode=True):
+        if line:
+            data = json.loads(line)
+            if "user" not in data:
+                continue
+            name = data["user"]["name"]
+            handle = data["user"]["screen_name"]
+            tweet = data["text"]
+            sendmsg(channel, name + " (@" + handle + ") just tweeted \"" + tweet + "\".")
+        elif time.time() - start_time > (duration * 60000):
+            break
+
+_twitter_feed_thread = None # 凸(≖‿≖ ) >implying I care about global state implications
+
+@command("tfeed")
+def follow_tweets(args):
+    global _twitter_feed_thread
+    if len(args["args"]) == 0:
+        return "Please specify a handle to follow."
+    if not _twitter_feed_thread or not _twitter_feed_thread.is_alive():
+        _twitter_feed_thread = threading.Thread(target=twitter_feed, args=[args])
+        _twitter_feed_thread.start()
+        return ""
+    else:
+        return "A feed is already running. Tell derive to get off his ass and add support for multiple feeds."
