@@ -1,7 +1,9 @@
 import requests
 import random
+import re
 
 api_url = 'https://reddit.com' 
+last_url = ''
 
 class APIError(Exception):
     pass
@@ -13,6 +15,9 @@ def get(url, no_cache=False):
     if no_cache:
         headers['Cache-Control'] = 'private,max-age=0'
     return requests.get(api_url + url, headers=headers)
+
+def normify_url(url):
+    return api_url + re.sub('\.json.*$','',url)
 
 def get_hot_posts(subreddit):
     """Returns a raw JSON response containing hot posts for the specified
@@ -34,6 +39,8 @@ def extract_random_comment(post):
     j = r.json()
     comments = j[1]['data']['children']
     if len(comments) > 0:
+        global last_url
+        last_url = normify_url(url)
         return random.choice(comments)
     else:
         raise APIError('The selected post doesn\'t have any comments')

@@ -192,6 +192,10 @@ def reddit_le(args):
 
     return " ".join(response.splitlines())
 
+@command("lelast")
+def reddit_last_url(args):
+    return reddit.last_url
+
 @command("cybhelp")
 def halp(args):
     user = getuser(args["raw"])
