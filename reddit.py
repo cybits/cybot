@@ -10,7 +10,7 @@ class APIError(Exception):
 
 def get(url, no_cache=False):
     headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0',
+        'User-Agent': 'cybits a cute IRC bot',
     }
     if no_cache:
         headers['Cache-Control'] = 'private,max-age=0'
