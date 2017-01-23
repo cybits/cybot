@@ -623,18 +623,16 @@ def beer_lookup(url, user_agent):
 
 @command("ut")
 def ut(args):
-    #define a user agent
-    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
     baseurl = "https://www.untappd.com"
     if len(args["args"]) == 0:
         return
     query_string = urllib.parse.urlencode({"q":" ".join(args["args"])})
-    r = requests.get(baseurl + "/search?" + query_string, headers=user_agent)
+    r = requests.get(baseurl + "/search?" + query_string)
 
     if r.status_code != 200:
         return
 
-    soup = BeautifulSoup(r.text, "html.parser")
+    soup = BeautifulSoup(str(r.content,'UTF-8',errors='replace'), "html.parser")
     beers = soup.findAll('div', class_="beer-item")
 
     if len(beers) == 0:
@@ -888,3 +886,4 @@ def follow_tweets(args):
         return ""
     else:
         return "A feed is already running. Tell derive to get off his ass and add support for multiple feeds."
+
