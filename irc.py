@@ -114,7 +114,7 @@ def process_data(data):
     try:
         data = data.decode(encoding='UTF-8')
     except Exception as e:
-        return 
+        return
     if not data:
         return []
     lines = data.splitlines()
@@ -195,7 +195,7 @@ while True:
                 joinchan(channel)
                 time.sleep(.5)
         elif any(channel in ircmsg for channel in channel_list):
-            try:        
+            try:
                 args = parsemsg(str(ircmsg))
                 args['config'] = config
 
