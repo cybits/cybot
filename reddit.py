@@ -2,7 +2,7 @@ import requests
 import random
 import re
 
-api_url = 'https://reddit.com' 
+api_url = 'https://reddit.com'
 last_url = ''
 
 class APIError(Exception):

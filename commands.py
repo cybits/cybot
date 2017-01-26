@@ -461,7 +461,7 @@ def joerogan(args):
         if l.startswith(">"):
             l = tcol.DARK_GREEN + l + tcol.NORMAL
         return l
-        
+
 @command("triforce")
 def coolt(args):
     sendmsg = args["sendmsg"]
@@ -556,7 +556,7 @@ def noided(args):
 
 @command("just")
 def just(args):
-	return "...type it yourself..."
+    return "...type it yourself..."
 
 @command("spooky")
 def spooky(args):
@@ -593,7 +593,7 @@ def ba(args):
                         "!" + baseurl + beers[0]
                 ]
                 sendmsg = args["sendmsg"]
-                channel = args["channel"]	
+                channel = args["channel"]
                 to_send = []
                 for line in msg:
                     to_send.append(line)
@@ -720,10 +720,10 @@ bicd ={"epic":"ebin",
 ebinFaces = [ ':D', ':DD', ':DDD', ':-D', 'XD', 'XXD', 'XDD', 'XXDD' ];
 @command("spurd")
 def spurd(args):
-	new_args = " ".join(args["args"])
-	for k, v in bicd.items():
-		new_args = re.sub(k, lambda k: replacement_func(k,v), new_args, flags=re.I)
-	return new_args+" "+ random.choice(ebinFaces)
+    new_args = " ".join(args["args"])
+    for k, v in bicd.items():
+            new_args = re.sub(k, lambda k: replacement_func(k,v), new_args, flags=re.I)
+    return new_args+" "+ random.choice(ebinFaces)
 
 @command("1337")
 def leetspeak(args):
@@ -848,7 +848,7 @@ def twitter_feed(args):
 
     # for some reason the Twitter streaming API doesn't allow following by screen name ;~;
     uinfo = json.loads(ses.get("https://api.twitter.com/1.1/users/show.json?screen_name=%s" % handle).text)
-    
+
     # let em know wassup
     sendmsg = args["sendmsg"]
     channel = args["channel"]
