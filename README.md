@@ -18,7 +18,7 @@ __Reviews:__
 
 For extensive help, all you have to do is type `.cybhelp` in the channel!
 
-For any nerds not running a good shell, to get the bot running: 
+For any nerds not running a good shell, to get the bot running:
 
 ```
 cd cybot

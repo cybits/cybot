@@ -54,3 +54,7 @@ crashlytics-build.properties
 
 # virtuaenv
 py3env
+
+# Temporary editor files
+*.swp
+*.swo
