@@ -196,6 +196,15 @@ def reddit_le(args):
 
     return " ".join(response.splitlines())
 
+@command("lelong")
+def reddit_lelong(args):
+    subreddit = "linuxcirclejerk" if len(args["args"]) < 1 else args["args"][0]
+    min_length = 200 if len(args["args"]) < 2 else int(args["args"][1])
+    try:
+        return " ".join(reddit.get_random_comment(subreddit, min_length).splitlines())
+    except Exception as e:
+        raise Exception("Serious Reddit API error: {}".format(e))
+
 @command("lelast")
 def reddit_last_url(args):
     return reddit.last_url
