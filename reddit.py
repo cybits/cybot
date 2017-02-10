@@ -41,7 +41,7 @@ def extract_random_comment(post):
     if len(comments) > 0:
         global last_url
         last_url = normify_url(url)
-        return random.choice(comments)
+        return comments[0]
     else:
         raise APIError('The selected post doesn\'t have any comments')
 
