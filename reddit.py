@@ -28,7 +28,7 @@ def get_hot_posts(subreddit):
     r.raise_for_status()
     return r.json()
 
-def extract_random_comment(post):
+def extract_random_comment(post, min_length=None):
     """Performs an additional API query in order to extract a random post from
     a post. Post parameter should be a data field of a result of a call to
     get_hot_posts.
@@ -37,15 +37,17 @@ def extract_random_comment(post):
     r = get(url)
     r.raise_for_status()
     j = r.json()
-    comments = j[1]['data']['children']
+    comments = [c for c in j[1]['data']['children'] if 'body' in c['data']]
+    if min_length:
+        comments = [c for c in comments if len(c['data']['body']) >= min_length]
     if len(comments) > 0:
         global last_url
         last_url = normify_url(url)
-        return random.choice(comments)
+        return comments[0]
     else:
         raise APIError('The selected post doesn\'t have any comments')
 
-def get_random_comment(subreddit):
+def get_random_comment(subreddit, min_length=None):
     """Returns a text of a random comment from a specified subreddit (for
     a certain value of random).
     """
@@ -61,7 +63,7 @@ def get_random_comment(subreddit):
     for post in posts:
         if post['data']['num_comments'] > 0:
             try:
-                c = extract_random_comment(post['data'])
+                c = extract_random_comment(post['data'], min_length)
                 return c['data']['body']
             except APIError:
                 # This will be a predicatable error: no comments (maybe they
