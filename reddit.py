@@ -37,7 +37,8 @@ def extract_random_comment(post, min_length=None):
     r = get(url)
     r.raise_for_status()
     j = r.json()
-    comments = [c for c in j[1]['data']['children'] if 'body' in c['data']]
+    comments = [c for c in j[1]['data']['children'] if 'body' in c['data'] and
+            not 'I am a bot' in c['data']['body']]
     if min_length:
         comments = [c for c in comments if len(c['data']['body']) >= min_length]
     if len(comments) > 0:
