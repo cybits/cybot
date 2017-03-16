@@ -95,21 +95,6 @@ def get_command(name):
     else:
         return nothing
 
-
-def twitter(args):
-    print(args["args"], type(args["args"]))
-    if type(args["args"]) is not str:
-        tweet = " ".join(args["args"])
-        sendmsg = args["sendmsg"]
-        channel = args["channel"]
-    else:
-        tweet = args
-    r = requests.post("http://carta.im/tweetproxy/", data={'tweet': tweet[:139]})
-    if "200" in r.text:
-        return tweet[:139] + " @proxytwt"
-    else:
-        return ":( pls fix me ;-;"
-
 def random_image(image_link):
     """
     Opens a directory with images using bs4.
@@ -135,7 +120,17 @@ def imgur_pic(subreddit):
 
 @command("tweet")
 def tweet(args):
-    return twitter(args)
+    if not "twoxy_api_key" in args["config"]:
+        return "I haven't been configured to post on Twitter."
+
+    tweet = args["args"] if type(args["args"]) is str else " ".join(args["args"])
+    params = { "tweet" : tweet, "key" : args["config"]["twoxy_api_key"] }
+
+    data = requests.post("http://twoxy.gpunk.net/api/tweet", data=params).json()
+    if not "url" in data:
+        return "Sorry, I couldn't post your tweet: {}".format(data["message"])
+    else:
+        return "{}, {}".format(getuser(args["raw"]), data["url"])
 
 @command("rms.sexy")
 def rms_sexy(args):
