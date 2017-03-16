@@ -140,8 +140,6 @@ def pipe_commands(args, channel):
     out = None
     for i in l:
         cmd = i[0].strip(".")
-        if cmd == "tweet":
-            pass
         a = i[1:]
         if out:
             a.append(out)
