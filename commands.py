@@ -118,6 +118,15 @@ def imgur_pic(subreddit):
         pass
     return retval
 
+@command("upper")
+def upper(args): return " ".join(args["args"]).upper()
+
+@command("lower")
+def lower(args): return " ".join(args["args"]).lower()
+
+@command("echo")
+def echo(args): return " ".join(args["args"])
+
 @command("tweet")
 def tweet(args):
     if not "twoxy_api_key" in args["config"]:
