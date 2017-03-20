@@ -123,7 +123,7 @@ def tweet(args):
     if not "twoxy_api_key" in args["config"]:
         return "I haven't been configured to post on Twitter."
 
-    tweet = args["args"] if type(args["args"]) is str else " ".join(args["args"])
+    tweet = " ".join(args["args"])
     params = { "tweet" : tweet, "key" : args["config"]["twoxy_api_key"] }
 
     data = requests.post("http://twoxy.gpunk.net/api/tweet", data=params).json()
