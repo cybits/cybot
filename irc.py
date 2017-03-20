@@ -16,7 +16,7 @@ if len(sys.argv) < 2:
 with open(sys.argv[1], 'r') as data_file:
     try:
         config = json.loads(data_file.read())
-    except json.decoder.JSONDecodeError:
+    except ValueError:
         print('Please provide valid config')
         exit(1)
 try:
