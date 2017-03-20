@@ -118,12 +118,21 @@ def imgur_pic(subreddit):
         pass
     return retval
 
+@command("upper")
+def upper(args): return " ".join(args["args"]).upper()
+
+@command("lower")
+def lower(args): return " ".join(args["args"]).lower()
+
+@command("echo")
+def echo(args): return " ".join(args["args"])
+
 @command("tweet")
 def tweet(args):
     if not "twoxy_api_key" in args["config"]:
         return "I haven't been configured to post on Twitter."
 
-    tweet = args["args"] if type(args["args"]) is str else " ".join(args["args"])
+    tweet = " ".join(args["args"])
     params = { "tweet" : tweet, "key" : args["config"]["twoxy_api_key"] }
 
     data = requests.post("http://twoxy.gpunk.net/api/tweet", data=params).json()
