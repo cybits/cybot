@@ -135,7 +135,7 @@ def tweet(args):
     tweet = " ".join(args["args"])
     params = { "tweet" : tweet, "key" : args["config"]["twoxy_api_key"] }
 
-    data = requests.post("http://twoxy.gpunk.net/api/tweet", data=params).json()
+    data = requests.post("https://twoxy.gpunk.net/api/tweet", data=params).json()
     if not "url" in data:
         return "Sorry, I couldn't post your tweet: {}".format(data["message"])
     else:
