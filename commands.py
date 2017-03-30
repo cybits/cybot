@@ -127,6 +127,10 @@ def lower(args): return " ".join(args["args"]).lower()
 @command("echo")
 def echo(args): return " ".join(args["args"])
 
+@command("ex")
+def expand(args):
+    return "".join([c + (" ") for c in " ".join(args["args"])]).strip()
+
 @command("tweet")
 def tweet(args):
     if not "twoxy_api_key" in args["config"]:
