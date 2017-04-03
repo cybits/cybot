@@ -139,6 +139,11 @@ def multiply(args):
 def truncate(args):
     return " ".join(args["args"][1:])[:int(args["args"][0])]
 
+@command("re")
+def replace(args):
+    replacement = args["args"][0].split("/")
+    return " ".join(args["args"][1:]).replace(replacement[0], replacement[1])
+
 @command("tweet")
 def tweet(args):
     if not "twoxy_api_key" in args["config"]:
