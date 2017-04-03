@@ -119,17 +119,33 @@ def imgur_pic(subreddit):
     return retval
 
 @command("upper")
-def upper(args): return " ".join(args["args"]).upper()
+def upper(args):
+    return " ".join(args["args"]).upper()
 
 @command("lower")
-def lower(args): return " ".join(args["args"]).lower()
+def lower(args):
+    return " ".join(args["args"]).lower()
 
 @command("echo")
-def echo(args): return " ".join(args["args"])
+def echo(args):
+    return " ".join(args["args"])
 
 @command("ex")
 def expand(args):
     return "".join([c + (" ") for c in " ".join(args["args"])]).strip()
+
+@command("mul")
+def multiply(args):
+    return (" ".join(args["args"][1:]) + " ") * int(args["args"][0])
+
+@command("trunc")
+def truncate(args):
+    return " ".join(args["args"][1:])[:int(args["args"][0])]
+
+@command("re")
+def replace(args):
+    replacement = args["args"][0].split("/")
+    return " ".join(args["args"][1:]).replace(replacement[0], replacement[1])
 
 @command("tweet")
 def tweet(args):
