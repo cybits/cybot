@@ -132,8 +132,12 @@ def expand(args):
     return "".join([c + (" ") for c in " ".join(args["args"])]).strip()
 
 @command("mul")
-def expand(args):
+def multiply(args):
     return (" ".join(args["args"][1:]) + " ") * int(args["args"][0])
+
+@command("trunc")
+def truncate(args):
+    return " ".join(args["args"][1:])[:int(args["args"][0])]
 
 @command("tweet")
 def tweet(args):
