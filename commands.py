@@ -119,13 +119,16 @@ def imgur_pic(subreddit):
     return retval
 
 @command("upper")
-def upper(args): return " ".join(args["args"]).upper()
+def upper(args):
+    return " ".join(args["args"]).upper()
 
 @command("lower")
-def lower(args): return " ".join(args["args"]).lower()
+def lower(args):
+    return " ".join(args["args"]).lower()
 
 @command("echo")
-def echo(args): return " ".join(args["args"])
+def echo(args):
+    return " ".join(args["args"])
 
 @command("ex")
 def expand(args):
