@@ -150,7 +150,7 @@ def replace(args):
 @command("sq")
 def strip_4chan_quotes(args):
 
-    # sometimes single indices contain multiple words
+    # sometimes single elements contain multiple words
     complete = " ".join(args["args"]).split(" ")
 
     # quotes seem to begin with x033
