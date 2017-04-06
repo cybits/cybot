@@ -161,6 +161,12 @@ def tweet(args):
     else:
         return "{}, {}".format(getuser(args["raw"]), data["url"])
 
+@command("center")
+def centrist(args):
+    return  ("I bet u think u got me cornered, well guess what nerd? IM A"
+            " CENTRIST you heard me right. people who hold serious beliefs and"
+            " convictions are FUCKING LOSERS")
+
 @command("rms.sexy")
 def rms_sexy(args):
     return random_image("https://rms.sexy/img/")
