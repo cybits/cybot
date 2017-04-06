@@ -147,6 +147,15 @@ def replace(args):
     replacement = args["args"][0].split("/")
     return " ".join(args["args"][1:]).replace(replacement[0], replacement[1])
 
+@command("sq")
+def strip_4chan_quotes(args):
+
+    # sometimes single indices contain multiple words
+    complete = " ".join(args["args"]).split(" ")
+
+    # quotes seem to begin with x033
+    return " ".join([s for s in complete if not s.startswith("\x033")])
+
 @command("tweet")
 def tweet(args):
     if not "twoxy_api_key" in args["config"]:
