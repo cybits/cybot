@@ -176,6 +176,15 @@ def centrist(args):
             " CENTRIST you heard me right. people who hold serious beliefs and"
             " convictions are FUCKING LOSERS")
 
+@command("drop")
+def drop(args):
+    message = " ".join(args["args"])
+    if len(message) > 10:
+        return "Please don't do that, fam."
+    args["sendmsg"](args["channel"], message)
+    for c in message[1:]:
+        args["sendmsg"](args["channel"], c)
+
 @command("rms.sexy")
 def rms_sexy(args):
     return random_image("https://rms.sexy/img/")
