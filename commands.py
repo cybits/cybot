@@ -147,6 +147,15 @@ def replace(args):
     replacement = args["args"][0].split("/")
     return " ".join(args["args"][1:]).replace(replacement[0], replacement[1])
 
+@command("sq")
+def strip_4chan_quotes(args):
+
+    # sometimes single elements contain multiple words
+    complete = " ".join(args["args"]).split(" ")
+
+    # quotes seem to begin with x033
+    return " ".join([s for s in complete if not s.startswith("\x033")])
+
 @command("tweet")
 def tweet(args):
     if not "twoxy_api_key" in args["config"]:
@@ -160,6 +169,21 @@ def tweet(args):
         return "Sorry, I couldn't post your tweet: {}".format(data["message"])
     else:
         return "{}, {}".format(getuser(args["raw"]), data["url"])
+
+@command("center")
+def centrist(args):
+    return  ("I bet u think u got me cornered, well guess what nerd? IM A"
+            " CENTRIST you heard me right. people who hold serious beliefs and"
+            " convictions are FUCKING LOSERS")
+
+@command("drop")
+def drop(args):
+    message = " ".join(args["args"])
+    if len(message) > 10:
+        return "Please don't do that, fam."
+    args["sendmsg"](args["channel"], message)
+    for c in message[1:]:
+        args["sendmsg"](args["channel"], c)
 
 @command("rms.sexy")
 def rms_sexy(args):
