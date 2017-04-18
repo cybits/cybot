@@ -170,6 +170,10 @@ def tweet(args):
     else:
         return "{}, {}".format(getuser(args["raw"]), data["url"])
 
+@command("tw")
+def tw(args):
+    return _command_dict["tweet"](args)
+
 @command("center")
 def centrist(args):
     return  ("I bet u think u got me cornered, well guess what nerd? IM A"
