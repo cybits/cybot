@@ -6,6 +6,7 @@ import random
 import string
 import re
 import reddit
+import pornhub
 import json
 import requests
 from nltk.tag import pos_tag
@@ -260,6 +261,10 @@ def reddit_lelong(args):
 @command("lelast")
 def reddit_last_url(args):
     return reddit.last_url
+
+@command("porn")
+def pornhub_comment(args):
+    return pornhub.get_random_comment()
 
 @command("cybhelp")
 def halp(args):
