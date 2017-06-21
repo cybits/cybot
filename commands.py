@@ -266,6 +266,10 @@ def reddit_last_url(args):
 def pornhub_comment(args):
     return pornhub.get_random_comment()
 
+@command("pornlast")
+def pornhub_last_url(args):
+    return pornhub.last_url
+
 @command("cybhelp")
 def halp(args):
     user = getuser(args["raw"])
