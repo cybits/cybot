@@ -270,6 +270,10 @@ def pornhub_comment(args):
 def pornhub_last_url(args):
     return pornhub.last_url
 
+@command("porntitle")
+def pornhub_title_whatever(args):
+    return pornhub.get_random_title()
+
 @command("cybhelp")
 def halp(args):
     user = getuser(args["raw"])
@@ -277,14 +281,12 @@ def halp(args):
     args["sendmsg"](user, "ur a faget")
     return string
 
-
 @command("interject")
 def interjection(args):  # I'd just like to interject for a moment
     str = ("I'd just like to interject for moment. What you're referring to as "
               "Linux, is in fact, GNU/Linux, or as I've recently taken to calling it,"
               " GNU plus Linux. ​http://pastebin.com/2YxSM4St\n")
     return str
-
 
 @command("git")
 def git(args):
