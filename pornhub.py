@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 
 base_url = 'https://pornhub.com'
+last_url = ''
 
 class APIError(Exception):
     pass
@@ -31,7 +32,6 @@ def get_comments(url):
         #    len(comments)
         #except e:
         #    print(e)
-        #    import code; code.interact(local=dict(globals(), **locals()))
         if comments is None:
             print("bloop")
             comments = []
@@ -39,6 +39,8 @@ def get_comments(url):
 
     comments.pop()
     comments_sanitised = list(map(lambda x : x.find('span').text,comments))
+    global last_url
+    last_url = r.url
     return comments_sanitised
 
 def get_random_comment(url = '/random'):
