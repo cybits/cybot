@@ -50,4 +50,5 @@ def get_random_comment(url = '/random'):
 def get_random_title():
     r = get('/random')
     soup = BeautifulSoup(str(r.content, 'UTF-8', errors='replace'))
+    last_url = r.url
     return soup.find('title').text.split(' - Pornhub.com')[0]
