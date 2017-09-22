@@ -611,6 +611,12 @@ def hackers(args):
     hackers = directory + os.path.join("/texts/other/hackers.txt")
     return random.choice(list(open(hackers)))
 
+@command("deusex")
+def deusex(args):
+    directory = os.path.dirname(__file__)
+    deusex = directory + os.path.join("/texts/other/deusex.txt")
+    return random.choice(list(open(deusex)))
+
 @command("noided")
 def noided(args):
     directory = os.path.dirname(__file__)
