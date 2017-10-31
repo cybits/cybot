@@ -14,9 +14,11 @@ __Reviews:__
  * *Futanarcharist* __│__ best bot evar
  * *Leper* __│__ p. good, 8/10, would fork again
  * *b0tn3t* __│__ ok bub
+ *  newuser │ cybits threatened the president with death
 
 
-For extensive help, all you have to do is type `.cybhelp` in the channel!
+
+For extensive help, all you have to do is type `.cybhelp` in the channel! Guaranteed to be 100% helpful.
 
 For any nerds not running a good shell, to get the bot running:
 
