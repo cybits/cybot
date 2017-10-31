@@ -1,4 +1,4 @@
-9FRONT CODE OF CONDUCT
+CYBITS+GPUNK CODE OF CONDUCT
 
 This is my geepunk. There are many like it, but this one is mine.
 
