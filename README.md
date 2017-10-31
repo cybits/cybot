@@ -31,11 +31,11 @@ python irc.py <config.json>
 Config Syntax
 ```
 {
-    "server" : "irc.rizon.net", <- server address
-    "port" : 6697, <- server port
-    "bot_nick" : "cybot", <- nick of bot, 0 for random nick
-    "channels" : ["#bots", "#test"], <- list of channels to connect to
-    "password" : "bot123", <- password of bot, 0 for no password
-    "prefix" : "." <- command prefix so commands start with $prefix
+    "server" : "irc.rizon.net", # server address
+    "port" : 6697, # server port
+    "bot_nick" : "cybot", # nick of bot, 0 for random nick
+    "channels" : ["#bots", "#test"], # list of channels to connect to
+    "password" : "bot123", # password of bot, 0 for no password
+    "prefix" : "." # command prefix so commands start with $prefix
 }
 ```
