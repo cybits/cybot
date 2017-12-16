@@ -693,10 +693,11 @@ def beer_lookup(url, user_agent):
 @command("ut")
 def ut(args):
     baseurl = "https://www.untappd.com"
+    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
     if len(args["args"]) == 0:
         return
     query_string = urllib.parse.urlencode({"q":" ".join(args["args"])})
-    r = requests.get(baseurl + "/search?" + query_string)
+    r = requests.get(baseurl + "/search?" + query_string, headers=user_agent)
 
     if r.status_code != 200:
         return
