@@ -605,6 +605,14 @@ def random_rate(args):
     else:
         return word + "/10"
 
+@command("r")
+def random_option(args):
+    choices = " ".join(args["args"]).split("|")
+    choice_list = []
+    for choice in choices:
+        choice_list.append(choice.strip())
+    return random.choice(choice_list)
+
 @command("hackers")
 def hackers(args):
     directory = os.path.dirname(__file__)
