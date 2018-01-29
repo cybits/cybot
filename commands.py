@@ -605,9 +605,10 @@ def random_rate(args):
     else:
         return word + "/10"
 
-@command("r")
+@command("decide")
 def random_option(args):
-    choices = " ".join(args["args"]).split("|")
+    print(args["args"])
+    choices = " ".join(args["args"]).split(",")
     choice_list = []
     for choice in choices:
         choice_list.append(choice.strip())
