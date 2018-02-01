@@ -632,6 +632,12 @@ def noided(args):
     noided = directory + os.path.join("/texts/other/grips.txt")
     return random.choice(list(open(noided)))
 
+@command("2070")
+def samhyde(args):
+    directory = os.path.dirname(__file__)
+    noided = directory + os.path.join("/texts/other/2070.txt")
+    return random.choice(list(open(noided)))
+
 @command("just")
 def just(args):
     return "...type it yourself..."
