@@ -608,8 +608,9 @@ def random_rate(args):
 @command("decide")
 def random_option(args):
     print(args["args"])
-    separators = [" or ", ", "]
-    for separator in separators:
+    dividers = [" or ", ", "]
+    choices = " ".join(args["args"])
+    for separator in dividers:
         if separator in args["args"]:
            choices = " ".join(args["args"]).split(separator) 
     choice_list = []
