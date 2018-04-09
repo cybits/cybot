@@ -972,3 +972,7 @@ def follow_tweets(args):
     else:
         return "A feed is already running. Tell derive to get off his ass and add support for multiple feeds."
 
+@command("thewire")
+def guinea(args):
+    wire = os.path.dirname(__file__) + "/texts/other/thewire.txt"
+    return random.choice(list(open(wire)))
