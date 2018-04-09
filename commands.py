@@ -982,3 +982,16 @@ def follow_tweets(args):
 def guinea(args):
     wire = os.path.dirname(__file__) + "/texts/other/thewire.txt"
     return random.choice(list(open(wire)))
+
+@command("np")
+def librefm(args):
+    libreuser = ""
+    if len(args["args"]) == 0:
+        libreuser = nick
+    else:
+        libreuser = args["args"][0]
+    xml = BeautifulSoup(requests.get("https://libre.fm/2.0/?method=user.getrecenttracks&user={}&page=1&limit=1".format(libreuser)).text, "xml.parser")
+    try:
+        return "User {} last played \"{}\" by {} on [{}].".format(libreuser,xml.lfm.recenttracks.find('name').string,xml.lfm.recenttracks.artist.string,xml.lfm.recenttracks.album.string)
+    except:
+        return "User {} does not exist.".format(libreuser)
