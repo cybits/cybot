@@ -990,7 +990,7 @@ def librefm(args):
         libreuser = nick
     else:
         libreuser = args["args"][0]
-    xml = BeautifulSoup(requests.get("https://libre.fm/2.0/?method=user.getrecenttracks&user={}&page=1&limit=1".format(libreuser)).text, "xml.parser")
+    xml = BeautifulSoup(requests.get("https://libre.fm/2.0/?method=user.getrecenttracks&user={}&page=1&limit=1".format(libreuser)).text, "html.parser")
     try:
         return "User {} last played \"{}\" by {} on [{}].".format(libreuser,xml.lfm.recenttracks.find('name').string,xml.lfm.recenttracks.artist.string,xml.lfm.recenttracks.album.string)
     except:
