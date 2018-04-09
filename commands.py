@@ -638,6 +638,12 @@ def samhyde(args):
     noided = directory + os.path.join("/texts/other/2070.txt")
     return random.choice(list(open(noided)))
 
+@command("eu")
+def eu(args):
+    directory = os.path.dirname(__file__)
+    noided = directory + os.path.join("/texts/other/eu.txt")
+    return random.choice(list(open(noided)))
+
 @command("just")
 def just(args):
     return "...type it yourself..."
