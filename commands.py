@@ -987,7 +987,7 @@ def guinea(args):
 def librefm(args):
     libreuser = ""
     if len(args["args"]) == 0:
-        libreuser = nick
+        libreuser = args["prefix"].split('!')[0]
     else:
         libreuser = args["args"][0]
     xml = BeautifulSoup(requests.get("https://libre.fm/2.0/?method=user.getrecenttracks&user={}&page=1&limit=1".format(libreuser)).text, "html.parser")
