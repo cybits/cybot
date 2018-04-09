@@ -992,6 +992,9 @@ def librefm(args):
         libreuser = args["args"][0]
     xml = BeautifulSoup(requests.get("https://libre.fm/2.0/?method=user.getrecenttracks&user={}&page=1&limit=1".format(libreuser)).text, "html.parser")
     try:
-        return "User {} last played \"{}\" by {} on [{}].".format(libreuser,xml.lfm.recenttracks.find('name').string,xml.lfm.recenttracks.artist.string,xml.lfm.recenttracks.album.string)
+        if xml.lfm.recenttracks.track['nowplaying']:
+            return "User {} is now playing \"{}\" by {} on [{}].".format(libreuser,xml.lfm.recenttracks.find('name').string,xml.lfm.recenttracks.artist.string,xml.lfm.recenttracks.album.string)
+        else:
+            return "User {} last played \"{}\" by {} on [{}].".format(libreuser,xml.lfm.recenttracks.find('name').string,xml.lfm.recenttracks.artist.string,xml.lfm.recenttracks.album.string)
     except:
-        return "User {} does not exist.".format(libreuser)
+        return "User {} does not exist on libre.fm.".format(libreuser)
