@@ -12,7 +12,6 @@ import requests
 from nltk.tag import pos_tag
 import time
 import threading
-import requests
 import urllib.parse
 from bs4 import BeautifulSoup
 from requests_oauthlib import OAuth1Session
@@ -428,7 +427,7 @@ def guinea(args):
     return random.choice(list(open(guinea)))
 
 @command("guineas")
-def guinea(args):
+def guineas(args):
     return imgur_pic("guineapigs")
 
 @command("cat")
@@ -682,8 +681,6 @@ def ba(args):
                         data['brewery'] + " | " + data['abv'],
                         "!" + baseurl + beers[0]
                 ]
-                sendmsg = args["sendmsg"]
-                channel = args["channel"]
                 to_send = []
                 for line in msg:
                     to_send.append(line)
@@ -770,7 +767,6 @@ bicd ={"epic":"ebin",
         "iv":"ib",
         "it":"id",
         "ke":"ge",
-        "nt":"nd",
         "op":"ob",
         "ot":"od",
         "po":"bo",
@@ -784,7 +780,6 @@ bicd ={"epic":"ebin",
         "mm":"m",
         "nt":"dn",
         "pr":"br",
-        "ts":"dz",
         "tr":"dr",
         "bs":"bz",
         "ds":"dz",
@@ -979,7 +974,7 @@ def follow_tweets(args):
         return "A feed is already running. Tell derive to get off his ass and add support for multiple feeds."
 
 @command("thewire")
-def guinea(args):
+def thewire(args):
     wire = os.path.dirname(__file__) + "/texts/other/thewire.txt"
     return random.choice(list(open(wire)))
 
