@@ -1,6 +1,5 @@
 import requests
 import random
-import re
 from bs4 import BeautifulSoup
 
 base_url = 'https://pornhub.com'
@@ -28,10 +27,6 @@ def get_comments(url):
         r = get(url)
         soup = BeautifulSoup(str(r.content, 'UTF-8', errors='replace'))
         comments = soup.findAll('div', class_='commentMessage')
-        #try:
-        #    len(comments)
-        #except e:
-        #    print(e)
         if comments is None:
             print("bloop")
             comments = []

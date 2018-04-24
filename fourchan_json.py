@@ -62,9 +62,6 @@ def get_thread_json(board, threadno):
 def get_op_no(pagedata, threadindex):
     return pagedata['threads'][threadindex]['posts'][0]['no']
 
-def get_boardargs():
-    data = get_boards_json()
-
 def get_random_post(args):
 
     for iterations in range(0, 10):
