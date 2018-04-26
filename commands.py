@@ -708,6 +708,28 @@ def beer_lookup(url, user_agent):
         info['abv']        = strsoup[7].split("</b>")[1].lstrip()
         return info
 
+@command("bash")
+def bash(args):
+    baseurl = "http://bash.org"
+    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
+    url = baseurl + "/?random1"
+    r = requests.get(url, headers=user_agent)
+
+    if r.status_code != 200:
+        return
+
+    soup = BeautifulSoup(str(r.content,'UTF-8',errors='replace'), "html.parser")
+    quotes = soup.findAll('p', class_ = "qt")
+
+    if len(quotes) == 0:
+        return "No quotes found"
+
+    for i in range(len(quotes)):
+        quote = quotes[i].text.strip()
+        quote_s = quote.split("\r\n")
+        if len(quote_s) == 1:
+            return quote_s[0]
+
 @command("ut")
 def ut(args):
     baseurl = "https://www.untappd.com"
