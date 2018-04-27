@@ -606,12 +606,7 @@ def random_rate(args):
 
 @command("decide")
 def random_option(args):
-    print(args["args"])
-    choices = " ".join(args["args"]).split("or")
-    choice_list = []
-    for choice in choices:
-        choice_list.append(choice.strip())
-    return random.choice(choice_list)
+    return random.choice(re.split(", | or "," ".join(args["args"])))
 
 @command("hackers")
 def hackers(args):
