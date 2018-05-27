@@ -6,6 +6,7 @@ import random
 import itertools
 import json
 import threading
+from config import Config
 from commands import get_command
 
 
@@ -13,25 +14,12 @@ if len(sys.argv) < 2:
     print("Usage: irc.py [config.json]")
     exit(1)
 #load config from json, check if everything is alright
-with open(sys.argv[1], 'r') as data_file:
-    try:
-        config = json.loads(data_file.read())
-    except ValueError:
-        print('Please provide valid config')
-        exit(1)
-try:
-    server = config["server"]
-    port = config["port"]
-    channel_list = config["channels"]
-    if config["bot_nick"]:
-        botnick = config["bot_nick"]
-    else:
-        botnick = "BOT" + str(random.randint(1, 9999))
-    password = config["password"]
-    commandprefix = config["prefix"]
-except KeyError:
-    print('Please provide valid config')
-    exit(1)
+server = Config.server
+port = Config.port
+channel_list = Config.channels
+botnick = Config.bot_nick
+password = Config.password
+commandprefix = Config.prefix
 
 def sendmsg(recipient, msg):
     """Sends a message."""
@@ -195,7 +183,7 @@ while True:
         elif any(channel in ircmsg for channel in channel_list):
             try:
                 args = parsemsg(str(ircmsg))
-                args['config'] = config
+                args['config'] = Config.config
 
                 channel = args['channel']
                 if "|" in args["args"]:

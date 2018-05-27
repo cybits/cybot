@@ -15,6 +15,7 @@ import threading
 import urllib.parse
 from bs4 import BeautifulSoup
 from requests_oauthlib import OAuth1Session
+from config import Config
 
 class tcol:
         NORMAL = "\u000f"
@@ -727,13 +728,18 @@ def bash(args):
 
 @command("ut")
 def ut(args):
+    # Search now requires we are logged in
+    cookie = Config.untappd_cookie
     baseurl = "https://www.untappd.com"
     user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
     if len(args["args"]) == 0:
         return
     query_string = urllib.parse.urlencode({"q":" ".join(args["args"])})
-    r = requests.get(baseurl + "/search?" + query_string, headers=user_agent)
-
+    r = requests.get(
+            baseurl + "/search?" + query_string,
+            headers = user_agent,
+            cookies = {'untappd_user_v2_e': cookie}
+            )
     if r.status_code != 200:
         return
 
