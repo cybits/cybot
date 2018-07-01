@@ -541,7 +541,6 @@ def coolt(args):
 def booty(args):
     return "( ͡° ͜ʖ ͡°)"
 
-
 @command("shrug")
 def shrug(args):
     return "¯\_(ツ)_/¯"
@@ -964,3 +963,7 @@ def librefm(args):
                 return "User {} last played \"{}\" by {} on [{}].".format(libreuser,xml.lfm.recenttracks.find('name').string,xml.lfm.recenttracks.artist.string,xml.lfm.recenttracks.album.string)
     except:
         return "User {} does not exist on libre.fm.".format(libreuser)
+
+@command("ummm")
+def ummm(args):
+    return "no sweetie"
